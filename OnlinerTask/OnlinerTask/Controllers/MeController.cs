@@ -23,6 +23,11 @@ namespace OnlinerTask.Controllers
         {
         }
 
+        public void Index()
+        {
+
+        }
+
         public MeController(ApplicationUserManager userManager)
         {
             UserManager = userManager;

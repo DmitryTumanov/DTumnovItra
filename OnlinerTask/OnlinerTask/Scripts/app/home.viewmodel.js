@@ -1,4 +1,4 @@
-﻿function HomeViewModel(app, dataModel) {
+﻿function SearchViewModel(app, dataModel) {
     var self = this;
 
     self.myHometown = ko.observable("");
@@ -14,7 +14,7 @@
                     'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
                 },
                 success: function (data) {
-                    self.myHometown('Your Hometown is : ' + data.hometown);
+                    self.myHometown('Your Hometown is : ' + data);
                 }
             });
         });
@@ -27,5 +27,5 @@
 app.addViewModel({
     name: "Home",
     bindingMemberName: "home",
-    factory: HomeViewModel
+    factory: SearchViewModel
 });
