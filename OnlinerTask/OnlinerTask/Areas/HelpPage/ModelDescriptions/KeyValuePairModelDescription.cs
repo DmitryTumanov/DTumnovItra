@@ -1,4 +1,4 @@
-namespace OnlinerTask.Areas.HelpPage.ModelDescriptions
+namespace OnlinerTask.WEB.Areas.HelpPage.ModelDescriptions
 {
     public class KeyValuePairModelDescription : ModelDescription
     {

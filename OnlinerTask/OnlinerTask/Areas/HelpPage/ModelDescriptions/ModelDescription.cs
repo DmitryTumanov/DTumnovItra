@@ -1,6 +1,6 @@
 using System;
 
-namespace OnlinerTask.Areas.HelpPage.ModelDescriptions
+namespace OnlinerTask.WEB.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

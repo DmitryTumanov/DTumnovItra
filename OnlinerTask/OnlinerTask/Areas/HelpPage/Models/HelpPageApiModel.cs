@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using OnlinerTask.Areas.HelpPage.ModelDescriptions;
+using OnlinerTask.WEB.Areas.HelpPage.ModelDescriptions;
 
-namespace OnlinerTask.Areas.HelpPage.Models
+namespace OnlinerTask.WEB.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

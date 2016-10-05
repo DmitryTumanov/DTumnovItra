@@ -11,10 +11,11 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using OnlinerTask.Areas.HelpPage.ModelDescriptions;
-using OnlinerTask.Areas.HelpPage.Models;
+using OnlinerTask.WEB.Areas.HelpPage.ModelDescriptions;
+using OnlinerTask.WEB.Areas.HelpPage;
+using OnlinerTask.WEB.Areas.HelpPage.Models;
 
-namespace OnlinerTask.Areas.HelpPage
+namespace OnlinerTask.WEB.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(OnlinerTask.Startup))]
+[assembly: OwinStartup(typeof(OnlinerTask.WEB.Startup))]
 
-namespace OnlinerTask
+namespace OnlinerTask.WEB
 {
     public partial class Startup
     {

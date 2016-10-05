@@ -8,10 +8,10 @@ using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using OnlinerTask.Models;
-using OnlinerTask.Providers;
+using OnlinerTask.WEB.Providers;
+using OnlinerTask.WEB.Models;
 
-namespace OnlinerTask
+namespace OnlinerTask.WEB
 {
     public partial class Startup
     {

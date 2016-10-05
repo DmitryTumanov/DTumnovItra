@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace OnlinerTask.Areas.HelpPage
+namespace OnlinerTask.WEB.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

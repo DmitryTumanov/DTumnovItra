@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 
-namespace OnlinerTask.Providers
+namespace OnlinerTask.WEB.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {

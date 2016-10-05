@@ -2,6 +2,7 @@
 // package to your project.
 ////#define Handle_PageResultOfT
 
+using OnlinerTask.WEB.Areas.HelpPage;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ using System.Web.Http;
 using System.Web.Http.OData;
 #endif
 
-namespace OnlinerTask.Areas.HelpPage
+namespace OnlinerTask.WEB.Areas.HelpPage
 {
     /// <summary>
     /// Use this class to customize the Help Page.

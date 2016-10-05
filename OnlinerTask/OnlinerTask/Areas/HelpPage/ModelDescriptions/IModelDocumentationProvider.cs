@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace OnlinerTask.Areas.HelpPage.ModelDescriptions
+namespace OnlinerTask.WEB.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

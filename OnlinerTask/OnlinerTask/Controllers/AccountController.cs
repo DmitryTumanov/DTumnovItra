@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using OnlinerTask.Models;
+using OnlinerTask.WEB.Models;
 
-namespace OnlinerTask.Controllers
+namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class AccountController : Controller

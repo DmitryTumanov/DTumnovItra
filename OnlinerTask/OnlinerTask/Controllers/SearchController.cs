@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace OnlinerTask.Controllers
+namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class SearchController : Controller

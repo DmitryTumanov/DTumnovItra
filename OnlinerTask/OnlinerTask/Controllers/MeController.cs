@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
-using OnlinerTask.Models;
+using OnlinerTask.WEB.Models;
 
-namespace OnlinerTask.Controllers
+namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class MeController : ApiController

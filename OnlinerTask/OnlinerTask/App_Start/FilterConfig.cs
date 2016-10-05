@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace OnlinerTask
+namespace OnlinerTask.WEB
 {
     public class FilterConfig
     {

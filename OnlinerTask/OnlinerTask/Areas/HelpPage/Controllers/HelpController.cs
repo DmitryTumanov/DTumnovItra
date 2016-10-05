@@ -1,10 +1,11 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using OnlinerTask.Areas.HelpPage.ModelDescriptions;
-using OnlinerTask.Areas.HelpPage.Models;
+using OnlinerTask.WEB.Areas.HelpPage.ModelDescriptions;
+using OnlinerTask.WEB.Areas.HelpPage.Models;
+using OnlinerTask.WEB.Areas.HelpPage;
 
-namespace OnlinerTask.Areas.HelpPage.Controllers
+namespace OnlinerTask.WEB.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

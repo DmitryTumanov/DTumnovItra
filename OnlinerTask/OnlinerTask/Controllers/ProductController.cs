@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using System.Web.Http;
-using OnlinerTask.Models;
-using OnlinerTask.Services;
+using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.BLL.Services;
 
-namespace OnlinerTask.Controllers
+namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class ProductController : ApiController

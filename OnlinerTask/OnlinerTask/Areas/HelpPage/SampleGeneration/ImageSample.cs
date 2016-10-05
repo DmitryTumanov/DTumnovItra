@@ -1,6 +1,6 @@
 using System;
 
-namespace OnlinerTask.Areas.HelpPage
+namespace OnlinerTask.WEB.Areas.HelpPage
 {
     /// <summary>
     /// This represents an image sample on the help page. There's a display template named ImageSample associated with this class.

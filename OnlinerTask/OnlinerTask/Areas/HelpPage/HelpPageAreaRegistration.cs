@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace OnlinerTask.Areas.HelpPage
+namespace OnlinerTask.WEB.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

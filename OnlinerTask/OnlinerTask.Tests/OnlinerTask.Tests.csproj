@@ -100,9 +100,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnlinerTask\OnlinerTask.csproj">
+    <ProjectReference Include="..\OnlinerTask\OnlinerTask.WEB.csproj">
       <Project>{4863183B-8452-4623-97D4-FBD16D9B2A63}</Project>
-      <Name>OnlinerTask</Name>
+      <Name>OnlinerTask.WEB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

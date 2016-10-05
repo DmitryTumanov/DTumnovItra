@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace OnlinerTask.Models
+namespace OnlinerTask.WEB.Models
 {
     public class IndexViewModel
     {

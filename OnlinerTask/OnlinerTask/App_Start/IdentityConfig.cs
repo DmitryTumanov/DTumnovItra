@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using OnlinerTask.Models;
+using OnlinerTask.WEB.Models;
 
-namespace OnlinerTask
+namespace OnlinerTask.WEB
 {
     public class EmailService : IIdentityMessageService
     {
