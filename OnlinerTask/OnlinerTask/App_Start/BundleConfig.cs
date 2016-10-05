@@ -41,6 +41,13 @@ namespace OnlinerTask
             bundles.Add(new StyleBundle("~/Content/css").Include(
                  "~/Content/bootstrap.css",
                  "~/Content/Site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/search").Include(
+                "~/Content/onliner.css",
+                "~/Content/onliner.addition.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/search").Include(
+                "~/Scripts/search/search.viewmodel.js"));
         }
     }
 }

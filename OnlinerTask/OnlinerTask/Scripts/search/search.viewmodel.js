@@ -1,0 +1,38 @@
+﻿var model = {
+    message: ko.observable(""),
+    search_string: ko.observable(""),
+    products: ko.observableArray()
+};
+
+function handleKeyDown() {
+    sendAjaxRequest("POST", function (data) {
+        model.products.removeAll();
+        for (var i = 0; i < data.length; i++) {
+            model.products.push(data[i]);
+        }
+    }, null, {
+        SearchString: model.search_string
+    });
+}
+
+function sendAjaxRequest(httpMethod, callback, url, reqData) {
+    $.ajax("/api/Product" + (url ? "/" + url : ""), {
+        type: httpMethod,
+        success: callback,
+        data: reqData,
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        }
+    });
+}
+
+function getAllItems() {
+    sendAjaxRequest("GET", function (data) {
+        model.message("хоп хей лалалей");
+    });
+}
+
+$(document).ready(function () {
+    getAllItems();
+    ko.applyBindings(model);
+});
