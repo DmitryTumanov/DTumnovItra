@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/OnlinerTask/OnlinerTask/OnlinerTask.csproj.user
+/OnlinerTask/OnlinerTask/ApplicationInsights.config
