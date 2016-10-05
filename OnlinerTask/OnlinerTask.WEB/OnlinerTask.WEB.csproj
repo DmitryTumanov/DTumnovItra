@@ -9,12 +9,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4863183B-8452-4623-97D4-FBD16D9B2A63}</ProjectGuid>
+    <ProjectGuid>{9D07783B-207B-4B3E-B0CE-A0F09305EED4}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OnlinerTask</RootNamespace>
-    <AssemblyName>OnlinerTask</AssemblyName>
+    <RootNamespace>OnlinerTask.WEB</RootNamespace>
+    <AssemblyName>OnlinerTask.WEB</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
