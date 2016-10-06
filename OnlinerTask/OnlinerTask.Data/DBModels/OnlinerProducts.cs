@@ -12,12 +12,12 @@ namespace OnlinerTask.Data.DBModels
         {
         }
 
-        public virtual DbSet<Image> Image { get; set; }
-        public virtual DbSet<Offer> Offer { get; set; }
-        public virtual DbSet<Price> Price { get; set; }
-        public virtual DbSet<PriceAmmount> PriceAmmount { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Review> Review { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<Offer> Offers { get; set; }
+        public virtual DbSet<Price> Prices { get; set; }
+        public virtual DbSet<PriceAmmount> PriceAmmounts { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -27,12 +27,12 @@ namespace OnlinerTask.Data.DBModels
                 .WillCascadeOnDelete();
 
             modelBuilder.Entity<PriceAmmount>()
-                .HasMany(e => e.Price)
+                .HasMany(e => e.Prices)
                 .WithOptional(e => e.PriceAmmount)
                 .HasForeignKey(e => e.PriceMinId);
 
             modelBuilder.Entity<PriceAmmount>()
-                .HasMany(e => e.Price1)
+                .HasMany(e => e.Prices1)
                 .WithOptional(e => e.PriceAmmount1)
                 .HasForeignKey(e => e.PriceMaxId);
 

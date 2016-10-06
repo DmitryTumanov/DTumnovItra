@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.BLL.Services;
+using System.Linq;
+using OnlinerTask.BLL.Repository;
 
 namespace OnlinerTask.WEB.Controllers
 {
@@ -12,10 +14,12 @@ namespace OnlinerTask.WEB.Controllers
     public class ProductController : ApiController
     {
         private ISearchService search_service;
+        private IRepository repository;
 
-        public ProductController(ISearchService service)
+        public ProductController(ISearchService service, IRepository repo)
         {
             search_service = service;
+            repository = repo;
         }
 
         public string Get()
@@ -30,15 +34,24 @@ namespace OnlinerTask.WEB.Controllers
             HttpWebRequest request = search_service.OnlinerRequest(responce.SearchString);
             HttpWebResponse webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = search_service.ProductsFromOnliner(webResponse);
+            result.Products.ForEach(i =>
+            {
+                if (repository.CheckItem(i.Id, User.Identity.Name)) i.IsChecked = true;
+            });
             return result.Products;
         }
         
-        public void Put(int id, [FromBody]string value)
+        public async void Put(Request responce)
         {
+            var result = (await Post(responce)).FirstOrDefault();
+            repository.CreateOnlinerProduct(result, User.Identity.Name);
+            return;
         }
         
-        public void Delete(int id)
+        public void Delete(DeleteRequest request)
         {
+            repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
+            return;
         }
     }
 }

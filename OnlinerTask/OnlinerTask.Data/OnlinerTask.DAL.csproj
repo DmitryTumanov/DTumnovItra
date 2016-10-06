@@ -62,6 +62,7 @@
     <Compile Include="DBModels\PriceAmmount.cs" />
     <Compile Include="DBModels\Product.cs" />
     <Compile Include="DBModels\Review.cs" />
+    <Compile Include="SearchModels\DeleteRequest.cs" />
     <Compile Include="SearchModels\ImageModel.cs" />
     <Compile Include="SearchModels\OffersModel.cs" />
     <Compile Include="SearchModels\PriceAmmountModel.cs" />

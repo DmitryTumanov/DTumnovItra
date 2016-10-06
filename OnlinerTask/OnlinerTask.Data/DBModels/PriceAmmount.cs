@@ -12,11 +12,10 @@ namespace OnlinerTask.Data.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PriceAmmount()
         {
-            Price = new HashSet<Price>();
-            Price1 = new HashSet<Price>();
+            Prices = new HashSet<Price>();
+            Prices1 = new HashSet<Price>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public double? Amount { get; set; }
@@ -25,9 +24,9 @@ namespace OnlinerTask.Data.DBModels
         public string Currency { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Price> Price { get; set; }
+        public virtual ICollection<Price> Prices { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Price> Price1 { get; set; }
+        public virtual ICollection<Price> Prices1 { get; set; }
     }
 }

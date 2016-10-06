@@ -1991,3 +1991,82 @@ a.schema-product-price-value_secondary {
 .button_orange {
     background-color: #e70;
 }
+
+}
+
+.i-checkbox:hover .i-checkbox-faux, label:hover .i-checkbox .i-checkbox-faux {
+    border-color: rgba(0,0,0,.4);
+}
+
+.i-checkbox_yellow .i-checkbox-real:checked + .i-checkbox-faux {
+    background-color: #fd2;
+}
+
+.i-checkbox_star .i-checkbox-faux {
+    border: 0;
+    background: 0 0;
+}
+
+    .i-checkbox_star .i-checkbox-faux:after, .i-checkbox_star .i-checkbox-faux:before {
+        content: '';
+        width: 23px;
+        height: 24px;
+        background: 0 0/23px auto no-repeat;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        -o-transition: opacity .2s ease;
+        transition: opacity .2s ease;
+    }
+
+    .i-checkbox_star .i-checkbox-faux:before {
+        background-image: url('Images/star.svg');
+        opacity: 0;
+    }
+
+    .i-checkbox_star .i-checkbox-faux:after {
+        background-image: url('Images/unstar.svg');
+        opacity: .25;
+    }
+
+.i-checkbox_star:hover .i-checkbox-faux:after, label:hover .i-checkbox_star .i-checkbox-faux:after {
+    opacity: .5;
+}
+
+.i-checkbox-real {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+    .i-checkbox-real:checked + .i-checkbox-faux:before {
+        opacity: 1;
+    }
+
+.i-checkbox-faux {
+    width: 18px;
+    height: 18px;
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 3px;
+    position: relative;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+}
+
+    .i-checkbox-faux:before {
+        content: '';
+        width: 17px;
+        height: 19px;
+        background: url('Images/check.svg') no-repeat;
+        display: block;
+        position: absolute;
+        top: -4px;
+        left: 4px;
+        opacity: 0;
+        -o-transition: all .2s ease;
+        transition: all .2s ea;
+    }

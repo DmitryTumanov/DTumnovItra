@@ -11,6 +11,7 @@ namespace OnlinerTask.WEB.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using BLL.Services;
+    using BLL.Repository;
 
     public static class NinjectWebCommon 
     {
@@ -69,6 +70,7 @@ namespace OnlinerTask.WEB.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ISearchService>().To<SearchService>();
+            kernel.Bind<IRepository>().To<MsSQLRepository>();
         }        
     }
 }

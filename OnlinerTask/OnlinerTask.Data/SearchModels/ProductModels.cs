@@ -25,5 +25,7 @@ namespace OnlinerTask.DAL.SearchModels
         public string ReviewUrl { get; set; }
         [JsonProperty("prices")]
         public PriceModel Prices { get; set; }
+        [JsonProperty("is_checked")]
+        public bool IsChecked { get; set; }
     }
 }
