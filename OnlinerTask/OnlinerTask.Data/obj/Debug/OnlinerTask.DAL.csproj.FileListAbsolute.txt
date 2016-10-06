@@ -1,0 +1,4 @@
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.Data\bin\Debug\OnlinerTask.Data.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.Data\bin\Debug\OnlinerTask.Data.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.Data\obj\Debug\OnlinerTask.Data.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.Data\obj\Debug\OnlinerTask.Data.pdb
