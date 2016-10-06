@@ -9,12 +9,6 @@ namespace OnlinerTask.Data.DBModels
     [Table("Review")]
     public partial class Review
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Review()
-        {
-            Products = new HashSet<Product>();
-        }
-
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
@@ -25,7 +19,6 @@ namespace OnlinerTask.Data.DBModels
         [StringLength(50)]
         public string HtmlUrl { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual Product Product { get; set; }
     }
 }

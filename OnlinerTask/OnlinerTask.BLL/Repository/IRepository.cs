@@ -8,5 +8,6 @@ namespace OnlinerTask.BLL.Repository
 {
     interface IRepository
     {
+
     }
 }

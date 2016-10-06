@@ -23,17 +23,11 @@ namespace OnlinerTask.Data.DBModels
 
         public string FullName { get; set; }
 
-        public int? ImageId { get; set; }
-
         public string Description { get; set; }
 
         public string HtmlUrl { get; set; }
 
-        public int? ReviewId { get; set; }
-
         public string ReviewUrl { get; set; }
-
-        public int? PriceId { get; set; }
 
         public virtual Image Image { get; set; }
 
