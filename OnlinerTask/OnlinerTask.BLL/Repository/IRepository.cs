@@ -15,6 +15,7 @@ namespace OnlinerTask.BLL.Repository
         bool CreateProduct(Product product);
         bool RemoveOnlinerProduct(int itemId, string name);
         void RemovePriceAmount(int? priceMaxId, int? priceMinId);
-        bool CheckItem(int ItemId, string Username);
+        Task<bool> CheckItem(int ItemId, string Username);
+        Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string UserName);
     }
 }

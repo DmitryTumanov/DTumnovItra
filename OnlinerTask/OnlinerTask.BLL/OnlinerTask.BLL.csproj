@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AsyncOperations.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MsSQLRepository.cs" />
     <Compile Include="Services\ISearchService.cs" />

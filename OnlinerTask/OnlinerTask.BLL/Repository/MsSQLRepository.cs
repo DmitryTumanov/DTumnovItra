@@ -11,11 +11,20 @@ namespace OnlinerTask.BLL.Repository
 {
     public class MsSQLRepository : IRepository
     {
-        public bool CheckItem(int ItemId, string Username)
+        public async Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string UserName)
+        {
+            await AsyncOperations.ForEachAsync(products, async i =>
+            {
+                if (await CheckItem(i.Id, UserName)) i.IsChecked = true;
+            });
+            return products;
+        }
+
+        public async Task<bool> CheckItem(int ItemId, string Username)
         {
             using(var context = new OnlinerProducts())
             {
-                return context.Products.Where(x => x.ProductId == ItemId && x.UserEmail == Username).FirstOrDefault() != null ? true : false;
+                return await context.Products.FirstOrDefaultAsync(x=> x.ProductId == ItemId && x.UserEmail == Username) != null ? true : false;
             }
         }
 

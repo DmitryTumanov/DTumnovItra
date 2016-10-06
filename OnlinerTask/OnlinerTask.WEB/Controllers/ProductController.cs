@@ -34,13 +34,11 @@ namespace OnlinerTask.WEB.Controllers
             HttpWebRequest request = search_service.OnlinerRequest(responce.SearchString);
             HttpWebResponse webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = search_service.ProductsFromOnliner(webResponse);
-            result.Products.ForEach(i =>
-            {
-                if (repository.CheckItem(i.Id, User.Identity.Name)) i.IsChecked = true;
-            });
-            return result.Products;
+            return await repository.CheckProducts(result.Products, User.Identity.Name);
         }
+
         
+
         public async void Put(Request responce)
         {
             var result = (await Post(responce)).FirstOrDefault();
