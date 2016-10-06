@@ -6,3 +6,11 @@ C:\Users\d.tumanov\Source\Repos\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debu
 C:\Users\d.tumanov\Source\Repos\DTumnovItra\OnlinerTask\OnlinerTask.BLL\obj\Debug\OnlinerTask.BLL.csprojResolveAssemblyReference.cache
 C:\Users\d.tumanov\Source\Repos\DTumnovItra\OnlinerTask\OnlinerTask.BLL\obj\Debug\OnlinerTask.BLL.dll
 C:\Users\d.tumanov\Source\Repos\DTumnovItra\OnlinerTask\OnlinerTask.BLL\obj\Debug\OnlinerTask.BLL.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\OnlinerTask.BLL.dll.config
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\OnlinerTask.BLL.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\OnlinerTask.BLL.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\OnlinerTask.Data.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\OnlinerTask.Data.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\obj\Debug\OnlinerTask.BLL.csprojResolveAssemblyReference.cache
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\obj\Debug\OnlinerTask.BLL.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\obj\Debug\OnlinerTask.BLL.pdb
