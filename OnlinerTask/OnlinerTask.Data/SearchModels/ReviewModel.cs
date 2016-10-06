@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlinerTask.DAL.SearchModels
 {
-    public class Review
+    public class ReviewModel
     {
         [JsonProperty("rating")]
         public int Rating { get; set; }

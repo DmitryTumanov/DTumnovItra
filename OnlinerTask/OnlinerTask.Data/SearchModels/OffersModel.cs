@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlinerTask.DAL.SearchModels
 {
-    public class Offers
+    public class OffersModel
     {
         [JsonProperty("count")]
         public int Count { get; set; }

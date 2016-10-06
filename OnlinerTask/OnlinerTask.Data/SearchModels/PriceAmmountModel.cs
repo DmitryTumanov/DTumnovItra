@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlinerTask.DAL.SearchModels
 {
-    public class PriceAmmount
+    public class PriceAmmountModel
     {
         [JsonProperty("amount")]
         public double Amount { get; set; }

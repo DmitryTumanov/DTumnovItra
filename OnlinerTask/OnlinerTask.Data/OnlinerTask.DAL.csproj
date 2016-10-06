@@ -45,6 +45,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBModels\Image.cs" />
+    <Compile Include="DBModels\Offer.cs" />
+    <Compile Include="DBModels\OnlinerProducts.cs" />
+    <Compile Include="DBModels\Price.cs" />
+    <Compile Include="DBModels\PriceAmmount.cs" />
+    <Compile Include="DBModels\Product.cs" />
+    <Compile Include="DBModels\Review.cs" />
     <Compile Include="SearchModels\ImageModel.cs" />
     <Compile Include="SearchModels\OffersModel.cs" />
     <Compile Include="SearchModels\PriceAmmountModel.cs" />
@@ -63,9 +72,7 @@
     <Compile Include="SearchModels\ReviewModel.cs" />
     <Compile Include="SearchModels\SearchModels.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DBModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

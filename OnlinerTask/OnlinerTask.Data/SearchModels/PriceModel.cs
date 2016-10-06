@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace OnlinerTask.DAL.SearchModels
 {
-    public class Price
+    public class PriceModel
     {
         [JsonProperty("price_min")]
-        public PriceAmmount PriceMin { get; set; }
+        public PriceAmmountModel PriceMin { get; set; }
         [JsonProperty("price_max")]
-        public PriceAmmount PriceMax { get; set; }
+        public PriceAmmountModel PriceMax { get; set; }
         [JsonProperty("html_url")]
         public string HtmlUrl { get; set; }
         [JsonProperty("offers")]
-        public Offers Offers { get; set; }
+        public OffersModel Offers { get; set; }
     }
 }

@@ -14,16 +14,16 @@ namespace OnlinerTask.DAL.SearchModels
         [JsonProperty("full_name")]
         public string FullName { get; set; }
         [JsonProperty("images")]
-        public Image Images { get; set; }
+        public ImageModel Images { get; set; }
         [JsonProperty("description")]
         public string Description { get; set; }
         [JsonProperty("html_url")]
         public string HtmlUrl { get; set; }
         [JsonProperty("reviews")]
-        public Review Reviews { get; set; }
+        public ReviewModel Reviews { get; set; }
         [JsonProperty("review_url")]
         public string ReviewUrl { get; set; }
         [JsonProperty("prices")]
-        public Price Prices { get; set; }
+        public PriceModel Prices { get; set; }
     }
 }

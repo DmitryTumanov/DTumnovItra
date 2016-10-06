@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\MsSQLRepository.cs" />
     <Compile Include="Services\ISearchService.cs" />
     <Compile Include="Services\SearchService.cs" />
   </ItemGroup>
