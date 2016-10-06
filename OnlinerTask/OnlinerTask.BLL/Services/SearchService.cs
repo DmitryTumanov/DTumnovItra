@@ -1,20 +1,29 @@
-﻿using OnlinerTask.DAL.SearchModels;
+﻿using Newtonsoft.Json;
+using OnlinerTask.DAL.SearchModels;
 using System.IO;
 using System.Net;
 using System.Runtime.Serialization.Json;
 
 namespace OnlinerTask.BLL.Services
 {
-    public class SearchService
+    public class SearchService: ISearchService
     {
-        public static SearchResult ProductsFromOnliner(HttpWebResponse webResponse)
+        public SearchResult ProductsFromOnliner(HttpWebResponse webResponse)
         {
             Stream responseStream = webResponse.GetResponseStream();
-            DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(SearchResult));
-            return (SearchResult)jsonSerializer.ReadObject(responseStream);
+            var serializer = new JsonSerializer();
+            using (var sr = new StreamReader(responseStream))
+            {
+                using(var text_reader = new JsonTextReader(sr))
+                {
+                    return serializer.Deserialize<SearchResult>(text_reader);
+                }
+            }
+            //    DataContractJsonSerializer jsonSerializer = new DataContractJsonSerializer(typeof(SearchResult));
+            //return (SearchResult)jsonSerializer.ReadObject(responseStream);
         }
 
-        public static HttpWebRequest OnlinerRequest(string strRequest)
+        public HttpWebRequest OnlinerRequest(string strRequest)
         {
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create("https://catalog.api.onliner.by/search/products?query=" + strRequest);
             webRequest.Method = "GET";
