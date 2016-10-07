@@ -21,29 +21,16 @@ namespace OnlinerTask.WEB.Controllers
             search_service = service;
             repository = repo;
         }
-
-        public string Get()
-        {
-            return "value";
-        }
         
         public async Task<List<ProductModel>> Post(Request responce)
         {
-            if (responce == null || String.IsNullOrEmpty(responce.SearchString))
-                return null;
-            HttpWebRequest request = search_service.OnlinerRequest(responce.SearchString);
-            HttpWebResponse webResponse = (HttpWebResponse)(await request.GetResponseAsync());
-            var result = search_service.ProductsFromOnliner(webResponse);
-            return await repository.CheckProducts(result.Products, User.Identity.Name);
+            return await search_service.GetProducts(responce, repository, User.Identity.Name);
         }
-
-        
 
         public async void Put(Request responce)
         {
             var result = (await Post(responce)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, User.Identity.Name);
-            return;
         }
         
         public void Delete(DeleteRequest request)

@@ -130,5 +130,56 @@ namespace OnlinerTask.BLL.Repository
                 }
             };
         }
+
+        public List<ProductModel> GetPersonalProducts(string name)
+        {
+            using(var context = new OnlinerProducts())
+            {
+                return context.Products.Where(x => x.UserEmail == name).Select(x => DBToModel(x)).ToList();
+            }
+        }
+
+        private ProductModel DBToModel(Product x)
+        {
+            return new ProductModel()
+            {
+                Description = x.Description,
+                FullName = x.FullName,
+                Name = x.Name,
+                HtmlUrl = x.HtmlUrl,
+                Id = (int)x.ProductId,
+                Images = new ImageModel()
+                {
+                    Header = x.Image.Header
+                },
+                IsChecked = true,
+                Key = x.ProductKey,
+                ReviewUrl = x.ReviewUrl,
+                Prices = new PriceModel()
+                {
+                    HtmlUrl = x.Price.HtmlUrl,
+                    Offers = new OffersModel()
+                    {
+                        Count = (int)x.Price.Offer.Count                        
+                    },
+                    PriceMax = new PriceAmmountModel()
+                    {
+                        Amount = (double)x.Price.PriceAmmount.Amount,
+                        Currency = x.Price.PriceAmmount.Currency
+                    },
+                    PriceMin = new PriceAmmountModel()
+                    {
+                        Amount = (double)x.Price.PriceAmmount1.Amount,
+                        Currency = x.Price.PriceAmmount1.Currency
+                    }
+                },
+                Reviews = new ReviewModel()
+                {
+                    Count = (int)x.Review.Count,
+                    HtmlUrl = x.Review.HtmlUrl,
+                    Rating = (int)x.Review.Rating
+                }
+            };
+        }
     }
 }
