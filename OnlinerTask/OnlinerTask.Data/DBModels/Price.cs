@@ -20,9 +20,9 @@ namespace OnlinerTask.Data.DBModels
 
         public virtual Offer Offer { get; set; }
 
-        public virtual PriceAmmount PriceAmmount { get; set; }
+        public virtual PriceAmmount PriceMinAmmount { get; set; }
 
-        public virtual PriceAmmount PriceAmmount1 { get; set; }
+        public virtual PriceAmmount PriceMaxAmmount { get; set; }
 
         public virtual Product Product { get; set; }
     }

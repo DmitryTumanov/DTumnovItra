@@ -21,6 +21,11 @@ namespace OnlinerTask.WEB.Controllers
             search_service = service;
             repository = repo;
         }
+
+        public void Get()
+        {
+
+        }
         
         public async Task<List<ProductModel>> Post(Request responce)
         {

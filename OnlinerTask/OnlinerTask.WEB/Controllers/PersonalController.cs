@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace OnlinerTask.WEB.Controllers
 {
+    [Authorize]
     public class PersonalController : ApiController
     {
         private ISearchService search_service;
@@ -25,7 +26,7 @@ namespace OnlinerTask.WEB.Controllers
         {
             return repository.GetPersonalProducts(User.Identity.Name);
         }
-        
+
         public void Post()
         {
 
