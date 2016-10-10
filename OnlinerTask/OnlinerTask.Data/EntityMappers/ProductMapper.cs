@@ -23,7 +23,7 @@ namespace OnlinerTask.Data.EntityMappers
             this.Price = new PriceMapper(model.Prices, pricemaxid, priceminid);
         }
 
-        public static ProductModel ConvertToModel(Product dbmodel)
+        public ProductModel ConvertToModel(Product dbmodel)
         {
             return new ProductModel()
             {
@@ -35,9 +35,9 @@ namespace OnlinerTask.Data.EntityMappers
                 IsChecked = true,
                 Key = dbmodel.ProductKey,
                 ReviewUrl = dbmodel.ReviewUrl,
-                Images = ImageMapper.ConvertToModel(dbmodel.Image),
-                Reviews = ReviewMapper.ConvertToModel(dbmodel.Review),
-                Prices = PriceMapper.ConvertToModel(dbmodel.Price)
+                Images = new ImageMapper().ConvertToModel(dbmodel.Image),
+                Reviews = new ReviewMapper().ConvertToModel(dbmodel.Review),
+                Prices = new PriceMapper().ConvertToModel(dbmodel.Price)
             };
         }
     }

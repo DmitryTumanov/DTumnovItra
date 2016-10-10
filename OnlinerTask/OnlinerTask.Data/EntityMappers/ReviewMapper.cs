@@ -15,7 +15,7 @@ namespace OnlinerTask.Data.EntityMappers
             this.Count = model.Count;
         }
 
-        public static ReviewModel ConvertToModel(Review dbmodel)
+        public ReviewModel ConvertToModel(Review dbmodel)
         {
             return new ReviewModel()
             {

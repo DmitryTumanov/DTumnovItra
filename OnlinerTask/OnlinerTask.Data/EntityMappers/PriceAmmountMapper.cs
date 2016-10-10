@@ -15,7 +15,7 @@ namespace OnlinerTask.Data.EntityMappers
             this.Id = priceid;
         }
 
-        public static PriceAmmountModel ConvertToModel(PriceAmmount dbmodel)
+        public PriceAmmountModel ConvertToModel(PriceAmmount dbmodel)
         {
             return new PriceAmmountModel()
             {

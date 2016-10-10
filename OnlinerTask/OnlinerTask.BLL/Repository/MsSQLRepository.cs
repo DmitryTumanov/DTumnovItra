@@ -50,14 +50,11 @@ namespace OnlinerTask.BLL.Repository
             {
                 return -1;
             }
-            else
+            using (var context = new OnlinerProducts())
             {
-                using (var context = new OnlinerProducts())
-                {
-                    context.PriceAmmounts.Add(price);
-                    context.SaveChanges();
-                    return price.Id;
-                }
+                context.PriceAmmounts.Add(price);
+                context.SaveChanges();
+                return price.Id;
             }
         }
 
@@ -83,7 +80,10 @@ namespace OnlinerTask.BLL.Repository
             using (var context = new OnlinerProducts())
             {
                 var model = context.Products.Where(x => x.UserEmail == name && x.ProductId == itemId).FirstOrDefault();
-                if (model == null) { return false; }
+                if (model == null)
+                {
+                    return false;
+                }
                 RemovePriceAmount(model.Price.PriceMaxId, model.Price.PriceMinId);
                 context.Products.Remove(model);
                 context.SaveChanges();
@@ -97,8 +97,14 @@ namespace OnlinerTask.BLL.Repository
             {
                 var minprice = context.PriceAmmounts.Where(x => x.Id == priceMinId).FirstOrDefault();
                 var maxprice = context.PriceAmmounts.Where(x => x.Id == priceMaxId).FirstOrDefault();
-                if (maxprice != null) { context.PriceAmmounts.Remove(maxprice); }
-                if (minprice != null) { context.PriceAmmounts.Remove(minprice); }
+                if (maxprice != null)
+                {
+                    context.PriceAmmounts.Remove(maxprice);
+                }
+                if (minprice != null)
+                {
+                    context.PriceAmmounts.Remove(minprice);
+                }
             }
         }
 
@@ -113,12 +119,12 @@ namespace OnlinerTask.BLL.Repository
             {
                 return context.Products.Where(x => x.UserEmail == name)
                     .OrderBy(x => x.FullName)
-                    .Include(x=>x.Image)
-                    .Include(x=>x.Price)
+                    .Include(x => x.Image)
+                    .Include(x => x.Price)
                     .Include(x => x.Price.Offer)
                     .Include(x => x.Price.PriceMinAmmount)
-                    .Include(x=>x.Price.PriceMaxAmmount)
-                    .Include(x=>x.Review).ToList();
+                    .Include(x => x.Price.PriceMaxAmmount)
+                    .Include(x => x.Review).ToList();
             }
         }
     }

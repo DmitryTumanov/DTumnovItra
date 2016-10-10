@@ -15,14 +15,14 @@ namespace OnlinerTask.Data.EntityMappers
             this.PriceMinAmmount = new PriceAmmountMapper(model.PriceMin, priceminid);
             this.PriceMaxAmmount = new PriceAmmountMapper(model.PriceMax, pricemaxid);
         }
-        public static PriceModel ConvertToModel(Price dbmodel)
+        public PriceModel ConvertToModel(Price dbmodel)
         {
             return new PriceModel()
             {
                 HtmlUrl = dbmodel.HtmlUrl,
-                Offers = OfferMapper.ConvertToModel(dbmodel.Offer),
-                PriceMax = PriceAmmountMapper.ConvertToModel(dbmodel.PriceMaxAmmount),
-                PriceMin = PriceAmmountMapper.ConvertToModel(dbmodel.PriceMinAmmount)
+                Offers = new OfferMapper().ConvertToModel(dbmodel.Offer),
+                PriceMax = new PriceAmmountMapper().ConvertToModel(dbmodel.PriceMaxAmmount),
+                PriceMin = new PriceAmmountMapper().ConvertToModel(dbmodel.PriceMinAmmount)
             };
         }
     }

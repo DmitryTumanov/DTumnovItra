@@ -13,7 +13,7 @@ namespace OnlinerTask.Data.EntityMappers
             Header = model.Header;
         }
 
-        public static ImageModel ConvertToModel(Image dbmodel)
+        public ImageModel ConvertToModel(Image dbmodel)
         {
             return new ImageModel()
             {

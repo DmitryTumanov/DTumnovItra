@@ -13,7 +13,7 @@ namespace OnlinerTask.Data.EntityMappers
             Count = model.Count;
         }
 
-        public static OffersModel ConvertToModel(Offer dbmodel)
+        public OffersModel ConvertToModel(Offer dbmodel)
         {
             return new OffersModel()
             {
