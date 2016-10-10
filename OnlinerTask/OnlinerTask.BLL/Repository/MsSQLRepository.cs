@@ -170,14 +170,21 @@ namespace OnlinerTask.BLL.Repository
             }
             using(var db = new OnlinerProducts())
             {
-                db.UpdatedProducts.Add(new UpdatedProducts()
+                var model = db.UpdatedProducts.FirstOrDefault(x => x.ProductId == item.Id && x.UserEmail == item.UserEmail);
+                if (model != null)
                 {
-                    ProductId = item.Id,
-                    UserEmail = item.UserEmail,
-                    TimeToSend = time
-                });
-                db.SaveChanges();
-                return true;
+                    model.TimeToSend = time;
+                }
+                else
+                {
+                    db.UpdatedProducts.Add(new UpdatedProducts()
+                    {
+                        ProductId = item.Id,
+                        UserEmail = item.UserEmail,
+                        TimeToSend = time
+                    });
+                }
+                return UpdateProduct(item);
             }
         }
     }
