@@ -68,7 +68,7 @@ namespace OnlinerTask.BLL.Repository
             {
                 using (var context = new OnlinerProducts())
                 {
-                    context.Products.Add(product);
+                    context.Products.Add((Product)product);
                     context.SaveChanges();
                     return true;
                 }
@@ -110,7 +110,7 @@ namespace OnlinerTask.BLL.Repository
 
         private Product ModelToDB(ProductModel model, string UserEmail, int maxid, int minid)
         {
-            return new ProductMapper(model, UserEmail, maxid, minid);
+            return new ProductMapper().ConvertToModel(model, UserEmail, maxid, minid);
         }
 
         public List<Product> GetPersonalProducts(string name)

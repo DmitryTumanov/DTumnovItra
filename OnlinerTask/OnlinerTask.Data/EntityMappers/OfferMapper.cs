@@ -4,20 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    [NotMapped]
-    public class OfferMapper : Offer
+    public class OfferMapper
     {
-        public OfferMapper() : base() { }
-        public OfferMapper(OffersModel model) : base()
-        {
-            Count = model.Count;
-        }
+        public OfferMapper() { }
 
         public OffersModel ConvertToModel(Offer dbmodel)
         {
             return new OffersModel()
             {
                 Count = (int)dbmodel.Count
+            };
+        }
+
+        public Offer ConvertToModel(OffersModel model)
+        {
+            return new Offer()
+            {
+                Count = (int)model.Count
             };
         }
     }

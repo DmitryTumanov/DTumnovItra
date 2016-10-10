@@ -4,17 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    [NotMapped]
-    public class PriceMapper : Price
+    public class PriceMapper
     {
-        public PriceMapper() : base() { }
-        public PriceMapper(PriceModel model, int pricemaxid, int priceminid) : base()
-        {
-            this.HtmlUrl = model.HtmlUrl;
-            this.Offer = new OfferMapper(model.Offers);
-            this.PriceMinAmmount = new PriceAmmountMapper(model.PriceMin, priceminid);
-            this.PriceMaxAmmount = new PriceAmmountMapper(model.PriceMax, pricemaxid);
-        }
+        public PriceMapper() { }
+
         public PriceModel ConvertToModel(Price dbmodel)
         {
             return new PriceModel()
@@ -23,6 +16,17 @@ namespace OnlinerTask.Data.EntityMappers
                 Offers = new OfferMapper().ConvertToModel(dbmodel.Offer),
                 PriceMax = new PriceAmmountMapper().ConvertToModel(dbmodel.PriceMaxAmmount),
                 PriceMin = new PriceAmmountMapper().ConvertToModel(dbmodel.PriceMinAmmount)
+            };
+        }
+
+        public Price ConvertToModel(PriceModel model, int pricemaxid, int priceminid)
+        {
+            return new Price()
+            {
+                HtmlUrl = model.HtmlUrl,
+                Offer = new OfferMapper().ConvertToModel(model.Offers),
+                PriceMaxAmmount = new PriceAmmountMapper().ConvertToModel(model.PriceMax, pricemaxid),
+                PriceMinAmmount = new PriceAmmountMapper().ConvertToModel(model.PriceMin, priceminid)
             };
         }
     }

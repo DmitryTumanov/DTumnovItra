@@ -4,24 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    [NotMapped]
-    public class ProductMapper : Product
+    public class ProductMapper
     {
-        public ProductMapper() : base() { }
-        public ProductMapper(ProductModel model, string UserEmail, int pricemaxid, int priceminid) : base()
-        {
-            this.UserEmail = UserEmail;
-            this.ProductId = model.Id;
-            this.ProductKey = model.Key;
-            this.Name = model.Name;
-            this.FullName = model.FullName;
-            this.Description = model.Description;
-            this.HtmlUrl = model.HtmlUrl;
-            this.ReviewUrl = model.ReviewUrl;
-            this.Review = new ReviewMapper(model.Reviews);
-            this.Image = new ImageMapper(model.Images);
-            this.Price = new PriceMapper(model.Prices, pricemaxid, priceminid);
-        }
+        public ProductMapper() { }
 
         public ProductModel ConvertToModel(Product dbmodel)
         {
@@ -38,6 +23,24 @@ namespace OnlinerTask.Data.EntityMappers
                 Images = new ImageMapper().ConvertToModel(dbmodel.Image),
                 Reviews = new ReviewMapper().ConvertToModel(dbmodel.Review),
                 Prices = new PriceMapper().ConvertToModel(dbmodel.Price)
+            };
+        }
+
+        public Product ConvertToModel(ProductModel model, string useremail, int pricemaxid, int priceminid)
+        {
+            return new Product()
+            {
+                UserEmail = useremail,
+                Description = model.Description,
+                FullName = model.FullName,
+                Name = model.Name,
+                HtmlUrl = model.HtmlUrl,
+                ProductId = (int)model.Id,
+                ProductKey = model.Key,
+                ReviewUrl = model.ReviewUrl,
+                Image = new ImageMapper().ConvertToModel(model.Images),
+                Review = new ReviewMapper().ConvertToModel(model.Reviews),
+                Price = new PriceMapper().ConvertToModel(model.Prices, pricemaxid, priceminid)
             };
         }
     }

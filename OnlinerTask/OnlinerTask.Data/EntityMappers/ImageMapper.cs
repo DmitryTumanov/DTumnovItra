@@ -4,20 +4,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    [NotMapped]
-    public class ImageMapper : Image
+    public class ImageMapper
     {
-        public ImageMapper() : base() { }
-        public ImageMapper(ImageModel model):base()
-        {
-            Header = model.Header;
-        }
+        public ImageMapper() { }
 
         public ImageModel ConvertToModel(Image dbmodel)
         {
             return new ImageModel()
             {
                 Header = dbmodel.Header
+            };
+        }
+
+        public Image ConvertToModel(ImageModel model)
+        {
+            return new Image()
+            {
+                Header = model.Header
             };
         }
     }

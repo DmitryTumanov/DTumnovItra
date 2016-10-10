@@ -331,6 +331,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\APIScripts\controller.js" />
     <Content Include="Scripts\APIScripts\module.js" />
+    <Content Include="Scripts\APIScripts\search.controller.js" />
+    <Content Include="Scripts\APIScripts\search.service.js" />
     <Content Include="Scripts\APIScripts\service.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

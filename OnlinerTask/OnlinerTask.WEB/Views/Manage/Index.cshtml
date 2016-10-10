@@ -35,9 +35,11 @@
     </dl>
 </div>
 @section SPAViews {
-    @Html.Partial("_Products")
+    <div ng-controller="APIController">
+        @Html.Partial("_Products")
+    </div>
 }
 @section Scripts{
-<script src="~/Scripts/APIScripts/service.js"></script>
-<script src="~/Scripts/APIScripts/controller.js"></script>
+    <script src="~/Scripts/APIScripts/service.js"></script>
+    <script src="~/Scripts/APIScripts/controller.js"></script>
 }
