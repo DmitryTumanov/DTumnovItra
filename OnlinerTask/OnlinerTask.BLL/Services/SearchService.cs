@@ -34,7 +34,7 @@ namespace OnlinerTask.BLL.Services
 
         public async Task<List<ProductModel>> GetProducts(Request responce, IRepository repository, string UserName)
         {
-            if (responce == null || String.IsNullOrEmpty(responce.SearchString))
+            if (responce == null || string.IsNullOrEmpty(responce.SearchString))
                 return null;
             HttpWebRequest request = OnlinerRequest(responce.SearchString);
             HttpWebResponse webResponse = (HttpWebResponse)(await request.GetResponseAsync());

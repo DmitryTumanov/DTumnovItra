@@ -1,6 +1,7 @@
 ﻿using OnlinerTask.BLL.Repository;
 using OnlinerTask.BLL.Services;
 using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.EntityMappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,9 @@ namespace OnlinerTask.WEB.Controllers
             this.repository = repository;
         }
 
-        public List<ProductModel> Get()
+        public IEnumerable<ProductModel> Get()
         {
-            return repository.GetPersonalProducts(User.Identity.Name);
+            return repository.GetPersonalProducts(User.Identity.Name).Select(x => ProductMapper.ConvertToModel(x));
         }
 
         public void Post()

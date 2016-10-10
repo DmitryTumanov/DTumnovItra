@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.Data.DBModels;
 using System.Data.Entity;
+using OnlinerTask.Data.EntityMappers;
+using OnlinerTask.BLL.Extensions;
 
 namespace OnlinerTask.BLL.Repository
 {
@@ -15,22 +15,25 @@ namespace OnlinerTask.BLL.Repository
         {
             await AsyncOperations.ForEachAsync(products, async i =>
             {
-                if (await CheckItem(i.Id, UserName)) i.IsChecked = true;
+                i.IsChecked = await CheckItem(i.Id, UserName); ;
             });
             return products;
         }
 
         public async Task<bool> CheckItem(int ItemId, string Username)
         {
-            using(var context = new OnlinerProducts())
+            using (var context = new OnlinerProducts())
             {
-                return await context.Products.FirstOrDefaultAsync(x=> x.ProductId == ItemId && x.UserEmail == Username) != null ? true : false;
+                return await context.Products.FirstOrDefaultAsync(x => x.ProductId == ItemId && x.UserEmail == Username) != null ? true : false;
             }
         }
 
         public bool CreateOnlinerProduct(ProductModel model, string UserEmail)
         {
-            if (model == null) return false;
+            if (model == null)
+            {
+                return false;
+            }
             else
             {
                 int maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
@@ -43,7 +46,10 @@ namespace OnlinerTask.BLL.Repository
 
         public int CreatePriceAmmount(PriceAmmount price)
         {
-            if (price == null) return -1;
+            if (price == null)
+            {
+                return -1;
+            }
             else
             {
                 using (var context = new OnlinerProducts())
@@ -57,7 +63,10 @@ namespace OnlinerTask.BLL.Repository
 
         public bool CreateProduct(Product product)
         {
-            if (product == null) return false;
+            if (product == null)
+            {
+                return false;
+            }
             else
             {
                 using (var context = new OnlinerProducts())
@@ -74,14 +83,11 @@ namespace OnlinerTask.BLL.Repository
             using (var context = new OnlinerProducts())
             {
                 var model = context.Products.Where(x => x.UserEmail == name && x.ProductId == itemId).FirstOrDefault();
-                if (model != null)
-                {
-                    RemovePriceAmount(model.Price.PriceMaxId, model.Price.PriceMinId);
-                    context.Products.Remove(model);
-                    context.SaveChanges();
-                    return true;
-                }
-                return false;
+                if (model == null) { return false; }
+                RemovePriceAmount(model.Price.PriceMaxId, model.Price.PriceMinId);
+                context.Products.Remove(model);
+                context.SaveChanges();
+                return true;
             }
         }
 
@@ -91,133 +97,29 @@ namespace OnlinerTask.BLL.Repository
             {
                 var minprice = context.PriceAmmounts.Where(x => x.Id == priceMinId).FirstOrDefault();
                 var maxprice = context.PriceAmmounts.Where(x => x.Id == priceMaxId).FirstOrDefault();
-                if (maxprice != null) context.PriceAmmounts.Remove(maxprice);
-                if (minprice != null) context.PriceAmmounts.Remove(minprice);
+                if (maxprice != null) { context.PriceAmmounts.Remove(maxprice); }
+                if (minprice != null) { context.PriceAmmounts.Remove(minprice); }
             }
         }
 
         private Product ModelToDB(ProductModel model, string UserEmail, int maxid, int minid)
         {
-            return new Product()
-            {
-                Description = model.Description,
-                FullName = model.FullName,
-                HtmlUrl = model.HtmlUrl,
-                ProductId = model.Id,
-                Name = model.Name,
-                ProductKey = model.Key,
-                ReviewUrl = model.ReviewUrl,
-                UserEmail = UserEmail,
-                Image = new Image()
-                {
-                    Header = model.Images.Header
-                },
-                Review = new Review()
-                {
-                    Count = model.Reviews.Count,
-                    HtmlUrl = model.Reviews.HtmlUrl,
-                    Rating = model.Reviews.Rating
-                },
-                Price = new Price()
-                {
-                    HtmlUrl = model.Prices.HtmlUrl,
-                    Offer = new Offer()
-                    {
-                        Count = model.Prices.Offers.Count
-                    },
-                    PriceMaxId = maxid,
-                    PriceMinId = minid
-                }
-            };
+            return new ProductMapper(model, UserEmail, maxid, minid);
         }
 
-        public List<ProductModel> GetPersonalProducts(string name)
+        public List<Product> GetPersonalProducts(string name)
         {
-            using(var context = new OnlinerProducts())
+            using (var context = new OnlinerProducts())
             {
-                return context.Products.Where(x => x.UserEmail == name).Select(x => new ProductModel()
-                {
-                    Description = x.Description,
-                    FullName = x.FullName,
-                    Name = x.Name,
-                    HtmlUrl = x.HtmlUrl,
-                    Id = (int)x.ProductId,
-                    Images = new ImageModel()
-                    {
-                        Header = x.Image.Header
-                    },
-                    IsChecked = true,
-                    Key = x.ProductKey,
-                    ReviewUrl = x.ReviewUrl,
-                    Prices = new PriceModel()
-                    {
-                        HtmlUrl = x.Price.HtmlUrl,
-                        Offers = new OffersModel()
-                        {
-                            Count = (int)x.Price.Offer.Count
-                        },
-                        PriceMax = new PriceAmmountModel()
-                        {
-                            Amount = (double)x.Price.PriceMaxAmmount.Amount,
-                            Currency = x.Price.PriceMaxAmmount.Currency
-                        },
-                        PriceMin = new PriceAmmountModel()
-                        {
-                            Amount = (double)x.Price.PriceMinAmmount.Amount,
-                            Currency = x.Price.PriceMinAmmount.Currency
-                        }
-                    },
-                    Reviews = new ReviewModel()
-                    {
-                        Count = (int)x.Review.Count,
-                        HtmlUrl = x.Review.HtmlUrl,
-                        Rating = (int)x.Review.Rating
-                    }
-                }).OrderBy(x=>x.FullName).ToList();
+                return context.Products.Where(x => x.UserEmail == name)
+                    .OrderBy(x => x.FullName)
+                    .Include(x=>x.Image)
+                    .Include(x=>x.Price)
+                    .Include(x => x.Price.Offer)
+                    .Include(x => x.Price.PriceMinAmmount)
+                    .Include(x=>x.Price.PriceMaxAmmount)
+                    .Include(x=>x.Review).ToList();
             }
         }
-
-        //private ProductModel DBToModel(Product x)
-        //{
-        //    return new ProductModel()
-        //    {
-        //        Description = x.Description,
-        //        FullName = x.FullName,
-        //        Name = x.Name,
-        //        HtmlUrl = x.HtmlUrl,
-        //        Id = (int)x.ProductId,
-        //        Images = new ImageModel()
-        //        {
-        //            Header = x.Image.Header
-        //        },
-        //        IsChecked = true,
-        //        Key = x.ProductKey,
-        //        ReviewUrl = x.ReviewUrl,
-        //        Prices = new PriceModel()
-        //        {
-        //            HtmlUrl = x.Price.HtmlUrl,
-        //            Offers = new OffersModel()
-        //            {
-        //                Count = (int)x.Price.Offer.Count                        
-        //            },
-        //            PriceMax = new PriceAmmountModel()
-        //            {
-        //                Amount = (double)x.Price.PriceAmmount.Amount,
-        //                Currency = x.Price.PriceAmmount.Currency
-        //            },
-        //            PriceMin = new PriceAmmountModel()
-        //            {
-        //                Amount = (double)x.Price.PriceAmmount1.Amount,
-        //                Currency = x.Price.PriceAmmount1.Currency
-        //            }
-        //        },
-        //        Reviews = new ReviewModel()
-        //        {
-        //            Count = (int)x.Review.Count,
-        //            HtmlUrl = x.Review.HtmlUrl,
-        //            Rating = (int)x.Review.Rating
-        //        }
-        //    };
-        //}
     }
 }
