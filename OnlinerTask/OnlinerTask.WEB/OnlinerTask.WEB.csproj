@@ -292,6 +292,7 @@
     <Compile Include="TimeRegistry\ProductRegistry.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TimeRegistry\SendEmailJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\readme.txt" />

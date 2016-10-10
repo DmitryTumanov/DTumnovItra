@@ -6,7 +6,8 @@ namespace OnlinerTask.WEB.TimeRegistry
     {
         public ProductRegistry()
         {
-            Schedule<ProductRefreshJob>().ToRunNow().AndEvery(30).Seconds();
+           // Schedule<ProductRefreshJob>().ToRunNow().AndEvery(30).Seconds();
+            Schedule<SendEmailJob>().ToRunNow().AndEvery(30).Seconds();
         }
     }
 }

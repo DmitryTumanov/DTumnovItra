@@ -35,7 +35,6 @@ namespace OnlinerTask.WEB.TimeRegistry
                 if (await ProductUpdated(item))
                 {
                     WriteProduct(item);
-                    RefreshProduct(item);
                 }
             }
         }

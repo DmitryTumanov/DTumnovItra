@@ -29,12 +29,12 @@ namespace OnlinerTask.Data.DBModels
 
             modelBuilder.Entity<PriceAmmount>()
                 .HasMany(e => e.Price)
-                .WithOptional(e => e.PriceMinAmmount)
+                .WithOptional(e => e.PriceMaxAmmount)
                 .HasForeignKey(e => e.PriceMaxId);
 
             modelBuilder.Entity<PriceAmmount>()
                 .HasMany(e => e.Price1)
-                .WithOptional(e => e.PriceMaxAmmount)
+                .WithOptional(e => e.PriceMinAmmount)
                 .HasForeignKey(e => e.PriceMinId);
 
             modelBuilder.Entity<Product>()
