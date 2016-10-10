@@ -186,3 +186,11 @@ C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\System.Web.WebPag
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\obj\Debug\OnlinerTask.WEB.csprojResolveAssemblyReference.cache
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\obj\Debug\OnlinerTask.WEB.dll
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\obj\Debug\OnlinerTask.WEB.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.Web.Common.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.Web.Mvc.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.WebApi.DependencyResolver.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\WebActivatorEx.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.xml
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.Web.Common.xml
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.Web.Mvc.xml

@@ -5,34 +5,43 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.BLL.Services;
+using System.Linq;
+using OnlinerTask.BLL.Repository;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class ProductController : ApiController
     {
+        private ISearchService search_service;
+        private IRepository repository;
 
-        public string Get()
+        public ProductController(ISearchService service, IRepository repo)
         {
-            return "value";
+            search_service = service;
+            repository = repo;
+        }
+
+        public void Get()
+        {
+
         }
         
-        public async Task<List<ProductModel>> Post(Responce responce)
+        public async Task<List<ProductModel>> Post(Request responce)
         {
-            if (responce == null || String.IsNullOrEmpty(responce.SearchString))
-                return null;
-            HttpWebRequest request = SearchService.OnlinerRequest(responce.SearchString);
-            HttpWebResponse webResponse = (HttpWebResponse)(await request.GetResponseAsync());
-            var result = SearchService.ProductsFromOnliner(webResponse);
-            return result.products;
+            return await search_service.GetProducts(responce, repository, User.Identity.Name);
+        }
+
+        public async void Put(Request responce)
+        {
+            var result = (await Post(responce)).FirstOrDefault();
+            repository.CreateOnlinerProduct(result, User.Identity.Name);
         }
         
-        public void Put(int id, [FromBody]string value)
+        public void Delete(DeleteRequest request)
         {
-        }
-        
-        public void Delete(int id)
-        {
+            repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
+            return;
         }
     }
 }

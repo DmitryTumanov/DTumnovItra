@@ -48,6 +48,9 @@ namespace OnlinerTask.WEB
 
             bundles.Add(new ScriptBundle("~/bundles/search").Include(
                 "~/Scripts/search/search.viewmodel.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/cabinet").Include(
+                "~/Scripts/cabinet/cabinet.viewmodel.js"));
         }
     }
 }

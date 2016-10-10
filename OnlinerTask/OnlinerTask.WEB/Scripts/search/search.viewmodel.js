@@ -15,6 +15,20 @@ function handleKeyDown() {
     });
 }
 
+function handleCheckBox(item) {
+    if (!item.is_checked) {
+        sendAjaxRequest("DELETE", null, null, {
+            ItemId: item.id
+        });
+    }
+    else {
+        sendAjaxRequest("PUT", null, null, {
+            SearchString: item.key
+        });
+    }
+    return true;
+}
+
 function sendAjaxRequest(httpMethod, callback, url, reqData) {
     $.ajax("/api/Product" + (url ? "/" + url : ""), {
         type: httpMethod,
