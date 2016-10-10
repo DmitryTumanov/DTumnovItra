@@ -18,5 +18,8 @@ namespace OnlinerTask.BLL.Repository
         Task<bool> CheckItem(int ItemId, string Username);
         Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string UserName);
         List<Product> GetPersonalProducts(string name);
+        List<Product> GetAllProducts();
+        bool UpdateProduct(Product item);
+        bool WriteUpdateToProduct(Product item, DateTime time);
     }
 }

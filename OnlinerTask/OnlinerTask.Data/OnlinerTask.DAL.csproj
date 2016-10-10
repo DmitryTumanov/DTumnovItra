@@ -62,6 +62,7 @@
     <Compile Include="DBModels\PriceAmmount.cs" />
     <Compile Include="DBModels\Product.cs" />
     <Compile Include="DBModels\Review.cs" />
+    <Compile Include="DBModels\UpdatedProducts.cs" />
     <Compile Include="EntityMappers\ImageMapper.cs" />
     <Compile Include="EntityMappers\OfferMapper.cs" />
     <Compile Include="EntityMappers\PriceAmmountMapper.cs" />

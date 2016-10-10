@@ -20,3 +20,6 @@ C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\EntityFrame
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\EntityFramework.xml
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\FluentScheduler.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\FluentScheduler.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.BLL\bin\Debug\FluentScheduler.xml
