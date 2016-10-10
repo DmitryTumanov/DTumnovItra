@@ -25,7 +25,8 @@ namespace OnlinerTask.WEB.Controllers
 
         public IEnumerable<ProductModel> Get()
         {
-            return repository.GetPersonalProducts(User.Identity.Name).Select(x => ProductMapper.ConvertToModel(x));
+            var result = repository.GetPersonalProducts(User.Identity.Name).Select(x => ProductMapper.ConvertToModel(x));
+            return result;
         }
 
         public void Post()

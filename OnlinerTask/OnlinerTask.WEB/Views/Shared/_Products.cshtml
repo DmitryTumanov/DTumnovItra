@@ -1,74 +1,77 @@
-﻿<div class="schema-products" data-bind="foreach: model.products">
-    <div class="schema-product-group">
-        <div class="schema-product">
+﻿<div ng-controller="APIController">
+    <div class="schema-products" data-ng-repeat="item in products">
+        <div class="schema-product-group">
+            <div class="schema-product">
 
-            <div class="schema-product-part schema-product-part_1">
+                <div class="schema-product-part schema-product-part_1">
 
-                <div class="schema-product-compare">
+                    <div class="schema-product-compare">
                         <div name="schema-product-compare-template">
                             <label class="schema-product-control">
                                 <span class="i-checkbox i-checkbox_yellow">
-                                    <input type="checkbox" class="i-checkbox-real" data-bind="checked: is_checked, click: handleCheckBox">
+                                    @*data-bind="checked: is_checked, click: handleCheckBox"*@
+                                    <input type="checkbox" ng-model="item.is_checked" class="i-checkbox-real" checked="{{item.is_checked}}" ng-change="checkboxChange(item)">
                                     <span class="i-checkbox-faux"></span>
                                 </span>
                             </label>
                         </div>
                     </div>
 
-                <div class="schema-product-image">
-                    <a href="">
-                        <img data-bind="attr:{src: images.header}" alt="" title="" style="max-width: 84.1176%;">
-                    </a>
-                </div>
-
-            </div>
-
-            <div class="schema-product-part schema-product-part_2">
-                <div class="schema-product-part schema-product-part_3">
-
-                    <div class="schema-product-price-group" data-bind="ifnot: prices===null">
-                        <div class="schema-product-price">
-                            <a class="schema-product-price-value schema-product-price-value_primary" data-bind="attr:{href:prices.html_url}">
-                                от <span data-bind="text: prices.price_min.amount +' '+ prices.price_min.currency"></span>
-                                <span data-bind="ifnot: prices.price_min.amount===prices.price_max.amount">до <span data-bind="text: prices.price_max.amount +' '+ prices.price_max.currency"></span></span>
-                            </a>
-                        </div>
-
-                        <div class="schema-product-offers">
-                            <a class="button button_orange schema-product-button" data-bind="attr:{href:prices.html_url}">
-                                <span data-bind="text:'Предложений:' + prices.offers.count"></span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="schema-product-part schema-product-part_4">
-
-                    <div class="schema-product-title">
-                        <a data-bind="attr:{href:html_url}">
-                            <span data-bind="text: full_name"></span>
+                    <div class="schema-product-image" ng-if="item.images.header">
+                        <a href="{{item.images.header}}">
+                            <img src="{{item.images.header}}" alt="" title="" style="max-width: 84.1176%;">
                         </a>
                     </div>
 
-                    <div class="schema-product-description">
-                        <span data-bind="text: description"></span>
-                    </div>
+                </div>
 
-                    <div class="schema-product-info">
-                        <div class="schema-product-rating-group">
-                            <a class="schema-product-rating" data-bind="attr:{href:reviews.html_url}">
-                                <span data-bind="attr: {class: 'rating rating_' + reviews.rating}"></span>
-                                <span class="schema-product-review-count">
-                                    <span data-bind="text: 'отзывов: '+reviews.count"></span>
-                                </span>
+                <div class="schema-product-part schema-product-part_2">
+                    <div class="schema-product-part schema-product-part_3">
+
+                        <div class="schema-product-price-group" ng-if="item.prices">
+                            <div class="schema-product-price">
+                                <a class="schema-product-price-value schema-product-price-value_primary" href="{{item.prices.html_url}}">
+                                    от <span>{{item.prices.price_min.amount}} {{item.prices.price_min.currency}}</span>
+                                    <span ng-if="item.prices.price_min.amount != item.prices.price_max.amount">до <span>{{item.prices.price_max.amount}} {{item.prices.price_max.currency}}</span></span>
+                                </a>
+                            </div>
+
+                            <div class="schema-product-offers">
+                                <a class="button button_orange schema-product-button" href="{{item.prices.html_url}}">
+                                    <span>Предложений:{{item.prices.offers.count}}</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="schema-product-part schema-product-part_4">
+
+                        <div class="schema-product-title">
+                            <a href="{{item.html_url}}">
+                                <span>{{item.full_name}}</span>
                             </a>
                         </div>
 
-                        <div class="schema-product-info-additional" data-bind="if: review_url != null">
-                            <a class="schema-product-info-link" data-bind="attr:{href:review_url}">Обзор</a>
+                        <div class="schema-product-description">
+                            <span>{{item.description}}</span>
                         </div>
-                    </div>
 
+                        <div class="schema-product-info">
+                            <div class="schema-product-rating-group">
+                                <a class="schema-product-rating" href="{{item.reviews.html_url}}">
+                                    <span class="rating rating_{{item.reviews.rating}}"></span>
+                                    <span class="schema-product-review-count">
+                                        <span>отзывов:{{item.reviews.count}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="schema-product-info-additional" ng-if="item.review_url">
+                                <a class="schema-product-info-link" href="{{item.review_url}}">Обзор</a>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
