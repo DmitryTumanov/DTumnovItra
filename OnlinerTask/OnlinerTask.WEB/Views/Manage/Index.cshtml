@@ -38,14 +38,16 @@
 </div>
 @section SPAViews {
     <div ng-controller="APIController">
+        <div style="float: left; font-size:15px;" >
+            <span style="font-weight: bold;">Time to get emails: </span><span id="timeDisplay">{{emailtime | date:'h:mm a'}}</span>
+            <button class="button button_orange schema-product-button" ng-click="submitTime()" id="submitbutton">Submit</button>
+        </div>
         <div class="input-group bootstrap-timepicker timepicker">
-            <input id="timepicker1" type="text" class="form-control input-small">
+            <input id="timepicker" type="text" class="form-control input-small">
             <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
         </div>
+        <hr />
         @Html.Partial("_Products")
-    </div>
-    <div class="bootstrap-timepicker-widget dropdown-menu timepicker-orient-left timepicker-orient-top open" style="top: 940px; left: 119px; z-index: 10;">
-        <table><tbody><tr><td><a href="#" data-action="incrementHour"><span class="glyphicon glyphicon-chevron-up"></span></a></td><td class="separator">&nbsp;</td><td><a href="#" data-action="incrementMinute"><span class="glyphicon glyphicon-chevron-up"></span></a></td><td class="separator">&nbsp;</td><td class="meridian-column"><a href="#" data-action="toggleMeridian"><span class="glyphicon glyphicon-chevron-up"></span></a></td></tr><tr><td><input type="text" class="bootstrap-timepicker-hour" maxlength="2"></td> <td class="separator">:</td><td><input type="text" class="bootstrap-timepicker-minute" maxlength="2"></td> <td class="separator">&nbsp;</td><td><input type="text" class="bootstrap-timepicker-meridian" maxlength="2"></td></tr><tr><td><a href="#" data-action="decrementHour"><span class="glyphicon glyphicon-chevron-down"></span></a></td><td class="separator"></td><td><a href="#" data-action="decrementMinute"><span class="glyphicon glyphicon-chevron-down"></span></a></td><td class="separator">&nbsp;</td><td><a href="#" data-action="toggleMeridian"><span class="glyphicon glyphicon-chevron-down"></span></a></td></tr></tbody></table>
     </div>
 }
 @section Scripts{

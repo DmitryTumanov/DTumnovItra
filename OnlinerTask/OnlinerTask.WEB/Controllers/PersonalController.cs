@@ -2,6 +2,8 @@
 using OnlinerTask.BLL.Services;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.Data.EntityMappers;
+using OnlinerTask.Data.SearchModels;
+using OnlinerTask.WEB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +25,31 @@ namespace OnlinerTask.WEB.Controllers
             this.repository = repository;
         }
 
-        public IEnumerable<ProductModel> Get()
+        public SearchResult Get()
         {
             var result = repository.GetPersonalProducts(User.Identity.Name).Select(x => new ProductMapper().ConvertToModel(x));
-            return result;
+            using (var db = new ApplicationDbContext())
+            {
+                var time = DateTime.Now;
+                var user = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                if (user != null) {
+                    time = user.EmailTime;
+                }
+                return new SearchResult() { EmailTime = time, Products = result.ToList()};
+            }
         }
 
-        public void Post()
+        public void Post(TimeRequest request)
         {
-
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                if (user != null && request != null)
+                {
+                    user.EmailTime = request.Time;
+                    db.SaveChanges();
+                }
+            }
         }
 
         public async void Put(Request responce)

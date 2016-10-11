@@ -79,6 +79,7 @@
     <Compile Include="SearchModels\Request.cs" />
     <Compile Include="SearchModels\ReviewModel.cs" />
     <Compile Include="SearchModels\SearchModels.cs" />
+    <Compile Include="SearchModels\TimeRequest.cs" />
     <Compile Include="SearchModels\UsersAndProducts.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -148,14 +148,14 @@
     padding: 4px;
 }
 
-@@media (min-width: 767px) {
+@media (min-width: 767px) {
     .bootstrap-timepicker-widget.modal {
         width: 200px;
         margin-left: -100px;
     }
 }
 
-@@media (max-width: 767px) {
+@media (max-width: 767px) {
     .bootstrap-timepicker {
         width: 100%;
     }
@@ -163,4 +163,14 @@
         .bootstrap-timepicker .dropdown-menu {
             width: 100%;
         }
+}
+
+#timepicker{
+    float: right;
+    max-width: 200px;
+}
+
+#submitbutton{
+    float: right;
+     margin-left:20px;
 }
