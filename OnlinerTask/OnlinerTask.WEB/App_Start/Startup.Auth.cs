@@ -10,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using OnlinerTask.WEB.Providers;
 using OnlinerTask.WEB.Models;
+using Microsoft.Owin.Security.Twitter;
+using Microsoft.Owin.Security;
 
 namespace OnlinerTask.WEB
 {
@@ -75,13 +77,33 @@ namespace OnlinerTask.WEB
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            app.UseTwitterAuthentication(
+            new TwitterAuthenticationOptions
+            {
+                ConsumerKey = "OvdaXSkVSssliH7zKdmgURwWG",
+                ConsumerSecret = "Dm6pUhHXyQGiPLZea6cTO9S0a0E9AeDXro0zNjNNudaGDWr8NF",
+                BackchannelCertificateValidator = new CertificateSubjectKeyIdentifierValidator(
+            new[]
+            {
+              "A5EF0B11CEC04103A34A659048B21CE0572D7D47",
+               "0D445C165344C1827E1D20AB25F40163D8BE79A5",
+               "7FD365A7C2DDECBBF03009F34339FA02AF333133",
+               "39A55D933676616E73A761DFA16A7E59CDE66FAD",
+               "4EB6D578499B1CCF5F581EAD56BE3D9B6744A5E5",
+               "5168FF90AF0207753CCCD9656462A212B859723B",
+               "B13EC36903F8BF4701D498261A0802EF63642BC3",
+               "B77DDB6867D3B325E01C90793413E15BF0E44DF2"
+            })
+            });
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "651925884980913",
+               appSecret: "3f4a54efb64c5e4c1959df57e7d13a1a");
+
+            app.UseVkontakteAuthentication(
+                appId: "5663743",
+                appSecret: "nfNHWv61xeYGbS9XAXMz",
+                scope: "email,");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

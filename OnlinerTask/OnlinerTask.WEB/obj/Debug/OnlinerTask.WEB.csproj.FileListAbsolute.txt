@@ -194,3 +194,9 @@ C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\WebActivatorEx.dl
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.xml
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.Web.Common.xml
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Ninject.Web.Mvc.xml
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\obj\Debug\OnlinerTask.WEB.Migrations.DateTimeEnable.resources
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\obj\Debug\OnlinerTask.WEB.csproj.GenerateResource.Cache
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\FluentScheduler.dll
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\FluentScheduler.pdb
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\FluentScheduler.xml
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Duke.Owin.VkontakteMiddleware.dll

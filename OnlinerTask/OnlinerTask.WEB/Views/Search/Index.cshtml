@@ -1,12 +1,12 @@
 ﻿@section Styles{
-    @*@Styles.Render("~/Content/search")*@
     <link href="~/Content/onliner.css" rel="stylesheet" />
     <link href="~/Content/onliner.addition.css" rel="stylesheet" />
 }
 @section SPAViews {
-    @Html.Partial("_Search")
+    <div ng-controller="APIController">
+        @Html.Partial("_Search")
+    </div>
 }
 @section Scripts{
-    @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/search")
 }

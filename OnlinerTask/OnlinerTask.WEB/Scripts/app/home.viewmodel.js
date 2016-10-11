@@ -1,7 +1,7 @@
 ﻿function SearchViewModel(app, dataModel) {
     var self = this;
 
-    self.myHometown = ko.observable("");
+    self.myEmail = ko.observable("");
 
     Sammy(function () {
         this.get('#home', function () {
@@ -14,11 +14,11 @@
                     'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
                 },
                 success: function (data) {
-                    self.myHometown('Your Hometown is : ' + data);
+                    self.myEmail('Your Email is : ' + data);
                 }
             });
         });
-        this.get('/', function () { this.app.runRoute('get', '#home') });
+        this.get('/', function () { this.app.runRoute('get', '#home'); });
     });
 
     return self;

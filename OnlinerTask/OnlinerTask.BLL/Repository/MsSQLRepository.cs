@@ -6,6 +6,7 @@ using OnlinerTask.Data.DBModels;
 using System.Data.Entity;
 using OnlinerTask.Data.EntityMappers;
 using OnlinerTask.BLL.Extensions;
+using System;
 
 namespace OnlinerTask.BLL.Repository
 {
@@ -24,7 +25,7 @@ namespace OnlinerTask.BLL.Repository
         {
             using (var context = new OnlinerProducts())
             {
-                return await context.Products.FirstOrDefaultAsync(x => x.ProductId == ItemId && x.UserEmail == Username) != null ? true : false;
+                return await context.Product.FirstOrDefaultAsync(x => x.ProductId == ItemId && x.UserEmail == Username) != null ? true : false;
             }
         }
 
@@ -52,7 +53,7 @@ namespace OnlinerTask.BLL.Repository
             }
             using (var context = new OnlinerProducts())
             {
-                context.PriceAmmounts.Add(price);
+                context.PriceAmmount.Add(price);
                 context.SaveChanges();
                 return price.Id;
             }
@@ -68,7 +69,7 @@ namespace OnlinerTask.BLL.Repository
             {
                 using (var context = new OnlinerProducts())
                 {
-                    context.Products.Add(product);
+                    context.Product.Add((Product)product);
                     context.SaveChanges();
                     return true;
                 }
@@ -79,13 +80,13 @@ namespace OnlinerTask.BLL.Repository
         {
             using (var context = new OnlinerProducts())
             {
-                var model = context.Products.Where(x => x.UserEmail == name && x.ProductId == itemId).FirstOrDefault();
+                var model = context.Product.Where(x => x.UserEmail == name && x.ProductId == itemId).FirstOrDefault();
                 if (model == null)
                 {
                     return false;
                 }
                 RemovePriceAmount(model.Price.PriceMaxId, model.Price.PriceMinId);
-                context.Products.Remove(model);
+                context.Product.Remove(model);
                 context.SaveChanges();
                 return true;
             }
@@ -95,29 +96,29 @@ namespace OnlinerTask.BLL.Repository
         {
             using (var context = new OnlinerProducts())
             {
-                var minprice = context.PriceAmmounts.Where(x => x.Id == priceMinId).FirstOrDefault();
-                var maxprice = context.PriceAmmounts.Where(x => x.Id == priceMaxId).FirstOrDefault();
+                var minprice = context.PriceAmmount.Where(x => x.Id == priceMinId).FirstOrDefault();
+                var maxprice = context.PriceAmmount.Where(x => x.Id == priceMaxId).FirstOrDefault();
                 if (maxprice != null)
                 {
-                    context.PriceAmmounts.Remove(maxprice);
+                    context.PriceAmmount.Remove(maxprice);
                 }
                 if (minprice != null)
                 {
-                    context.PriceAmmounts.Remove(minprice);
+                    context.PriceAmmount.Remove(minprice);
                 }
             }
         }
 
         private Product ModelToDB(ProductModel model, string UserEmail, int maxid, int minid)
         {
-            return new ProductMapper(model, UserEmail, maxid, minid);
+            return new ProductMapper().ConvertToModel(model, UserEmail, maxid, minid);
         }
 
         public List<Product> GetPersonalProducts(string name)
         {
             using (var context = new OnlinerProducts())
             {
-                return context.Products.Where(x => x.UserEmail == name)
+                return context.Product.Where(x => x.UserEmail == name)
                     .OrderBy(x => x.FullName)
                     .Include(x => x.Image)
                     .Include(x => x.Price)
@@ -125,6 +126,94 @@ namespace OnlinerTask.BLL.Repository
                     .Include(x => x.Price.PriceMinAmmount)
                     .Include(x => x.Price.PriceMaxAmmount)
                     .Include(x => x.Review).ToList();
+            }
+        }
+
+        public List<Product> GetAllProducts()
+        {
+            using (var context = new OnlinerProducts())
+            {
+                return context.Product
+                    .Include(x => x.Image)
+                    .Include(x => x.Price)
+                    .Include(x => x.Price.Offer)
+                    .Include(x => x.Price.PriceMinAmmount)
+                    .Include(x => x.Price.PriceMaxAmmount)
+                    .Include(x => x.Review).ToList();
+            }
+        }
+
+        public bool UpdateProduct(Product item)
+        {
+            if(item == null)
+            {
+                return false;
+            }
+            using(var db = new OnlinerProducts())
+            {
+                var product = db.Product.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
+                if(product == null)
+                {
+                    return false;
+                }
+                product = item;
+                db.SaveChanges();
+                return true;
+            }
+        }
+
+        public bool WriteUpdateToProduct(Product item, DateTime time)
+        {
+            if(item == null)
+            {
+                return false;
+            }
+            using(var db = new OnlinerProducts())
+            {
+                var model = db.UpdatedProducts.FirstOrDefault(x => x.ProductId == item.Id && x.UserEmail == item.UserEmail);
+                if (model != null)
+                {
+                    model.TimeToSend = time;
+                }
+                else
+                {
+                    db.UpdatedProducts.Add(new UpdatedProducts()
+                    {
+                        ProductId = item.Id,
+                        UserEmail = item.UserEmail,
+                        TimeToSend = time
+                    });
+                }
+                return UpdateProduct(item);
+            }
+        }
+
+        public IEnumerable<UsersAndProducts> GetUsersAndProducts()
+        {
+            using(var db = new OnlinerProducts())
+            {
+                var userslist = new List<UsersAndProducts>();
+                var updatelist = db.UpdatedProducts.ToList();
+                foreach(var i in updatelist)
+                {
+                    var model = db.Product.Where(x => x.UserEmail == i.UserEmail && x.Id == i.ProductId).Select(x=>x.Name).FirstOrDefault();
+                    userslist.Add(new UsersAndProducts() { ProductName = model, UserEmail = i.UserEmail, Id = i.Id, Time = (DateTime)i.TimeToSend });
+                };
+                return userslist;
+            }
+        }
+
+        public void DeleteUserAndProduct(int id, string userEmail)
+        {
+            using(var db = new OnlinerProducts())
+            {
+                var model = db.UpdatedProducts.FirstOrDefault(x => x.UserEmail == userEmail && x.Id == id);
+                if(model == null)
+                {
+                    return;
+                }
+                db.UpdatedProducts.Remove(model);
+                db.SaveChanges();
             }
         }
     }

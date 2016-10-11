@@ -4,16 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    [NotMapped]
-    public class PriceAmmountMapper: PriceAmmount
+    public class PriceAmmountMapper
     {
-        public PriceAmmountMapper() : base() { }
-        public PriceAmmountMapper(PriceAmmountModel model, int priceid):base()
-        {
-            this.Currency = model.Currency;
-            this.Amount = model.Amount;
-            this.Id = priceid;
-        }
+        public PriceAmmountMapper() { }
 
         public PriceAmmountModel ConvertToModel(PriceAmmount dbmodel)
         {
@@ -21,6 +14,16 @@ namespace OnlinerTask.Data.EntityMappers
             {
                 Amount = (double)dbmodel.Amount,
                 Currency = dbmodel.Currency
+            };
+        }
+
+        public PriceAmmount ConvertToModel(PriceAmmountModel model, int priceid)
+        {
+            return new PriceAmmount()
+            {
+                Id = priceid,
+                Amount = (double)model.Amount,
+                Currency = model.Currency
             };
         }
     }

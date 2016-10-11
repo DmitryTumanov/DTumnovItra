@@ -23,6 +23,19 @@
         });
     };
 
+    this.changeTime = function (time) {
+        return $http({
+            method: 'POST',
+            url: '/api/Personal',
+            data: {
+                Time: time
+            },
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+            }
+        });
+    }
+
     this.uncheckProduct = function (productid) {
         return $http({
             method: 'DELETE',

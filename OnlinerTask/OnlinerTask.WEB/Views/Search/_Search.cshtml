@@ -1,4 +1,4 @@
 ﻿<div class="search-div">
-    <input class="search-input" type="text" placeholder="Поиск в Каталоге." tabindex="1" name="query" data-bind="value: search_string, event: { 'keyup': handleKeyDown }, valueUpdate : 'afterkeydown'" />
+    <input class="search-input" type="text" placeholder="Поиск в Каталоге." ng-model="search_string" tabindex="1" name="query" value="{{search_string}}" ng-change="getSearchProducts(search_string)"/>
 </div>
 @Html.Partial("_Products")

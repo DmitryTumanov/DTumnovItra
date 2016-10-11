@@ -15,7 +15,7 @@ namespace OnlinerTask.Data.DBModels
         public int? Rating { get; set; }
 
         public int? Count { get; set; }
-        
+
         public string HtmlUrl { get; set; }
 
         public virtual Product Product { get; set; }
