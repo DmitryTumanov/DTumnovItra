@@ -199,3 +199,4 @@ C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\obj\Debug\OnlinerTask
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\FluentScheduler.dll
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\FluentScheduler.pdb
 C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\FluentScheduler.xml
+C:\Users\d.tumanov\DTumnovItra\OnlinerTask\OnlinerTask.WEB\bin\Duke.Owin.VkontakteMiddleware.dll
