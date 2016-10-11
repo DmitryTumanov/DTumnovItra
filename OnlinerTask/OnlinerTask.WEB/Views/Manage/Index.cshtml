@@ -37,10 +37,13 @@
     </dl>
 </div>
 @section SPAViews {
-    <div ng-controller="APIController">
+    <div id="outer" ng-controller="APIController">
         <div style="float: left; font-size:15px;" >
-            <span style="font-weight: bold;">Time to get emails: </span><span id="timeDisplay">{{emailtime | date:'h:mm a'}}</span>
+            <span style="font-weight: bold; margin-left:45px;">Time to get emails: </span>
+            <span id="oldtimeDisplay">{{emailtime | date:'h:mm a'}}</span>
+            <span id="timeDisplay"></span>
             <button class="button button_orange schema-product-button" ng-click="submitTime()" id="submitbutton">Submit</button>
+            <button class="button schema-product-button" id="cancelbutton">Cancel</button>
         </div>
         <div class="input-group bootstrap-timepicker timepicker">
             <input id="timepicker" type="text" class="form-control input-small">

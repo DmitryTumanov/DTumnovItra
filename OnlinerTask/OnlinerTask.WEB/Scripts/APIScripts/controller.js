@@ -1,4 +1,4 @@
-﻿app.controller('APIController', function ($scope, APIService) {
+﻿app.controller('APIController', function ($scope, $filter, APIService) {
     getAll();
 
     $scope.checkboxChange = function (item) {
@@ -15,6 +15,7 @@
         var time = $('#timepicker').val();
         APIService.changeTime(time);
         $('#submitbutton').hide();
+        $('#cancelbutton').hide();
     };
 
     function getAll() {
