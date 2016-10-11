@@ -47,10 +47,23 @@ namespace OnlinerTask.WEB
                 "~/Content/onliner.addition.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/search").Include(
-                "~/Scripts/search/search.viewmodel.js"));
+                "~/Scripts/APIScripts/search.service.js",
+                "~/Scripts/APIScripts/search.controller.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/cabinet").Include(
-                "~/Scripts/cabinet/cabinet.viewmodel.js"));
+                "~/Scripts/APIScripts/service.js",
+                "~/Scripts/APIScripts/controller.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Scripts/angular.js",
+                "~/Scripts/angular-route.js",
+                "~/Scripts/APIScripts/module.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/timer").Include(
+                "~/Scripts/jquery-1.10.2.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/bootstrap-timepicker.js",
+                "~/Scripts/timeexec.js"));
         }
     }
 }

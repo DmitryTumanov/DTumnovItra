@@ -1,5 +1,4 @@
 ﻿@section Styles{
-    @*@Styles.Render("~/Content/search")*@
     <link href="~/Content/onliner.css" rel="stylesheet" />
     <link href="~/Content/onliner.addition.css" rel="stylesheet" />
 }
@@ -9,6 +8,5 @@
     </div>
 }
 @section Scripts{
-    <script src="~/Scripts/APIScripts/search.controller.js"></script>
-    <script src="~/Scripts/APIScripts/search.service.js"></script>
+    @Scripts.Render("~/bundles/search")
 }
