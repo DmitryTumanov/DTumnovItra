@@ -76,37 +76,35 @@ namespace OnlinerTask.BLL.Repository
             }
         }
 
-        public bool RemoveOnlinerProduct(int itemId, string name)
+        public async Task<bool> RemoveOnlinerProduct(int itemId, string name)
         {
             using (var context = new OnlinerProducts())
             {
-                var model = context.Product.Where(x => x.UserEmail == name && x.ProductId == itemId).FirstOrDefault();
+                var model = await context.Product.FirstOrDefaultAsync(x => x.UserEmail == name && x.ProductId == itemId);
                 if (model == null)
                 {
                     return false;
                 }
-                RemovePriceAmount(model.Price.PriceMaxId, model.Price.PriceMinId);
+                await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
                 context.Product.Remove(model);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
         }
 
-        public void RemovePriceAmount(int? priceMaxId, int? priceMinId)
+        private async Task RemovePriceAmount(OnlinerProducts context, int? priceMaxId, int? priceMinId)
         {
-            using (var context = new OnlinerProducts())
+            var minprice = await context.PriceAmmount.FirstOrDefaultAsync(x => x.Id == priceMinId);
+            var maxprice = await context.PriceAmmount.FirstOrDefaultAsync(x => x.Id == priceMaxId);
+            if (maxprice != null)
             {
-                var minprice = context.PriceAmmount.Where(x => x.Id == priceMinId).FirstOrDefault();
-                var maxprice = context.PriceAmmount.Where(x => x.Id == priceMaxId).FirstOrDefault();
-                if (maxprice != null)
-                {
-                    context.PriceAmmount.Remove(maxprice);
-                }
-                if (minprice != null)
-                {
-                    context.PriceAmmount.Remove(minprice);
-                }
+                context.PriceAmmount.Remove(maxprice);
             }
+            if (minprice != null)
+            {
+                context.PriceAmmount.Remove(minprice);
+            }
+            await context.SaveChangesAsync();
         }
 
         private Product ModelToDB(ProductModel model, string UserEmail, int maxid, int minid)
@@ -145,14 +143,14 @@ namespace OnlinerTask.BLL.Repository
 
         public bool UpdateProduct(Product item)
         {
-            if(item == null)
+            if (item == null)
             {
                 return false;
             }
-            using(var db = new OnlinerProducts())
+            using (var db = new OnlinerProducts())
             {
                 var product = db.Product.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
-                if(product == null)
+                if (product == null)
                 {
                     return false;
                 }
@@ -164,11 +162,11 @@ namespace OnlinerTask.BLL.Repository
 
         public bool WriteUpdateToProduct(Product item, DateTime time)
         {
-            if(item == null)
+            if (item == null)
             {
                 return false;
             }
-            using(var db = new OnlinerProducts())
+            using (var db = new OnlinerProducts())
             {
                 var model = db.UpdatedProducts.FirstOrDefault(x => x.ProductId == item.Id && x.UserEmail == item.UserEmail);
                 if (model != null)
@@ -190,13 +188,13 @@ namespace OnlinerTask.BLL.Repository
 
         public IEnumerable<UsersAndProducts> GetUsersAndProducts()
         {
-            using(var db = new OnlinerProducts())
+            using (var db = new OnlinerProducts())
             {
                 var userslist = new List<UsersAndProducts>();
                 var updatelist = db.UpdatedProducts.ToList();
-                foreach(var i in updatelist)
+                foreach (var i in updatelist)
                 {
-                    var model = db.Product.Where(x => x.UserEmail == i.UserEmail && x.Id == i.ProductId).Select(x=>x.Name).FirstOrDefault();
+                    var model = db.Product.Where(x => x.UserEmail == i.UserEmail && x.Id == i.ProductId).Select(x => x.Name).FirstOrDefault();
                     userslist.Add(new UsersAndProducts() { ProductName = model, UserEmail = i.UserEmail, Id = i.Id, Time = (DateTime)i.TimeToSend });
                 };
                 return userslist;
@@ -205,10 +203,10 @@ namespace OnlinerTask.BLL.Repository
 
         public void DeleteUserAndProduct(int id, string userEmail)
         {
-            using(var db = new OnlinerProducts())
+            using (var db = new OnlinerProducts())
             {
                 var model = db.UpdatedProducts.FirstOrDefault(x => x.UserEmail == userEmail && x.Id == id);
-                if(model == null)
+                if (model == null)
                 {
                     return;
                 }

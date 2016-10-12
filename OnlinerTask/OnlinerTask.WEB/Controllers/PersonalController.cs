@@ -52,16 +52,15 @@ namespace OnlinerTask.WEB.Controllers
             }
         }
 
-        public async void Put(Request responce)
+        public async Task Put(Request responce)
         {
             var result = (await search_service.GetProducts(responce, repository, User.Identity.Name)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, User.Identity.Name);
         }
 
-        public void Delete(DeleteRequest request)
+        public async Task Delete(DeleteRequest request)
         {
-            repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
-            return;
+            await repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
         }
     }
 }
