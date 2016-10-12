@@ -11,6 +11,7 @@ using System.Data.Entity;
 using OnlinerTask.Data.EntityMappers;
 using System.Threading.Tasks;
 using OnlinerTask.WEB.Models;
+using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.Tests
 {
@@ -58,7 +59,7 @@ namespace OnlinerTask.Tests
         {
             var testemail = ProductsFromDB().First().UserEmail;
             var controller = new PersonalController(new SearchService(), new MsSQLRepository());
-            var controllerresponce = controller.Get();
+            var controllerresponce = controller.Get(testemail);
             using (var db = new ApplicationDbContext())
             {
                 var testtime = db.Users.FirstOrDefault(x => x.Email == testemail).EmailTime;
@@ -67,9 +68,23 @@ namespace OnlinerTask.Tests
             }
             using (var mdb = new OnlinerProducts())
             {
-                var testproducts = ProductsFromDB().Where(x => x.UserEmail == testemail).Select(x => new ProductMapper().ConvertToModel(x));
+                var testproducts = ProductsFromDB().Where(x => x.UserEmail == testemail).Select(x => new ProductMapper().ConvertToModel(x)).ToList();
                 var actualproducts = controllerresponce.Products;
-                Assert.AreEqual(testproducts, actualproducts);
+                Assert.AreEqual(testproducts.Count, actualproducts.Count);
+            }
+        }
+
+        [TestMethod]
+        public void PersonalPOST()
+        {
+            var testemail = ProductsFromDB().First().UserEmail;
+            var actualtime = DateTime.Now;
+            var controller = new PersonalController(new SearchService(), new MsSQLRepository());
+            using (var db = new ApplicationDbContext())
+            {
+                controller.Post(new TimeRequest() { Time = actualtime }, testemail);
+                var usertime = db.Users.FirstOrDefault(x => x.Email == testemail).EmailTime;
+                Assert.AreEqual(usertime.ToString("hh:mm:ss.F"), actualtime.ToString("hh:mm:ss.F"));
             }
         }
 

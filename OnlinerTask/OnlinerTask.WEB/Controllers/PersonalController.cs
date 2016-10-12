@@ -25,13 +25,13 @@ namespace OnlinerTask.WEB.Controllers
             this.repository = repository;
         }
 
-        public SearchResult Get()
+        public SearchResult Get(string testname = null)
         {
-            var result = repository.GetPersonalProducts(User.Identity.Name).Select(x => new ProductMapper().ConvertToModel(x));
+            var result = repository.GetPersonalProducts(testname ?? User.Identity.Name).Select(x => new ProductMapper().ConvertToModel(x));
             using (var db = new ApplicationDbContext())
             {
                 var time = DateTime.Now;
-                var user = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var user = db.Users.Where(x => x.UserName == (testname ?? User.Identity.Name)).FirstOrDefault();
                 if (user != null) {
                     time = user.EmailTime;
                 }
@@ -39,11 +39,11 @@ namespace OnlinerTask.WEB.Controllers
             }
         }
 
-        public void Post(TimeRequest request)
+        public void Post(TimeRequest request, string testname = null)
         {
             using (var db = new ApplicationDbContext())
             {
-                var user = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var user = db.Users.FirstOrDefault(x => x.UserName == (testname ?? User.Identity.Name));
                 if (user != null && request != null)
                 {
                     user.EmailTime = request.Time;
