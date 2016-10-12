@@ -30,8 +30,8 @@
                     <div class="schema-product-price-group" ng-if="item.prices">
                         <div class="schema-product-price">
                             <a class="schema-product-price-value schema-product-price-value_primary" href="{{item.prices.html_url}}">
-                                от <span>{{item.prices.price_min.amount}} {{item.prices.price_min.currency}}</span>
-                                <span ng-if="item.prices.price_min.amount != item.prices.price_max.amount">до <span>{{item.prices.price_max.amount}} {{item.prices.price_max.currency}}</span></span>
+                                от <span>{{item.prices.price_min.amount * selectedCurrency.factor | number:2}} {{selectedCurrency.name}}</span>
+                                <span ng-if="item.prices.price_min.amount != item.prices.price_max.amount">до <span>{{item.prices.price_max.amount * selectedCurrency.factor| number:2}} {{selectedCurrency.name}}</span></span>
                             </a>
                         </div>
 

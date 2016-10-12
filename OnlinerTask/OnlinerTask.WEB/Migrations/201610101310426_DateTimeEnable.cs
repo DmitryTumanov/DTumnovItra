@@ -75,15 +75,15 @@ namespace OnlinerTask.WEB.Migrations
             //    .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
             //    .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
             //    .Index(t => t.UserId);
-            DropColumn("dbo.AspNetUsers", "Hometown");
-            AddColumn("dbo.AspNetUsers", "EmailTime", c => c.DateTime(nullable: true, defaultValue: DateTime.Now));
+            //DropColumn("dbo.AspNetUsers", "Hometown");
+            //AddColumn("dbo.AspNetUsers", "EmailTime", c => c.DateTime(nullable: true, defaultValue: DateTime.Now));
 
         }
         
         public override void Down()
         {
-            DropColumn("dbo.AspNetUsers", "EmailTime");
-            AddColumn("dbo.AspNetUsers", "Hometown", c => c.String(nullable: false));
+            //DropColumn("dbo.AspNetUsers", "EmailTime");
+            //AddColumn("dbo.AspNetUsers", "Hometown", c => c.String(nullable: false));
             //DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             //DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             //DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
