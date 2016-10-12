@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.SearchModels;
 using OnlinerTask.BLL.Services;
 using System.Linq;
 using OnlinerTask.Data.Repository;
+using System.Net.Http;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.WEB.Controllers
 {
@@ -22,19 +24,19 @@ namespace OnlinerTask.WEB.Controllers
             repository = repo;
         }
 
-        public void Get()
+        public HttpResponseMessage Get()
         {
-
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
         
-        public async Task<List<ProductModel>> Post(Request responce)
+        public async Task<List<ProductModel>> Post(SearchRequest request)
         {
-            return await search_service.GetProducts(responce, repository, User.Identity.Name);
+            return await search_service.GetProducts(request, repository, User.Identity.Name);
         }
 
-        public async Task Put(Request responce, string testname = null)
+        public async Task Put(PutRequest request, string testname = null)
         {
-            var result = (await Post(responce)).FirstOrDefault();
+            var result = (await Post(request)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
         }
         

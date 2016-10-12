@@ -38,6 +38,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -71,23 +79,42 @@
     <Compile Include="EntityMappers\ProductMapper.cs" />
     <Compile Include="EntityMappers\ReviewMapper.cs" />
     <Compile Include="Extensions\AsyncOperations.cs" />
+    <Compile Include="IdentityModels\IdentityModels.cs" />
+    <Compile Include="Migrations\201610101310426_DateTimeEnable.cs" />
+    <Compile Include="Migrations\201610101310426_DateTimeEnable.Designer.cs">
+      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610120836053_Postpone DB1.cs" />
+    <Compile Include="Migrations\201610120836053_Postpone DB1.Designer.cs">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\MsSQLRepository.cs" />
-    <Compile Include="Repository\UsersAndProducts.cs" />
-    <Compile Include="SearchModels\DeleteRequest.cs" />
+    <Compile Include="Repository\UsersUpdateEmail.cs" />
+    <Compile Include="Requests\PutRequest.cs" />
+    <Compile Include="Requests\SearchRequest.cs" />
+    <Compile Include="Responses\PersonalPageResponse.cs" />
+    <Compile Include="Requests\DeleteRequest.cs" />
     <Compile Include="SearchModels\ImageModel.cs" />
     <Compile Include="SearchModels\OffersModel.cs" />
     <Compile Include="SearchModels\PriceAmmountModel.cs" />
     <Compile Include="SearchModels\PriceModel.cs" />
     <Compile Include="SearchModels\ProductModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchModels\Request.cs" />
     <Compile Include="SearchModels\ReviewModel.cs" />
     <Compile Include="SearchModels\SearchModels.cs" />
-    <Compile Include="SearchModels\TimeRequest.cs" />
+    <Compile Include="Requests\TimeRequest.cs" />
     <Compile Include="SearchModels\UsersAndProducts.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">
+      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610120836053_Postpone DB1.resx">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

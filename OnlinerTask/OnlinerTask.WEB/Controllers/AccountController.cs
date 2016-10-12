@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using OnlinerTask.WEB.Models;
+using OnlinerTask.Data.IdentityModels;
 
 namespace OnlinerTask.WEB.Controllers
 {
@@ -163,7 +164,7 @@ namespace OnlinerTask.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmailTime = DateTime.Now };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmailTime = DateTime.Now.TimeOfDay };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -379,7 +380,7 @@ namespace OnlinerTask.WEB.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmailTime = DateTime.Now };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmailTime = DateTime.Now.TimeOfDay };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

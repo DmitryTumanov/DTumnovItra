@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
-using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.SearchModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.BLL.Services
 {
@@ -32,7 +33,7 @@ namespace OnlinerTask.BLL.Services
             return webRequest;
         }
 
-        public async Task<List<ProductModel>> GetProducts(Request responce, IRepository repository, string UserName)
+        public async Task<List<ProductModel>> GetProducts(SearchRequest responce, IRepository repository, string UserName)
         {
             if (responce == null || string.IsNullOrEmpty(responce.SearchString))
                 return null;

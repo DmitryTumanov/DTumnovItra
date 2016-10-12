@@ -1,17 +1,15 @@
 ﻿using System;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.DataProtection;
-using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using OnlinerTask.WEB.Providers;
 using OnlinerTask.WEB.Models;
 using Microsoft.Owin.Security.Twitter;
 using Microsoft.Owin.Security;
+using OnlinerTask.Data.IdentityModels;
 
 namespace OnlinerTask.WEB
 {

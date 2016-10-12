@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlinerTask.DAL.SearchModels
+namespace OnlinerTask.Data.Requests
 {
-    public class DeleteRequest
+    public class SearchRequest
     {
-        public int ItemId { get; set; }
+        public string SearchString { get; set; }
     }
 }

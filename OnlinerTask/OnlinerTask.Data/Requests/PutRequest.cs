@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlinerTask.Data.SearchModels
+namespace OnlinerTask.Data.Requests
 {
-    public class TimeRequest
+    public class PutRequest: SearchRequest
     {
-        public DateTime Time { get; set; }
     }
 }

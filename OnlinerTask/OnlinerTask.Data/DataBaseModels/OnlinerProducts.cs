@@ -1,4 +1,4 @@
-namespace OnlinerTask.Data.DBModels
+namespace OnlinerTask.Data.DataBaseModels
 {
     using System;
     using System.Data.Entity;

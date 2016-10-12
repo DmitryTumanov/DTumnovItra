@@ -2,12 +2,11 @@
 using OnlinerTask.Data.Repository;
 using System.Linq;
 using System.Threading.Tasks;
-using OnlinerTask.Data.DBModels;
+using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.BLL.Services;
-using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.SearchModels;
 using System.Web.Mvc;
-using System;
-using OnlinerTask.WEB.Models;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
@@ -41,19 +40,12 @@ namespace OnlinerTask.WEB.TimeRegistry
 
         private void WriteProduct(Product item)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                var time = db.Users.Where(x => x.Email == item.UserEmail).FirstOrDefault();
-                if (time != null)
-                {
-                    repository.WriteUpdateToProduct(item, time.EmailTime);
-                }
-            }
+            repository.WriteUpdate(item);
         }
 
         private async Task<bool> ProductUpdated(Product item)
         {
-            var product = (await service.GetProducts(new Request() { SearchString = item.ProductKey }, repository, item.UserEmail)).FirstOrDefault();
+            var product = (await service.GetProducts(new SearchRequest() { SearchString = item.ProductKey }, repository, item.UserEmail)).FirstOrDefault();
             return Check(item, product);
         }
 

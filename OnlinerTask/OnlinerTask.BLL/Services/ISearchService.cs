@@ -1,8 +1,9 @@
-﻿using OnlinerTask.DAL.SearchModels;
+﻿using OnlinerTask.Data.SearchModels;
 using OnlinerTask.Data.Repository;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.BLL.Services
 {
@@ -12,6 +13,6 @@ namespace OnlinerTask.BLL.Services
 
         HttpWebRequest OnlinerRequest(string strRequest);
 
-        Task<List<ProductModel>> GetProducts(Request responce, IRepository repository, string UserName);
+        Task<List<ProductModel>> GetProducts(SearchRequest responce, IRepository repository, string UserName);
     }
 }

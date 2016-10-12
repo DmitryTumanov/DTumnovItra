@@ -274,26 +274,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610101310426_DateTimeEnable.cs" />
-    <Compile Include="Migrations\201610101310426_DateTimeEnable.Designer.cs">
-      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610120836053_Postpone DB1.cs" />
-    <Compile Include="Migrations\201610120836053_Postpone DB1.Designer.cs">
-      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MeViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="TimeRegistry\ProductRefreshJob.cs" />
@@ -1217,14 +1205,6 @@
       <Project>{2685539b-25b1-48c8-a9ec-7721ee8aa9fd}</Project>
       <Name>OnlinerTask.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">
-      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610120836053_Postpone DB1.resx">
-      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

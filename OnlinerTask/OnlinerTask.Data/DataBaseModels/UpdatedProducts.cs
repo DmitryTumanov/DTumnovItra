@@ -1,4 +1,4 @@
-namespace OnlinerTask.Data.DBModels
+namespace OnlinerTask.Data.DataBaseModels
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace OnlinerTask.Data.DBModels
 
         public int? ProductId { get; set; }
 
-        public DateTime? TimeToSend { get; set; }
+        public TimeSpan? TimeToSend { get; set; }
 
         public virtual Product Product { get; set; }
     }

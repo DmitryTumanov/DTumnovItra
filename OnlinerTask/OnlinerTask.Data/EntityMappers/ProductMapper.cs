@@ -1,5 +1,5 @@
-﻿using OnlinerTask.DAL.SearchModels;
-using OnlinerTask.Data.DBModels;
+﻿using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.DataBaseModels;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlinerTask.Data.EntityMappers

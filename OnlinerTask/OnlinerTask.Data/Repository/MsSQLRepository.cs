@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using OnlinerTask.DAL.SearchModels;
-using OnlinerTask.Data.DBModels;
+using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.DataBaseModels;
 using System.Data.Entity;
 using OnlinerTask.Data.EntityMappers;
 using System;
 using OnlinerTask.Data.Extensions;
+using OnlinerTask.Data.IdentityModels;
+using OnlinerTask.Data.Responses;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.Data.Repository
 {
@@ -160,7 +163,7 @@ namespace OnlinerTask.Data.Repository
             }
         }
 
-        public bool WriteUpdateToProduct(Product item, DateTime time)
+        public bool WriteUpdateToProduct(Product item, TimeSpan time)
         {
             if (item == null)
             {
@@ -186,16 +189,16 @@ namespace OnlinerTask.Data.Repository
             }
         }
 
-        public IEnumerable<UsersAndProducts> GetUsersAndProducts()
+        public IEnumerable<UsersUpdateEmail> GetUsersEmails()
         {
             using (var db = new OnlinerProducts())
             {
-                var userslist = new List<UsersAndProducts>();
+                var userslist = new List<UsersUpdateEmail>();
                 var updatelist = db.UpdatedProducts.ToList();
                 foreach (var i in updatelist)
                 {
                     var model = db.Product.Where(x => x.UserEmail == i.UserEmail && x.Id == i.ProductId).Select(x => x.Name).FirstOrDefault();
-                    userslist.Add(new UsersAndProducts() { ProductName = model, UserEmail = i.UserEmail, Id = i.Id, Time = (DateTime)i.TimeToSend });
+                    userslist.Add(new UsersUpdateEmail() { ProductName = model, UserEmail = i.UserEmail, Id = i.Id, Time = (TimeSpan)i.TimeToSend });
                 };
                 return userslist;
             }
@@ -212,6 +215,46 @@ namespace OnlinerTask.Data.Repository
                 }
                 db.UpdatedProducts.Remove(model);
                 db.SaveChanges();
+            }
+        }
+
+        public void WriteUpdate(Product item)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var time = db.Users.Where(x => x.Email == item.UserEmail).FirstOrDefault();
+                if (time != null)
+                {
+                    WriteUpdateToProduct(item, time.EmailTime);
+                }
+            }
+        }
+
+        public PersonalPageResponse PersonalProductsResponse(string UserName)
+        {
+            var result = GetPersonalProducts(UserName).Select(x => new ProductMapper().ConvertToModel(x));
+            using (var db = new ApplicationDbContext())
+            {
+                var time = DateTime.Now.TimeOfDay;
+                var user = db.Users.Where(x => x.UserName == (UserName)).FirstOrDefault();
+                if (user != null)
+                {
+                    time = user.EmailTime;
+                }
+                return new PersonalPageResponse() { EmailTime = DateTime.Now.Date + time, Products = result.ToList() };
+            }
+        }
+
+        public void ChangeSendEmailTime(TimeRequest request, string UserName)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                var user = db.Users.FirstOrDefault(x => x.UserName == UserName);
+                if (user != null && request != null)
+                {
+                    user.EmailTime = request.Time.TimeOfDay;
+                    db.SaveChanges();
+                }
             }
         }
     }

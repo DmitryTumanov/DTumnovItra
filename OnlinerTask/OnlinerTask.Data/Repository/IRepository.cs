@@ -1,10 +1,10 @@
-﻿using OnlinerTask.DAL.SearchModels;
-using OnlinerTask.Data.DBModels;
+﻿using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.Responses;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.Data.Repository
 {
@@ -16,11 +16,14 @@ namespace OnlinerTask.Data.Repository
         Task<bool> RemoveOnlinerProduct(int itemId, string name);
         Task<bool> CheckItem(int ItemId, string Username);
         Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string UserName);
-        IEnumerable<UsersAndProducts> GetUsersAndProducts();
+        IEnumerable<UsersUpdateEmail> GetUsersEmails();
         List<Product> GetPersonalProducts(string name);
         List<Product> GetAllProducts();
         void DeleteUserAndProduct(int id, string userEmail);
         bool UpdateProduct(Product item);
-        bool WriteUpdateToProduct(Product item, DateTime time);
+        PersonalPageResponse PersonalProductsResponse(string UserName);
+        bool WriteUpdateToProduct(Product item, TimeSpan time);
+        void WriteUpdate(Product item);
+        void ChangeSendEmailTime(TimeRequest request, string UserName);
     }
 }
