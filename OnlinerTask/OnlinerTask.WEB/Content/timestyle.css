@@ -165,12 +165,24 @@
         }
 }
 
-#timepicker{
+#timepicker {
     float: right;
     max-width: 200px;
 }
 
-#submitbutton #cancelbutton{
+#submitbutton #cancelbutton {
     float: right;
-    margin-left:20px;
+    margin-left: 20px;
+}
+
+form-control {
+    position: inherit;
+    float: right;
+    max-width: 100px;
+}
+
+#currencyid {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }

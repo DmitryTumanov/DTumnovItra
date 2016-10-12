@@ -285,6 +285,10 @@
     <Compile Include="Migrations\201610101310426_DateTimeEnable.Designer.cs">
       <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610120836053_Postpone DB1.cs" />
+    <Compile Include="Migrations\201610120836053_Postpone DB1.Designer.cs">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1217,6 +1221,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">
       <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610120836053_Postpone DB1.resx">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

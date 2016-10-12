@@ -6,7 +6,7 @@ using System.Web.Http;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.BLL.Services;
 using System.Linq;
-using OnlinerTask.BLL.Repository;
+using OnlinerTask.Data.Repository;
 
 namespace OnlinerTask.WEB.Controllers
 {
@@ -32,16 +32,15 @@ namespace OnlinerTask.WEB.Controllers
             return await search_service.GetProducts(responce, repository, User.Identity.Name);
         }
 
-        public async void Put(Request responce)
+        public async Task Put(Request responce, string testname = null)
         {
             var result = (await Post(responce)).FirstOrDefault();
-            repository.CreateOnlinerProduct(result, User.Identity.Name);
+            repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
         }
         
-        public void Delete(DeleteRequest request)
+        public async Task Delete(DeleteRequest request, string testname = null)
         {
-            repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
-            return;
+            await repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
         }
     }
 }

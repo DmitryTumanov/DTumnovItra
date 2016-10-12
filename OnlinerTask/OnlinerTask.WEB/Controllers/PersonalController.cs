@@ -1,4 +1,4 @@
-﻿using OnlinerTask.BLL.Repository;
+﻿using OnlinerTask.Data.Repository;
 using OnlinerTask.BLL.Services;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.Data.EntityMappers;
@@ -25,13 +25,13 @@ namespace OnlinerTask.WEB.Controllers
             this.repository = repository;
         }
 
-        public SearchResult Get()
+        public SearchResult Get(string testname = null)
         {
-            var result = repository.GetPersonalProducts(User.Identity.Name).Select(x => new ProductMapper().ConvertToModel(x));
+            var result = repository.GetPersonalProducts(testname ?? User.Identity.Name).Select(x => new ProductMapper().ConvertToModel(x));
             using (var db = new ApplicationDbContext())
             {
                 var time = DateTime.Now;
-                var user = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var user = db.Users.Where(x => x.UserName == (testname ?? User.Identity.Name)).FirstOrDefault();
                 if (user != null) {
                     time = user.EmailTime;
                 }
@@ -39,11 +39,11 @@ namespace OnlinerTask.WEB.Controllers
             }
         }
 
-        public void Post(TimeRequest request)
+        public void Post(TimeRequest request, string testname = null)
         {
             using (var db = new ApplicationDbContext())
             {
-                var user = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                var user = db.Users.FirstOrDefault(x => x.UserName == (testname ?? User.Identity.Name));
                 if (user != null && request != null)
                 {
                     user.EmailTime = request.Time;
@@ -52,16 +52,15 @@ namespace OnlinerTask.WEB.Controllers
             }
         }
 
-        public async void Put(Request responce)
+        public async Task Put(Request responce)
         {
             var result = (await search_service.GetProducts(responce, repository, User.Identity.Name)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, User.Identity.Name);
         }
 
-        public void Delete(DeleteRequest request)
+        public async Task Delete(DeleteRequest request)
         {
-            repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
-            return;
+            await repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
         }
     }
 }
