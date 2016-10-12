@@ -1,5 +1,5 @@
 ﻿using FluentScheduler;
-using OnlinerTask.BLL.Repository;
+using OnlinerTask.Data.Repository;
 using System.Linq;
 using System.Threading.Tasks;
 using OnlinerTask.Data.DBModels;

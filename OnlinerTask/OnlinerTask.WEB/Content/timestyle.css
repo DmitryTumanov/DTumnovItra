@@ -180,3 +180,9 @@ form-control {
     float: right;
     max-width: 100px;
 }
+
+#currencyid {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

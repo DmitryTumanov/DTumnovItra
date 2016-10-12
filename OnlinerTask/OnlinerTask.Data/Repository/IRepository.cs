@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlinerTask.BLL.Repository
+namespace OnlinerTask.Data.Repository
 {
     public interface IRepository
     {

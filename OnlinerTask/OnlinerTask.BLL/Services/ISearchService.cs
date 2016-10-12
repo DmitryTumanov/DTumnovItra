@@ -1,5 +1,5 @@
-﻿using OnlinerTask.BLL.Repository;
-using OnlinerTask.DAL.SearchModels;
+﻿using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.Repository;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;

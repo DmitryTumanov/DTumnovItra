@@ -5,10 +5,10 @@ using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.Data.DBModels;
 using System.Data.Entity;
 using OnlinerTask.Data.EntityMappers;
-using OnlinerTask.BLL.Extensions;
 using System;
+using OnlinerTask.Data.Extensions;
 
-namespace OnlinerTask.BLL.Repository
+namespace OnlinerTask.Data.Repository
 {
     public class MsSQLRepository : IRepository
     {

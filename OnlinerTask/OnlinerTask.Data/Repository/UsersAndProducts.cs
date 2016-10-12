@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OnlinerTask.DAL.SearchModels
+namespace OnlinerTask.Data.Repository
 {
     public class UsersAndProducts
     {

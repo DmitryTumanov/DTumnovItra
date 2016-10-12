@@ -11,7 +11,7 @@ namespace OnlinerTask.WEB.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using BLL.Services;
-    using BLL.Repository;
+    using Data.Repository;
 
     public static class NinjectWebCommon 
     {

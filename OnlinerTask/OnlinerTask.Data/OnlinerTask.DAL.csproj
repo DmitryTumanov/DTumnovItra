@@ -55,20 +55,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBModels\Image.cs" />
-    <Compile Include="DBModels\Offer.cs" />
-    <Compile Include="DBModels\OnlinerProducts.cs" />
-    <Compile Include="DBModels\Price.cs" />
-    <Compile Include="DBModels\PriceAmmount.cs" />
-    <Compile Include="DBModels\Product.cs" />
-    <Compile Include="DBModels\Review.cs" />
-    <Compile Include="DBModels\UpdatedProducts.cs" />
+    <Compile Include="DataBaseModels\DisturbSchedule.cs" />
+    <Compile Include="DataBaseModels\Image.cs" />
+    <Compile Include="DataBaseModels\Offer.cs" />
+    <Compile Include="DataBaseModels\OnlinerProducts.cs" />
+    <Compile Include="DataBaseModels\Price.cs" />
+    <Compile Include="DataBaseModels\PriceAmmount.cs" />
+    <Compile Include="DataBaseModels\Product.cs" />
+    <Compile Include="DataBaseModels\Review.cs" />
+    <Compile Include="DataBaseModels\UpdatedProducts.cs" />
     <Compile Include="EntityMappers\ImageMapper.cs" />
     <Compile Include="EntityMappers\OfferMapper.cs" />
     <Compile Include="EntityMappers\PriceAmmountMapper.cs" />
     <Compile Include="EntityMappers\PriceMapper.cs" />
     <Compile Include="EntityMappers\ProductMapper.cs" />
     <Compile Include="EntityMappers\ReviewMapper.cs" />
+    <Compile Include="Extensions\AsyncOperations.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\MsSQLRepository.cs" />
+    <Compile Include="Repository\UsersAndProducts.cs" />
     <Compile Include="SearchModels\DeleteRequest.cs" />
     <Compile Include="SearchModels\ImageModel.cs" />
     <Compile Include="SearchModels\OffersModel.cs" />

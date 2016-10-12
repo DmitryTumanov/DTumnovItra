@@ -19,6 +19,7 @@ namespace OnlinerTask.Data.DBModels
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Review> Review { get; set; }
         public virtual DbSet<UpdatedProducts> UpdatedProducts { get; set; }
+        public virtual DbSet<DisturbSchedule> DisturbSchedule { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

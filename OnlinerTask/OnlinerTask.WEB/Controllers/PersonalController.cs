@@ -1,4 +1,4 @@
-﻿using OnlinerTask.BLL.Repository;
+﻿using OnlinerTask.Data.Repository;
 using OnlinerTask.BLL.Services;
 using OnlinerTask.DAL.SearchModels;
 using OnlinerTask.Data.EntityMappers;

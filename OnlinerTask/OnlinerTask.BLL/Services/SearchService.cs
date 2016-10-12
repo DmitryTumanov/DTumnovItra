@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using OnlinerTask.BLL.Repository;
 using OnlinerTask.DAL.SearchModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using OnlinerTask.Data.Repository;
 
 namespace OnlinerTask.BLL.Services
 {
