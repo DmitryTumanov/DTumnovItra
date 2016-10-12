@@ -24,7 +24,7 @@ namespace OnlinerTask.WEB.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("OnlinerProducts", throwIfV1Schema: false)
         {
         }
 
