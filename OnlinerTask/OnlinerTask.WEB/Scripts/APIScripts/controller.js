@@ -19,6 +19,7 @@
 
     $scope.submitTime = function () {
         var time = $('#timepicker').val();
+        $scope.emailtime = time;
         APIService.changeTime(time);
         $('#submitbutton').hide();
         $('#cancelbutton').hide();
