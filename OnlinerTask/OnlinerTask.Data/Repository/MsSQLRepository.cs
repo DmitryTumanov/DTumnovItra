@@ -4,17 +4,24 @@ using System.Threading.Tasks;
 using OnlinerTask.Data.SearchModels;
 using OnlinerTask.Data.DataBaseModels;
 using System.Data.Entity;
-using OnlinerTask.Data.EntityMappers;
 using System;
 using OnlinerTask.Data.Extensions;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.Responses;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.EntityMappers.Interfaces;
 
 namespace OnlinerTask.Data.Repository
 {
     public class MsSQLRepository : IRepository
     {
+        IProductMapper<Product, ProductModel> productMapper;
+
+        public MsSQLRepository(IProductMapper<Product, ProductModel> productMapper)
+        {
+            this.productMapper = productMapper;
+        }
+
         public async Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string UserName)
         {
             await AsyncOperations.ForEachAsync(products, async i =>
@@ -112,7 +119,7 @@ namespace OnlinerTask.Data.Repository
 
         private Product ModelToDB(ProductModel model, string UserEmail, int maxid, int minid)
         {
-            return new ProductMapper().ConvertToModel(model, UserEmail, maxid, minid);
+            return productMapper.ConvertToModel(model, UserEmail, maxid, minid);
         }
 
         public List<Product> GetPersonalProducts(string name)
@@ -232,7 +239,7 @@ namespace OnlinerTask.Data.Repository
 
         public PersonalPageResponse PersonalProductsResponse(string UserName)
         {
-            var result = GetPersonalProducts(UserName).Select(x => new ProductMapper().ConvertToModel(x));
+            var result = GetPersonalProducts(UserName).Select(x => productMapper.ConvertToModel(x));
             using (var db = new ApplicationDbContext())
             {
                 var time = DateTime.Now.TimeOfDay;

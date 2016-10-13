@@ -72,7 +72,12 @@
     <Compile Include="DataBaseModels\Product.cs" />
     <Compile Include="DataBaseModels\Review.cs" />
     <Compile Include="DataBaseModels\UpdatedProducts.cs" />
+    <Compile Include="EntityMappers\Interfaces\IPriceAmmountMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IDependentMapper.cs" />
     <Compile Include="EntityMappers\ImageMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IPriceMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IProductMapper.cs" />
     <Compile Include="EntityMappers\OfferMapper.cs" />
     <Compile Include="EntityMappers\PriceAmmountMapper.cs" />
     <Compile Include="EntityMappers\PriceMapper.cs" />
