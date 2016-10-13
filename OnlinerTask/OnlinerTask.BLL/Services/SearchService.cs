@@ -5,13 +5,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.BLL.Services
 {
     public class SearchService: ISearchService
     {
+        IProductRepository repository;
+        public SearchService(IProductRepository repository)
+        {
+            this.repository = repository;
+        }
+
         public SearchResult ProductsFromOnliner(HttpWebResponse webResponse)
         {
             Stream responseStream = webResponse.GetResponseStream();
@@ -33,7 +39,7 @@ namespace OnlinerTask.BLL.Services
             return webRequest;
         }
 
-        public async Task<List<ProductModel>> GetProducts(SearchRequest responce, IRepository repository, string UserName)
+        public async Task<List<ProductModel>> GetProducts(SearchRequest responce, string UserName)
         {
             if (responce == null || string.IsNullOrEmpty(responce.SearchString))
                 return null;

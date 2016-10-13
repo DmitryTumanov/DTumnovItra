@@ -94,8 +94,14 @@
       <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\Interfaces\IPersonalRepository.cs" />
+    <Compile Include="Repository\Interfaces\IProductRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRepository.cs" />
+    <Compile Include="Repository\Interfaces\ITimeServiceRepository.cs" />
+    <Compile Include="Repository\MsSQLPersonalRepository.cs" />
+    <Compile Include="Repository\MsSQLProductRepository.cs" />
     <Compile Include="Repository\MsSQLRepository.cs" />
+    <Compile Include="Repository\MsSQLTimeServiceRepository.cs" />
     <Compile Include="Repository\UsersUpdateEmail.cs" />
     <Compile Include="Requests\PutRequest.cs" />
     <Compile Include="Requests\SearchRequest.cs" />

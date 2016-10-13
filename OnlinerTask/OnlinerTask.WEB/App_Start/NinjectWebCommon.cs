@@ -11,11 +11,12 @@ namespace OnlinerTask.WEB.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using BLL.Services;
-    using Data.Repository;
     using OnlinerTask.Data.EntityMappers;
     using Data.EntityMappers.Interfaces;
     using Data.SearchModels;
     using Data.DataBaseModels;
+    using Data.Repository.Interfaces;
+    using OnlinerTask.Data.Repository;
 
     public static class NinjectWebCommon 
     {
@@ -74,8 +75,11 @@ namespace OnlinerTask.WEB.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ISearchService>().To<SearchService>();
+            kernel.Bind<IProductRepository>().To<MsSQLProductRepository>();
+            kernel.Bind<IPersonalRepository>().To<MsSQLPersonalRepository>();
             kernel.Bind<IRepository>().To<MsSQLRepository>();
-            kernel.Bind(typeof(IProductMapper<,>)).To<ProductMapper>().WhenInjectedInto<MsSQLRepository>();
+            kernel.Bind<ITimeServiceRepository>().To<MsSQLTimeServiceRepository>();
+            kernel.Bind(typeof(IProductMapper<,>)).To<ProductMapper>();
             kernel.Bind<IDependentMapper<Image, ImageModel>>().To<ImageMapper>();
             kernel.Bind<IDependentMapper<Review, ReviewModel>>().To<ReviewMapper>();
             kernel.Bind(typeof(IPriceMapper<,>)).To(typeof(PriceMapper)).WhenInjectedInto<ProductMapper>();

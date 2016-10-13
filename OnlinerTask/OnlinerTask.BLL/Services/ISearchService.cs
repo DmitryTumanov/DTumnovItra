@@ -13,6 +13,6 @@ namespace OnlinerTask.BLL.Services
 
         HttpWebRequest OnlinerRequest(string strRequest);
 
-        Task<List<ProductModel>> GetProducts(SearchRequest responce, IRepository repository, string UserName);
+        Task<List<ProductModel>> GetProducts(SearchRequest responce, string UserName);
     }
 }

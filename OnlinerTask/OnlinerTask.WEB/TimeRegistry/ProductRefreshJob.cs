@@ -1,5 +1,4 @@
 ﻿using FluentScheduler;
-using OnlinerTask.Data.Repository;
 using System.Linq;
 using System.Threading.Tasks;
 using OnlinerTask.Data.DataBaseModels;
@@ -7,23 +6,24 @@ using OnlinerTask.BLL.Services;
 using OnlinerTask.Data.SearchModels;
 using System.Web.Mvc;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
     public class ProductRefreshJob : IJob
     {
-        private ISearchService service;
-        private IRepository repository;
+        private ISearchService searchService;
+        private ITimeServiceRepository repository;
 
         public ProductRefreshJob()
         {
-            repository = DependencyResolver.Current.GetService<IRepository>();
-            service = DependencyResolver.Current.GetService<ISearchService>();
+            repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
+            searchService = DependencyResolver.Current.GetService<ISearchService>();
         }
-        public ProductRefreshJob(IRepository repository, ISearchService service)
+        public ProductRefreshJob(ITimeServiceRepository repository, ISearchService service)
         {
             this.repository = repository;
-            this.service = service;
+            this.searchService = service;
         }
 
         public async void Execute()
@@ -45,7 +45,7 @@ namespace OnlinerTask.WEB.TimeRegistry
 
         private async Task<bool> ProductUpdated(Product item)
         {
-            var product = (await service.GetProducts(new SearchRequest() { SearchString = item.ProductKey }, repository, item.UserEmail)).FirstOrDefault();
+            var product = (await searchService.GetProducts(new SearchRequest() { SearchString = item.ProductKey }, item.UserEmail)).FirstOrDefault();
             return Check(item, product);
         }
 

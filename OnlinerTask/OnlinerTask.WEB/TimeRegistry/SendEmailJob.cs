@@ -1,5 +1,5 @@
 ﻿using FluentScheduler;
-using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.Repository.Interfaces;
 using System;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -9,13 +9,13 @@ namespace OnlinerTask.WEB.TimeRegistry
 {
     public class SendEmailJob : IJob
     {
-        private IRepository repository;
+        private ITimeServiceRepository repository;
 
         public SendEmailJob()
         {
-            repository = DependencyResolver.Current.GetService<IRepository>();
+            repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
         }
-        public SendEmailJob(IRepository repository)
+        public SendEmailJob(ITimeServiceRepository repository)
         {
             this.repository = repository;
         }
@@ -54,7 +54,7 @@ namespace OnlinerTask.WEB.TimeRegistry
         {
             var mail = new MailMessage("tumanov.97.dima@mail.ru", username);
             mail.Subject = productname;
-            mail.Body = "Dear," + username + ", product " + productname + " has been changed.";
+            mail.Body = string.Format("Dear, {0}, product {1} has been changed.", username, productname);
             return mail;
         }
     }

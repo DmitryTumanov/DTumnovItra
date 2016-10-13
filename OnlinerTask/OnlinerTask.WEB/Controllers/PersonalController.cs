@@ -1,24 +1,21 @@
-﻿using OnlinerTask.Data.Repository;
-using OnlinerTask.BLL.Services;
-using OnlinerTask.Data.SearchModels;
+﻿using OnlinerTask.BLL.Services;
 using OnlinerTask.Data.Requests;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using OnlinerTask.Data.Responses;
+using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class PersonalController : ApiController
     {
-        private ISearchService search_service;
-        private IRepository repository;
-        public PersonalController(ISearchService service, IRepository repository)
+        private ISearchService searchService;
+        private IPersonalRepository repository;
+        public PersonalController(ISearchService service, IPersonalRepository repository)
         {
-            search_service = service;
+            searchService = service;
             this.repository = repository;
         }
 
@@ -27,15 +24,14 @@ namespace OnlinerTask.WEB.Controllers
             return repository.PersonalProductsResponse(testname ?? User.Identity.Name);
         }
 
-        public HttpResponseMessage Post(TimeRequest request, string testname = null)
+        public async Task Post(TimeRequest request, string testname = null)
         {
-            repository.ChangeSendEmailTime(request, testname ?? User.Identity.Name);
-            return Request.CreateResponse(HttpStatusCode.OK);
+            await repository.ChangeSendEmailTimeAsync(request, testname ?? User.Identity.Name);
         }
 
         public async Task Put(PutRequest request)
         {
-            var result = (await search_service.GetProducts(request, repository, User.Identity.Name)).FirstOrDefault();
+            var result = (await searchService.GetProducts(request, User.Identity.Name)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, User.Identity.Name);
         }
 
