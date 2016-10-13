@@ -9,11 +9,11 @@ namespace OnlinerTask.Data.Repository
 {
     public class MsSQLTimeServiceRepository : ITimeServiceRepository
     {
-        IProductRepository productRepository;
+        IRepository repository;
 
-        public MsSQLTimeServiceRepository(IProductRepository productRepository)
+        public MsSQLTimeServiceRepository(IRepository repository)
         {
-            this.productRepository = productRepository;
+            this.repository = repository;
         }
 
         public bool UpdateProduct(Product item)
@@ -104,7 +104,7 @@ namespace OnlinerTask.Data.Repository
 
         public List<Product> GetAllProducts()
         {
-            return productRepository.GetAllProducts();
+            return repository.GetAllProducts();
         }
     }
 }

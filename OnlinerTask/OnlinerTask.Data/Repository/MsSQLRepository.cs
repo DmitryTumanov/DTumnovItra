@@ -116,5 +116,19 @@ namespace OnlinerTask.Data.Repository
                     .Include(x => x.Review).ToList();
             }
         }
+
+        public List<Product> GetAllProducts()
+        {
+            using (var context = new OnlinerProducts())
+            {
+                return context.Product
+                    .Include(x => x.Image)
+                    .Include(x => x.Price)
+                    .Include(x => x.Price.Offer)
+                    .Include(x => x.Price.PriceMinAmmount)
+                    .Include(x => x.Price.PriceMaxAmmount)
+                    .Include(x => x.Review).ToList();
+            }
+        }
     }
 }

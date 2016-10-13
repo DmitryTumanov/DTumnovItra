@@ -12,5 +12,6 @@ namespace OnlinerTask.Data.Repository.Interfaces
         int CreatePriceAmmount(PriceAmmount price);
         bool CreateProduct(Product product);
         List<Product> GetPersonalProducts(string name);
+        List<Product> GetAllProducts();
     }
 }

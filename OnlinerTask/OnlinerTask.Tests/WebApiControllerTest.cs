@@ -27,8 +27,9 @@ namespace OnlinerTask.Tests
         {
             var testproducts = ProductsFromDB();
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLProductRepository(productMapper);
-            var controller = new ProductController(new SearchService(repository), repository);
+            var repository = new MsSQLRepository(productMapper);
+            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var controller = new ProductController(new SearchService(productRepository), productRepository);
             var item = await controller.Post(new SearchRequest() { SearchString = testproducts[0].ProductKey });
             var testitem = productMapper.ConvertToModel(testproducts[0]);
             Assert.AreEqual(testitem.Description, item[0].Description);
@@ -39,8 +40,9 @@ namespace OnlinerTask.Tests
         {
             var testproducts = ProductsFromDB();
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLProductRepository(productMapper);
-            var controller = new ProductController(new SearchService(repository), repository);
+            var repository = new MsSQLRepository(productMapper);
+            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var controller = new ProductController(new SearchService(productRepository), productRepository);
             await controller.Put(new PutRequest() { SearchString = testproducts[0].ProductKey }, testname);
             var testcount = ProductsFromDB().Count();
             Assert.AreNotEqual(testproducts.Count, testcount);
@@ -51,8 +53,9 @@ namespace OnlinerTask.Tests
         {
             var testproducts = ProductsFromDB();
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLProductRepository(productMapper);
-            var controller = new ProductController(new SearchService(repository), repository);
+            var repository = new MsSQLRepository(productMapper);
+            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var controller = new ProductController(new SearchService(productRepository), productRepository);
             var deleteitems = testproducts.Where(x => x.UserEmail == testname).ToList();
             foreach (var item in deleteitems)
             {
@@ -67,8 +70,9 @@ namespace OnlinerTask.Tests
         {
             var testemail = ProductsFromDB().First().UserEmail;
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var productRepository = new MsSQLProductRepository(productMapper);
-            var personalRepository = new MsSQLPersonalRepository(productMapper, productRepository);
+            var repository = new MsSQLRepository(productMapper);
+            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var personalRepository = new MsSQLPersonalRepository(productMapper, repository);
             var controller = new PersonalController(new SearchService(productRepository), personalRepository);
             var controllerresponce = controller.Get(testemail);
 
@@ -92,8 +96,9 @@ namespace OnlinerTask.Tests
             var testemail = ProductsFromDB().First().UserEmail;
             var actualtime = DateTime.Now;
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var productRepository = new MsSQLProductRepository(productMapper);
-            var personalRepository = new MsSQLPersonalRepository(productMapper, productRepository);
+            var repository = new MsSQLRepository(productMapper);
+            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var personalRepository = new MsSQLPersonalRepository(productMapper, repository);
             var controller = new PersonalController(new SearchService(productRepository), personalRepository);
             using (var db = new ApplicationDbContext())
             {
