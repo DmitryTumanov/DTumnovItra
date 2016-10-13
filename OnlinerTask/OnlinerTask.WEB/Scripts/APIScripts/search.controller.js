@@ -1,4 +1,9 @@
 ﻿app.controller('APIController', function ($scope, APISearchService) {
+    $scope.currencies = [
+        { name: 'BYN', factor: 1 },
+        { name: 'USD', factor: 0.5225 }
+    ];
+    $scope.selectedCurrency = $scope.currencies[0];
 
     $scope.checkboxChange = function (item) {
         if (!item.is_checked) {
