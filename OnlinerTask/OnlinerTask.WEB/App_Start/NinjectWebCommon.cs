@@ -1,3 +1,5 @@
+using Ninject.Syntax;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Stop")]
 
@@ -72,13 +74,13 @@ namespace OnlinerTask.WEB.App_Start
         /// Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
+        private static void RegisterServices(IBindingRoot kernel)
         {
             kernel.Bind<ISearchService>().To<SearchService>();
-            kernel.Bind<IProductRepository>().To<MsSQLProductRepository>();
-            kernel.Bind<IPersonalRepository>().To<MsSQLPersonalRepository>();
-            kernel.Bind<IRepository>().To<MsSQLRepository>();
-            kernel.Bind<ITimeServiceRepository>().To<MsSQLTimeServiceRepository>();
+            kernel.Bind<IProductRepository>().To<MsSqlProductRepository>();
+            kernel.Bind<IPersonalRepository>().To<MsSqlPersonalRepository>();
+            kernel.Bind<IRepository>().To<MsSqlRepository>();
+            kernel.Bind<ITimeServiceRepository>().To<MsSqlTimeServiceRepository>();
             kernel.Bind(typeof(IProductMapper<,>)).To<ProductMapper>();
             kernel.Bind<IDependentMapper<Image, ImageModel>>().To<ImageMapper>();
             kernel.Bind<IDependentMapper<Review, ReviewModel>>().To<ReviewMapper>();

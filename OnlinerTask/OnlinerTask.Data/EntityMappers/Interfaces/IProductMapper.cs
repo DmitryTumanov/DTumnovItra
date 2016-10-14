@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlinerTask.Data.EntityMappers.Interfaces
+﻿namespace OnlinerTask.Data.EntityMappers.Interfaces
 {
-    public interface IProductMapper<K, T> : IMapper<K, T>
+    public interface IProductMapper<TK, T> : IMapper<TK, T>
     {
-        K ConvertToModel(T model, string useremail, int pricemaxid, int priceminid);
+        TK ConvertToModel(T model, string useremail, int pricemaxid, int priceminid);
     }
 }

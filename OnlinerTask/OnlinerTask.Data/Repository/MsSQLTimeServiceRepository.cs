@@ -8,13 +8,13 @@ using OnlinerTask.Data.ScheduleModels;
 
 namespace OnlinerTask.Data.Repository
 {
-    public class MsSQLTimeServiceRepository : ITimeServiceRepository
+    public class MsSqlTimeServiceRepository : ITimeServiceRepository
     {
-        IRepository repository;
+        public readonly IRepository Repository;
 
-        public MsSQLTimeServiceRepository(IRepository repository)
+        public MsSqlTimeServiceRepository(IRepository repository)
         {
-            this.repository = repository;
+            Repository = repository;
         }
 
         public bool UpdateProduct(Product item)
@@ -25,7 +25,7 @@ namespace OnlinerTask.Data.Repository
             }
             using (var db = new OnlinerProducts())
             {
-                var product = db.Product.Where(x => x.ProductId == item.ProductId).FirstOrDefault();
+                var product = db.Product.FirstOrDefault(x => x.ProductId == item.ProductId);
                 if (product == null)
                 {
                     return false;
@@ -95,7 +95,7 @@ namespace OnlinerTask.Data.Repository
         {
             using (var db = new ApplicationDbContext())
             {
-                var time = db.Users.Where(x => x.Email == item.UserEmail).FirstOrDefault();
+                var time = db.Users.FirstOrDefault(x => x.Email == item.UserEmail);
                 if (time != null)
                 {
                     WriteUpdateToProduct(item, time.EmailTime);
@@ -105,7 +105,7 @@ namespace OnlinerTask.Data.Repository
 
         public List<Product> GetAllProducts()
         {
-            return repository.GetAllProducts();
+            return Repository.GetAllProducts();
         }
     }
 }

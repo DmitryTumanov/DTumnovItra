@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using OnlinerTask.Data.SearchModels;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -12,22 +11,29 @@ namespace OnlinerTask.BLL.Services
 {
     public class SearchService: ISearchService
     {
-        IProductRepository repository;
+        private readonly IProductRepository _repository;
         public SearchService(IProductRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
         public SearchResult ProductsFromOnliner(HttpWebResponse webResponse)
         {
-            Stream responseStream = webResponse.GetResponseStream();
+            var responseStream = webResponse.GetResponseStream();
             var serializer = new JsonSerializer();
-            using (var sr = new StreamReader(responseStream))
+            if (responseStream != null)
             {
-                using(var text_reader = new JsonTextReader(sr))
+                using (var sr = new StreamReader(responseStream))
                 {
-                    return serializer.Deserialize<SearchResult>(text_reader);
+                    using (var textReader = new JsonTextReader(sr))
+                    {
+                        return serializer.Deserialize<SearchResult>(textReader);
+                    }
                 }
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -39,14 +45,14 @@ namespace OnlinerTask.BLL.Services
             return webRequest;
         }
 
-        public async Task<List<ProductModel>> GetProducts(SearchRequest responce, string UserName)
+        public async Task<List<ProductModel>> GetProducts(SearchRequest responce, string userName)
         {
-            if (responce == null || string.IsNullOrEmpty(responce.SearchString))
+            if (string.IsNullOrEmpty(responce?.SearchString))
                 return null;
-            HttpWebRequest request = OnlinerRequest(responce.SearchString);
-            HttpWebResponse webResponse = (HttpWebResponse)(await request.GetResponseAsync());
+            var request = OnlinerRequest(responce.SearchString);
+            var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = ProductsFromOnliner(webResponse);
-            return await repository.CheckProducts(result.Products, UserName);
+            return await _repository.CheckProducts(result.Products, userName);
         }
     }
 }
