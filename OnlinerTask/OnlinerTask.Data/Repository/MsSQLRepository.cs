@@ -25,14 +25,11 @@ namespace OnlinerTask.Data.Repository
             {
                 return false;
             }
-            else
-            {
-                int maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
-                int minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
-                var product = ModelToDB(model, UserEmail, maxid, minid);
-                CreateProduct(product);
-                return true;
-            }
+            int maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
+            int minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
+            var product = ModelToDB(model, UserEmail, maxid, minid);
+            CreateProduct(product);
+            return true;
         }
 
         public int CreatePriceAmmount(PriceAmmount price)
@@ -55,14 +52,11 @@ namespace OnlinerTask.Data.Repository
             {
                 return false;
             }
-            else
+            using (var context = new OnlinerProducts())
             {
-                using (var context = new OnlinerProducts())
-                {
-                    context.Product.Add((Product)product);
-                    context.SaveChanges();
-                    return true;
-                }
+                context.Product.Add((Product)product);
+                context.SaveChanges();
+                return true;
             }
         }
 

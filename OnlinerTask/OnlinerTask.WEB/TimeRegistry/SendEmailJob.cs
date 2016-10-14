@@ -1,6 +1,7 @@
 ﻿using FluentScheduler;
 using OnlinerTask.Data.Repository.Interfaces;
 using System;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -45,7 +46,7 @@ namespace OnlinerTask.WEB.TimeRegistry
         {
             SmtpClient client = new SmtpClient("smtp.mail.ru", 587);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("tumanov.97.dima@mail.ru", "102938usugen");
+            client.Credentials = new NetworkCredential("tumanov.97.dima@mail.ru", "102938usugen");
             client.EnableSsl = true;
             return client;
         }

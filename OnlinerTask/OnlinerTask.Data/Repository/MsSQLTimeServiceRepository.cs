@@ -4,6 +4,7 @@ using System.Linq;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.Repository.Interfaces;
+using OnlinerTask.Data.ScheduleModels;
 
 namespace OnlinerTask.Data.Repository
 {

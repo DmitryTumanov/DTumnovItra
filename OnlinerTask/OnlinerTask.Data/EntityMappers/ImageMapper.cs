@@ -24,10 +24,5 @@ namespace OnlinerTask.Data.EntityMappers
                 Header = model.Header
             };
         }
-
-        public Image ConvertToModel(ImageModel model, string useremail, int pricemaxid, int priceminid)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

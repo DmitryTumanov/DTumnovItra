@@ -11,12 +11,12 @@ namespace OnlinerTask.WEB.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using BLL.Services;
-    using OnlinerTask.Data.EntityMappers;
+    using Data.EntityMappers;
     using Data.EntityMappers.Interfaces;
     using Data.SearchModels;
     using Data.DataBaseModels;
     using Data.Repository.Interfaces;
-    using OnlinerTask.Data.Repository;
+    using Data.Repository;
 
     public static class NinjectWebCommon 
     {

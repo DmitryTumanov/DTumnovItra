@@ -102,7 +102,7 @@
     <Compile Include="Repository\MsSQLProductRepository.cs" />
     <Compile Include="Repository\MsSQLRepository.cs" />
     <Compile Include="Repository\MsSQLTimeServiceRepository.cs" />
-    <Compile Include="Repository\UsersUpdateEmail.cs" />
+    <Compile Include="ScheduleModels\UsersUpdateEmail.cs" />
     <Compile Include="Requests\PutRequest.cs" />
     <Compile Include="Requests\SearchRequest.cs" />
     <Compile Include="Responses\PersonalPageResponse.cs" />
