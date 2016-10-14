@@ -11,33 +11,33 @@ namespace OnlinerTask.WEB.Controllers
     [Authorize]
     public class PersonalController : ApiController
     {
-        private readonly ISearchService _searchService;
-        private readonly IPersonalRepository _repository;
+        private readonly ISearchService searchService;
+        private readonly IPersonalRepository repository;
         public PersonalController(ISearchService service, IPersonalRepository repository)
         {
-            _searchService = service;
-            _repository = repository;
+            searchService = service;
+            this.repository = repository;
         }
 
         public PersonalPageResponse Get(string testname = null)
         {
-            return _repository.PersonalProductsResponse(testname ?? User.Identity.Name);
+            return repository.PersonalProductsResponse(testname ?? User.Identity.Name);
         }
 
         public async Task Post(TimeRequest request, string testname = null)
         {
-            await _repository.ChangeSendEmailTimeAsync(request, testname ?? User.Identity.Name);
+            await repository.ChangeSendEmailTimeAsync(request, testname ?? User.Identity.Name);
         }
 
         public async Task Put(PutRequest request)
         {
-            var result = (await _searchService.GetProducts(request, User.Identity.Name)).FirstOrDefault();
-            _repository.CreateOnlinerProduct(result, User.Identity.Name);
+            var result = (await searchService.GetProducts(request, User.Identity.Name)).FirstOrDefault();
+            repository.CreateOnlinerProduct(result, User.Identity.Name);
         }
 
         public async Task Delete(DeleteRequest request)
         {
-            await _repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
+            await repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
         }
     }
 }

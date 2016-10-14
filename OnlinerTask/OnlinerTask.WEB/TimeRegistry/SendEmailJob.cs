@@ -10,26 +10,26 @@ namespace OnlinerTask.WEB.TimeRegistry
 {
     public class SendEmailJob : IJob
     {
-        private readonly ITimeServiceRepository _repository;
+        private readonly ITimeServiceRepository repository;
 
         public SendEmailJob()
         {
-            _repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
+            repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
         }
         public SendEmailJob(ITimeServiceRepository repository)
         {
-            _repository = repository;
+            this.repository = repository;
         }
 
         public async void Execute()
         {
-            var userList = _repository.GetUsersEmails();
+            var userList = repository.GetUsersEmails();
             var date = DateTime.Now.TimeOfDay;
             foreach (var item in userList)
             {
                 if (item.Time >= date) continue;
                 await SendMail(item.UserEmail, item.ProductName);
-                _repository.DeleteUserAndProduct(item.Id, item.UserEmail);
+                repository.DeleteUserAndProduct(item.Id, item.UserEmail);
             }
         }
 

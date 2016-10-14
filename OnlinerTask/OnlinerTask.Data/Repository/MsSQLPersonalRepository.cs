@@ -14,13 +14,13 @@ namespace OnlinerTask.Data.Repository
 {
     public class MsSqlPersonalRepository : IPersonalRepository
     {
-        private readonly IProductMapper<Product, ProductModel> _productMapper;
-        private readonly IRepository _repository;
+        private readonly IProductMapper<Product, ProductModel> productMapper;
+        private readonly IRepository repository;
 
         public MsSqlPersonalRepository(IProductMapper<Product, ProductModel> productMapper, IRepository repository)
         {
-            _productMapper = productMapper;
-            _repository = repository;
+            this.productMapper = productMapper;
+            this.repository = repository;
         }
         
         public async Task ChangeSendEmailTimeAsync(TimeRequest request, string userName)
@@ -38,12 +38,12 @@ namespace OnlinerTask.Data.Repository
 
         public bool CreateOnlinerProduct(ProductModel model, string userEmail)
         {
-            return _repository.CreateOnlinerProduct(model, userEmail);
+            return repository.CreateOnlinerProduct(model, userEmail);
         }
 
         public PersonalPageResponse PersonalProductsResponse(string userName)
         {
-            var result =_repository.GetPersonalProducts(userName).Select(x => _productMapper.ConvertToModel(x));
+            var result =repository.GetPersonalProducts(userName).Select(x => productMapper.ConvertToModel(x));
             using (var db = new ApplicationDbContext())
             {
                 var time = DateTime.Now.TimeOfDay;
@@ -58,7 +58,7 @@ namespace OnlinerTask.Data.Repository
 
         public Task<bool> RemoveOnlinerProduct(int itemId, string name)
         {
-            return _repository.RemoveOnlinerProduct(itemId, name);
+            return repository.RemoveOnlinerProduct(itemId, name);
         }
     }
 }

@@ -6,17 +6,17 @@ namespace OnlinerTask.Data.EntityMappers
 {
     public class ProductMapper : IProductMapper<Product, ProductModel>
     {
-        private readonly IDependentMapper<Image, ImageModel> _imageMapper;
-        private readonly IDependentMapper<Review, ReviewModel> _reviewMapper;
-        private readonly IPriceMapper<Price, PriceModel> _priceMapper;
+        private readonly IDependentMapper<Image, ImageModel> imageMapper;
+        private readonly IDependentMapper<Review, ReviewModel> reviewMapper;
+        private readonly IPriceMapper<Price, PriceModel> priceMapper;
 
         public ProductMapper(IDependentMapper<Image, ImageModel> imageMapper,
                                 IDependentMapper<Review, ReviewModel> reviewMapper,
                                 IPriceMapper<Price, PriceModel> priceMapper)
         {
-            _imageMapper = imageMapper;
-            _priceMapper = priceMapper;
-            _reviewMapper = reviewMapper;
+            this.imageMapper = imageMapper;
+            this.priceMapper = priceMapper;
+            this.reviewMapper = reviewMapper;
         }
 
         public ProductModel ConvertToModel(Product dbmodel)
@@ -31,9 +31,9 @@ namespace OnlinerTask.Data.EntityMappers
                 IsChecked = true,
                 Key = dbmodel.ProductKey,
                 ReviewUrl = dbmodel.ReviewUrl,
-                Images = _imageMapper.ConvertToModel(dbmodel.Image),
-                Reviews = _reviewMapper.ConvertToModel(dbmodel.Review),
-                Prices = _priceMapper.ConvertToModel(dbmodel.Price)
+                Images = imageMapper.ConvertToModel(dbmodel.Image),
+                Reviews = reviewMapper.ConvertToModel(dbmodel.Review),
+                Prices = priceMapper.ConvertToModel(dbmodel.Price)
             };
         }
 
@@ -49,9 +49,9 @@ namespace OnlinerTask.Data.EntityMappers
                 ProductId = model.Id,
                 ProductKey = model.Key,
                 ReviewUrl = model.ReviewUrl,
-                Image = _imageMapper.ConvertToModel(model.Images),
-                Review = _reviewMapper.ConvertToModel(model.Reviews),
-                Price = _priceMapper.ConvertToModel(model.Prices, pricemaxid, priceminid)
+                Image = imageMapper.ConvertToModel(model.Images),
+                Review = reviewMapper.ConvertToModel(model.Reviews),
+                Price = priceMapper.ConvertToModel(model.Prices, pricemaxid, priceminid)
             };
         }
     }

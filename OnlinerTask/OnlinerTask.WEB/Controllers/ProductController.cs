@@ -14,13 +14,13 @@ namespace OnlinerTask.WEB.Controllers
     [Authorize]
     public class ProductController : ApiController
     {
-        private readonly ISearchService _searchService;
-        private readonly IProductRepository _repository;
+        private readonly ISearchService searchService;
+        private readonly IProductRepository repository;
 
         public ProductController(ISearchService service, IProductRepository repo)
         {
-            _searchService = service;
-            _repository = repo;
+            searchService = service;
+            repository = repo;
         }
 
         public HttpResponseMessage Get()
@@ -30,18 +30,18 @@ namespace OnlinerTask.WEB.Controllers
         
         public async Task<List<ProductModel>> Post(SearchRequest request)
         {
-            return await _searchService.GetProducts(request, User.Identity.Name);
+            return await searchService.GetProducts(request, User.Identity.Name);
         }
 
         public async Task Put(PutRequest request, string testname = null)
         {
             var result = (await Post(request)).FirstOrDefault();
-            _repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
+            repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
         }
         
         public async Task Delete(DeleteRequest request, string testname = null)
         {
-            await _repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
+            await repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
         }
     }
 }

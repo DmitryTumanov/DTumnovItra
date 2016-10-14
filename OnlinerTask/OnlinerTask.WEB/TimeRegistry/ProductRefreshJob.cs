@@ -12,23 +12,23 @@ namespace OnlinerTask.WEB.TimeRegistry
 {
     public class ProductRefreshJob : IJob
     {
-        private readonly ISearchService _searchService;
-        private readonly ITimeServiceRepository _repository;
+        private readonly ISearchService searchService;
+        private readonly ITimeServiceRepository repository;
 
         public ProductRefreshJob()
         {
-            _repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
-            _searchService = DependencyResolver.Current.GetService<ISearchService>();
+            repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
+            searchService = DependencyResolver.Current.GetService<ISearchService>();
         }
         public ProductRefreshJob(ITimeServiceRepository repository, ISearchService service)
         {
-            _repository = repository;
-            _searchService = service;
+            this.repository = repository;
+            searchService = service;
         }
 
         public async void Execute()
         {
-            var products = _repository.GetAllProducts();
+            var products = repository.GetAllProducts();
             foreach (var item in products)
             {
                 if (await ProductUpdated(item))
@@ -40,12 +40,12 @@ namespace OnlinerTask.WEB.TimeRegistry
 
         private void WriteProduct(Product item)
         {
-            _repository.WriteUpdate(item);
+            repository.WriteUpdate(item);
         }
 
         private async Task<bool> ProductUpdated(Product item)
         {
-            var product = (await _searchService.GetProducts(new SearchRequest() { SearchString = item.ProductKey }, item.UserEmail)).FirstOrDefault();
+            var product = (await searchService.GetProducts(new SearchRequest() { SearchString = item.ProductKey }, item.UserEmail)).FirstOrDefault();
             return Check(item, product);
         }
 

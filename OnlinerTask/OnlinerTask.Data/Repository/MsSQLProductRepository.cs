@@ -10,11 +10,11 @@ namespace OnlinerTask.Data.Repository
 {
     public class MsSqlProductRepository : IProductRepository
     {
-        private readonly IRepository _repository;
+        private readonly IRepository repository;
 
         public MsSqlProductRepository(IRepository repository)
         {
-            _repository = repository;
+            this.repository = repository;
         }
 
         public async Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string userName)
@@ -36,22 +36,22 @@ namespace OnlinerTask.Data.Repository
 
         public List<Product> GetAllProducts()
         {
-            return _repository.GetAllProducts();
+            return repository.GetAllProducts();
         }
 
         public List<Product> GetPersonalProducts(string name)
         {
-            return _repository.GetPersonalProducts(name);
+            return repository.GetPersonalProducts(name);
         }
 
         public Task<bool> RemoveOnlinerProduct(int itemId, string name)
         {
-            return _repository.RemoveOnlinerProduct(itemId, name);
+            return repository.RemoveOnlinerProduct(itemId, name);
         }
 
         public bool CreateOnlinerProduct(ProductModel model, string userEmail)
         {
-            return _repository.CreateOnlinerProduct(model, userEmail);
+            return repository.CreateOnlinerProduct(model, userEmail);
         }
     }
 }

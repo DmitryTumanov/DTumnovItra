@@ -11,11 +11,11 @@ namespace OnlinerTask.Data.Repository
 {
     public class MsSqlRepository : IRepository
     {
-        private readonly IProductMapper<Product, ProductModel> _productMapper;
+        private readonly IProductMapper<Product, ProductModel> productMapper;
 
         public MsSqlRepository(IProductMapper<Product, ProductModel> productMapper)
         {
-            _productMapper = productMapper;
+            this.productMapper = productMapper;
         }
 
         public bool CreateOnlinerProduct(ProductModel model, string userEmail)
@@ -92,7 +92,7 @@ namespace OnlinerTask.Data.Repository
 
         private Product ModelToDb(ProductModel model, string userEmail, int maxid, int minid)
         {
-            return _productMapper.ConvertToModel(model, userEmail, maxid, minid);
+            return productMapper.ConvertToModel(model, userEmail, maxid, minid);
         }
 
         public List<Product> GetPersonalProducts(string name)

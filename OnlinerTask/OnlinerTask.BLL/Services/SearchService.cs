@@ -11,10 +11,10 @@ namespace OnlinerTask.BLL.Services
 {
     public class SearchService: ISearchService
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductRepository repository;
         public SearchService(IProductRepository repository)
         {
-            _repository = repository;
+            this.repository = repository;
         }
 
         public SearchResult ProductsFromOnliner(HttpWebResponse webResponse)
@@ -52,7 +52,7 @@ namespace OnlinerTask.BLL.Services
             var request = OnlinerRequest(responce.SearchString);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = ProductsFromOnliner(webResponse);
-            return await _repository.CheckProducts(result.Products, userName);
+            return await repository.CheckProducts(result.Products, userName);
         }
     }
 }

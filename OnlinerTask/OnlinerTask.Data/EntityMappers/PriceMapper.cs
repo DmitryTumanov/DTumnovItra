@@ -6,13 +6,13 @@ namespace OnlinerTask.Data.EntityMappers
 {
     public class PriceMapper: IPriceMapper<Price, PriceModel>
     {
-        private readonly IDependentMapper<Offer, OffersModel> _offerMapper;
-        private readonly IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> _priceAmmountMapper;
+        private readonly IDependentMapper<Offer, OffersModel> offerMapper;
+        private readonly IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper;
 
         public PriceMapper(IDependentMapper<Offer, OffersModel> offerMapper, IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper)
         {
-            _offerMapper = offerMapper;
-            _priceAmmountMapper = priceAmmountMapper;
+            this.offerMapper = offerMapper;
+            this.priceAmmountMapper = priceAmmountMapper;
         }
 
         public PriceModel ConvertToModel(Price dbmodel)
@@ -20,9 +20,9 @@ namespace OnlinerTask.Data.EntityMappers
             return new PriceModel()
             {
                 HtmlUrl = dbmodel.HtmlUrl,
-                Offers = _offerMapper.ConvertToModel(dbmodel.Offer),
-                PriceMax = _priceAmmountMapper.ConvertToModel(dbmodel.PriceMaxAmmount),
-                PriceMin = _priceAmmountMapper.ConvertToModel(dbmodel.PriceMinAmmount)
+                Offers = offerMapper.ConvertToModel(dbmodel.Offer),
+                PriceMax = priceAmmountMapper.ConvertToModel(dbmodel.PriceMaxAmmount),
+                PriceMin = priceAmmountMapper.ConvertToModel(dbmodel.PriceMinAmmount)
             };
         }
 
@@ -31,9 +31,9 @@ namespace OnlinerTask.Data.EntityMappers
             return new Price()
             {
                 HtmlUrl = model.HtmlUrl,
-                Offer = _offerMapper.ConvertToModel(model.Offers),
-                PriceMaxAmmount = _priceAmmountMapper.ConvertToModel(model.PriceMax, pricemaxid),
-                PriceMinAmmount = _priceAmmountMapper.ConvertToModel(model.PriceMin, priceminid)
+                Offer = offerMapper.ConvertToModel(model.Offers),
+                PriceMaxAmmount = priceAmmountMapper.ConvertToModel(model.PriceMax, pricemaxid),
+                PriceMinAmmount = priceAmmountMapper.ConvertToModel(model.PriceMin, priceminid)
             };
         }
     }
