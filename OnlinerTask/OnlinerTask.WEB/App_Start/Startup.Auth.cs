@@ -6,7 +6,6 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using OnlinerTask.WEB.Providers;
-using OnlinerTask.WEB.Models;
 using Microsoft.Owin.Security.Twitter;
 using Microsoft.Owin.Security;
 using OnlinerTask.Data.IdentityModels;
