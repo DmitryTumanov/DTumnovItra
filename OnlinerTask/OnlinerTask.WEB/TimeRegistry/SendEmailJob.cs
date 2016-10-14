@@ -1,34 +1,32 @@
 ﻿using FluentScheduler;
-using OnlinerTask.BLL.Repository;
+using OnlinerTask.Data.Repository.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
     public class SendEmailJob : IJob
     {
-        private IRepository repository;
+        private ITimeServiceRepository repository;
 
         public SendEmailJob()
         {
-            repository = DependencyResolver.Current.GetService<IRepository>();
+            repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
         }
-        public SendEmailJob(IRepository repository)
+        public SendEmailJob(ITimeServiceRepository repository)
         {
             this.repository = repository;
         }
 
         public async void Execute()
         {
-            var user_list = repository.GetUsersAndProducts();
+            var user_list = repository.GetUsersEmails();
+            var date = DateTime.Now.TimeOfDay;
             foreach (var item in user_list)
             {
-                if (item.Time - item.Time.Date < DateTime.Now - DateTime.Now.Date)
+                if (item.Time < date)
                 {
                     await SendMail(item.UserEmail, item.ProductName);
                     repository.DeleteUserAndProduct(item.Id, item.UserEmail);
@@ -38,14 +36,26 @@ namespace OnlinerTask.WEB.TimeRegistry
 
         private Task SendMail(string username, string productname)
         {
-            SmtpClient client = new SmtpClient("smtp.mail.ru", Convert.ToInt32(587));
+            var client = CreateClient();
+            var mail = CreateMail(username, productname);
+            return client.SendMailAsync(mail);
+        }
+
+        private SmtpClient CreateClient()
+        {
+            SmtpClient client = new SmtpClient("smtp.mail.ru", 587);
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.Credentials = new System.Net.NetworkCredential("tumanov.97.dima@mail.ru", "102938usugen");
             client.EnableSsl = true;
+            return client;
+        }
+
+        private MailMessage CreateMail(string username, string productname)
+        {
             var mail = new MailMessage("tumanov.97.dima@mail.ru", username);
             mail.Subject = productname;
-            mail.Body = "Dear," + username + ", product " + productname + " has been changed.";
-            return client.SendMailAsync(mail);
+            mail.Body = string.Format("Dear, {0}, product {1} has been changed.", username, productname);
+            return mail;
         }
     }
 }

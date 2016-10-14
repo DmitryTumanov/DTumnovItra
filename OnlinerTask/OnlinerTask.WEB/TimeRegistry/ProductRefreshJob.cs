@@ -1,30 +1,29 @@
 ﻿using FluentScheduler;
-using OnlinerTask.BLL.Repository;
 using System.Linq;
 using System.Threading.Tasks;
-using OnlinerTask.Data.DBModels;
+using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.BLL.Services;
-using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.SearchModels;
 using System.Web.Mvc;
-using System;
-using OnlinerTask.WEB.Models;
+using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
     public class ProductRefreshJob : IJob
     {
-        private ISearchService service;
-        private IRepository repository;
+        private ISearchService searchService;
+        private ITimeServiceRepository repository;
 
         public ProductRefreshJob()
         {
-            repository = DependencyResolver.Current.GetService<IRepository>();
-            service = DependencyResolver.Current.GetService<ISearchService>();
+            repository = DependencyResolver.Current.GetService<ITimeServiceRepository>();
+            searchService = DependencyResolver.Current.GetService<ISearchService>();
         }
-        public ProductRefreshJob(IRepository repository, ISearchService service)
+        public ProductRefreshJob(ITimeServiceRepository repository, ISearchService service)
         {
             this.repository = repository;
-            this.service = service;
+            this.searchService = service;
         }
 
         public async void Execute()
@@ -41,19 +40,12 @@ namespace OnlinerTask.WEB.TimeRegistry
 
         private void WriteProduct(Product item)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                var time = db.Users.Where(x => x.Email == item.UserEmail).FirstOrDefault();
-                if (time != null)
-                {
-                    repository.WriteUpdateToProduct(item, time.EmailTime);
-                }
-            }
+            repository.WriteUpdate(item);
         }
 
         private async Task<bool> ProductUpdated(Product item)
         {
-            var product = (await service.GetProducts(new Request() { SearchString = item.ProductKey }, repository, item.UserEmail)).FirstOrDefault();
+            var product = (await searchService.GetProducts(new SearchRequest() { SearchString = item.ProductKey }, item.UserEmail)).FirstOrDefault();
             return Check(item, product);
         }
 

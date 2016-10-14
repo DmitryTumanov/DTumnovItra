@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace OnlinerTask.DAL.SearchModels
+namespace OnlinerTask.Data.SearchModels
 {
     public class ProductModel
     {

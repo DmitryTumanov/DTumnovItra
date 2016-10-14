@@ -1,10 +1,11 @@
-﻿using OnlinerTask.DAL.SearchModels;
-using OnlinerTask.Data.DBModels;
+﻿using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.DataBaseModels;
 using System.ComponentModel.DataAnnotations.Schema;
+using OnlinerTask.Data.EntityMappers.Interfaces;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    public class ReviewMapper
+    public class ReviewMapper: IDependentMapper<Review, ReviewModel>
     {
         public ReviewMapper() { }
 

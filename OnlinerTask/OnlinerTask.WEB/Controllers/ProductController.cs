@@ -1,40 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
-using OnlinerTask.DAL.SearchModels;
+using OnlinerTask.Data.SearchModels;
 using OnlinerTask.BLL.Services;
 using System.Linq;
-using OnlinerTask.BLL.Repository;
+using System.Net.Http;
+using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class ProductController : ApiController
     {
-        private ISearchService search_service;
-        private IRepository repository;
+        private ISearchService searchService;
+        private IProductRepository repository;
 
-        public ProductController(ISearchService service, IRepository repo)
+        public ProductController(ISearchService service, IProductRepository repo)
         {
-            search_service = service;
+            searchService = service;
             repository = repo;
         }
 
-        public void Get()
+        public HttpResponseMessage Get()
         {
-
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
         
-        public async Task<List<ProductModel>> Post(Request responce)
+        public async Task<List<ProductModel>> Post(SearchRequest request)
         {
-            return await search_service.GetProducts(responce, repository, User.Identity.Name);
+            return await searchService.GetProducts(request, User.Identity.Name);
         }
 
-        public async Task Put(Request responce, string testname = null)
+        public async Task Put(PutRequest request, string testname = null)
         {
-            var result = (await Post(responce)).FirstOrDefault();
+            var result = (await Post(request)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
         }
         

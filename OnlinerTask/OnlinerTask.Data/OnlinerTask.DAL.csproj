@@ -38,6 +38,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -55,34 +63,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBModels\Image.cs" />
-    <Compile Include="DBModels\Offer.cs" />
-    <Compile Include="DBModels\OnlinerProducts.cs" />
-    <Compile Include="DBModels\Price.cs" />
-    <Compile Include="DBModels\PriceAmmount.cs" />
-    <Compile Include="DBModels\Product.cs" />
-    <Compile Include="DBModels\Review.cs" />
-    <Compile Include="DBModels\UpdatedProducts.cs" />
+    <Compile Include="DataBaseModels\DisturbSchedule.cs" />
+    <Compile Include="DataBaseModels\Image.cs" />
+    <Compile Include="DataBaseModels\Offer.cs" />
+    <Compile Include="DataBaseModels\OnlinerProducts.cs" />
+    <Compile Include="DataBaseModels\Price.cs" />
+    <Compile Include="DataBaseModels\PriceAmmount.cs" />
+    <Compile Include="DataBaseModels\Product.cs" />
+    <Compile Include="DataBaseModels\Review.cs" />
+    <Compile Include="DataBaseModels\UpdatedProducts.cs" />
+    <Compile Include="EntityMappers\Interfaces\IPriceAmmountMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IDependentMapper.cs" />
     <Compile Include="EntityMappers\ImageMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IPriceMapper.cs" />
+    <Compile Include="EntityMappers\Interfaces\IProductMapper.cs" />
     <Compile Include="EntityMappers\OfferMapper.cs" />
     <Compile Include="EntityMappers\PriceAmmountMapper.cs" />
     <Compile Include="EntityMappers\PriceMapper.cs" />
     <Compile Include="EntityMappers\ProductMapper.cs" />
     <Compile Include="EntityMappers\ReviewMapper.cs" />
-    <Compile Include="SearchModels\DeleteRequest.cs" />
+    <Compile Include="Extensions\AsyncOperations.cs" />
+    <Compile Include="IdentityModels\IdentityModels.cs" />
+    <Compile Include="Migrations\201610101310426_DateTimeEnable.cs" />
+    <Compile Include="Migrations\201610101310426_DateTimeEnable.Designer.cs">
+      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610120836053_Postpone DB1.cs" />
+    <Compile Include="Migrations\201610120836053_Postpone DB1.Designer.cs">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repository\Interfaces\IPersonalRepository.cs" />
+    <Compile Include="Repository\Interfaces\IProductRepository.cs" />
+    <Compile Include="Repository\Interfaces\IRepository.cs" />
+    <Compile Include="Repository\Interfaces\ITimeServiceRepository.cs" />
+    <Compile Include="Repository\MsSQLPersonalRepository.cs" />
+    <Compile Include="Repository\MsSQLProductRepository.cs" />
+    <Compile Include="Repository\MsSQLRepository.cs" />
+    <Compile Include="Repository\MsSQLTimeServiceRepository.cs" />
+    <Compile Include="Repository\UsersUpdateEmail.cs" />
+    <Compile Include="Requests\PutRequest.cs" />
+    <Compile Include="Requests\SearchRequest.cs" />
+    <Compile Include="Responses\PersonalPageResponse.cs" />
+    <Compile Include="Requests\DeleteRequest.cs" />
     <Compile Include="SearchModels\ImageModel.cs" />
     <Compile Include="SearchModels\OffersModel.cs" />
     <Compile Include="SearchModels\PriceAmmountModel.cs" />
     <Compile Include="SearchModels\PriceModel.cs" />
     <Compile Include="SearchModels\ProductModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchModels\Request.cs" />
     <Compile Include="SearchModels\ReviewModel.cs" />
     <Compile Include="SearchModels\SearchModels.cs" />
-    <Compile Include="SearchModels\TimeRequest.cs" />
+    <Compile Include="Requests\TimeRequest.cs" />
     <Compile Include="SearchModels\UsersAndProducts.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">
+      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610120836053_Postpone DB1.resx">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

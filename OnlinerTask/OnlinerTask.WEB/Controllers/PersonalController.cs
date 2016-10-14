@@ -1,60 +1,37 @@
-﻿using OnlinerTask.BLL.Repository;
-using OnlinerTask.BLL.Services;
-using OnlinerTask.DAL.SearchModels;
-using OnlinerTask.Data.EntityMappers;
-using OnlinerTask.Data.SearchModels;
-using OnlinerTask.WEB.Models;
-using System;
-using System.Collections.Generic;
+﻿using OnlinerTask.BLL.Services;
+using OnlinerTask.Data.Requests;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using OnlinerTask.Data.Responses;
+using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class PersonalController : ApiController
     {
-        private ISearchService search_service;
-        private IRepository repository;
-        public PersonalController(ISearchService service, IRepository repository)
+        private ISearchService searchService;
+        private IPersonalRepository repository;
+        public PersonalController(ISearchService service, IPersonalRepository repository)
         {
-            search_service = service;
+            searchService = service;
             this.repository = repository;
         }
 
-        public SearchResult Get(string testname = null)
+        public PersonalPageResponse Get(string testname = null)
         {
-            var result = repository.GetPersonalProducts(testname ?? User.Identity.Name).Select(x => new ProductMapper().ConvertToModel(x));
-            using (var db = new ApplicationDbContext())
-            {
-                var time = DateTime.Now;
-                var user = db.Users.Where(x => x.UserName == (testname ?? User.Identity.Name)).FirstOrDefault();
-                if (user != null) {
-                    time = user.EmailTime;
-                }
-                return new SearchResult() { EmailTime = time, Products = result.ToList()};
-            }
+            return repository.PersonalProductsResponse(testname ?? User.Identity.Name);
         }
 
-        public void Post(TimeRequest request, string testname = null)
+        public async Task Post(TimeRequest request, string testname = null)
         {
-            using (var db = new ApplicationDbContext())
-            {
-                var user = db.Users.FirstOrDefault(x => x.UserName == (testname ?? User.Identity.Name));
-                if (user != null && request != null)
-                {
-                    user.EmailTime = request.Time;
-                    db.SaveChanges();
-                }
-            }
+            await repository.ChangeSendEmailTimeAsync(request, testname ?? User.Identity.Name);
         }
 
-        public async Task Put(Request responce)
+        public async Task Put(PutRequest request)
         {
-            var result = (await search_service.GetProducts(responce, repository, User.Identity.Name)).FirstOrDefault();
+            var result = (await searchService.GetProducts(request, User.Identity.Name)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, User.Identity.Name);
         }
 

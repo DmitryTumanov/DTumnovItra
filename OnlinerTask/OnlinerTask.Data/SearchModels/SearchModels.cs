@@ -2,14 +2,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace OnlinerTask.DAL.SearchModels
+namespace OnlinerTask.Data.SearchModels
 {
     public class SearchResult
     {
         [JsonProperty("products")]
         public List<ProductModel> Products { get; set; }
-
-        [JsonProperty("emailtime")]
-        public DateTime EmailTime { get; set; }
     }
 }

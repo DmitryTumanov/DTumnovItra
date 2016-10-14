@@ -1,10 +1,11 @@
-﻿using OnlinerTask.DAL.SearchModels;
-using OnlinerTask.Data.DBModels;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.DataBaseModels;
+using System;
+using OnlinerTask.Data.EntityMappers.Interfaces;
 
 namespace OnlinerTask.Data.EntityMappers
 {
-    public class ImageMapper
+    public class ImageMapper: IDependentMapper<Image, ImageModel>
     {
         public ImageMapper() { }
 
@@ -22,6 +23,11 @@ namespace OnlinerTask.Data.EntityMappers
             {
                 Header = model.Header
             };
+        }
+
+        public Image ConvertToModel(ImageModel model, string useremail, int pricemaxid, int priceminid)
+        {
+            throw new NotImplementedException();
         }
     }
 }

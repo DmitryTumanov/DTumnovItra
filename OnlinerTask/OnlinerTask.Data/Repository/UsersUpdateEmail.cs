@@ -1,0 +1,12 @@
+﻿using System;
+
+namespace OnlinerTask.Data.Repository
+{
+    public class UsersUpdateEmail
+    {
+        public string UserEmail { get; set; }
+        public string ProductName { get; set; }
+        public int Id { get; set; }
+        public TimeSpan Time { get; set; }
+    }
+}
