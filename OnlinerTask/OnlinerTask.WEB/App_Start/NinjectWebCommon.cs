@@ -1,4 +1,6 @@
 using Ninject.Syntax;
+using OnlinerTask.Data.RedisManager;
+using ServiceStack.Redis;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Stop")]
@@ -87,6 +89,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind(typeof(IPriceMapper<,>)).To(typeof(PriceMapper)).WhenInjectedInto<ProductMapper>();
             kernel.Bind(typeof(IDependentMapper<,>)).To(typeof(OfferMapper)).WhenInjectedInto<PriceMapper>();
             kernel.Bind(typeof(IPriceAmmountMapper<,>)).To(typeof(PriceAmmountMapper)).WhenInjectedInto<PriceMapper>();
+            kernel.Bind<IRedisClient>().ToMethod(x => new RedisClient("localhost", 6379));
+            kernel.Bind<IEmailManager>().To<EmailCacheManager>();
         }        
     }
 }
