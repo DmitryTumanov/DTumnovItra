@@ -1,3 +1,7 @@
+using Ninject.Syntax;
+using OnlinerTask.Data.RedisManager;
+using ServiceStack.Redis;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Stop")]
 
@@ -11,16 +15,16 @@ namespace OnlinerTask.WEB.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using BLL.Services;
-    using OnlinerTask.Data.EntityMappers;
+    using Data.EntityMappers;
     using Data.EntityMappers.Interfaces;
     using Data.SearchModels;
     using Data.DataBaseModels;
     using Data.Repository.Interfaces;
-    using OnlinerTask.Data.Repository;
+    using Data.Repository;
 
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
@@ -29,7 +33,7 @@ namespace OnlinerTask.WEB.App_Start
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            Bootstrapper.Initialize(CreateKernel);
         }
         
         /// <summary>
@@ -37,7 +41,7 @@ namespace OnlinerTask.WEB.App_Start
         /// </summary>
         public static void Stop()
         {
-            bootstrapper.ShutDown();
+            Bootstrapper.ShutDown();
         }
         
         /// <summary>
@@ -72,19 +76,21 @@ namespace OnlinerTask.WEB.App_Start
         /// Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
+        private static void RegisterServices(IBindingRoot kernel)
         {
             kernel.Bind<ISearchService>().To<SearchService>();
-            kernel.Bind<IProductRepository>().To<MsSQLProductRepository>();
-            kernel.Bind<IPersonalRepository>().To<MsSQLPersonalRepository>();
-            kernel.Bind<IRepository>().To<MsSQLRepository>();
-            kernel.Bind<ITimeServiceRepository>().To<MsSQLTimeServiceRepository>();
+            kernel.Bind<IProductRepository>().To<MsSqlProductRepository>();
+            kernel.Bind<IPersonalRepository>().To<MsSqlPersonalRepository>();
+            kernel.Bind<IRepository>().To<MsSqlRepository>();
+            kernel.Bind<ITimeServiceRepository>().To<MsSqlTimeServiceRepository>();
             kernel.Bind(typeof(IProductMapper<,>)).To<ProductMapper>();
             kernel.Bind<IDependentMapper<Image, ImageModel>>().To<ImageMapper>();
             kernel.Bind<IDependentMapper<Review, ReviewModel>>().To<ReviewMapper>();
             kernel.Bind(typeof(IPriceMapper<,>)).To(typeof(PriceMapper)).WhenInjectedInto<ProductMapper>();
             kernel.Bind(typeof(IDependentMapper<,>)).To(typeof(OfferMapper)).WhenInjectedInto<PriceMapper>();
             kernel.Bind(typeof(IPriceAmmountMapper<,>)).To(typeof(PriceAmmountMapper)).WhenInjectedInto<PriceMapper>();
+            kernel.Bind<IRedisClient>().ToMethod(x => new RedisClient("localhost", 6379));
+            kernel.Bind<IEmailManager>().To<EmailCacheManager>();
         }        
     }
 }
