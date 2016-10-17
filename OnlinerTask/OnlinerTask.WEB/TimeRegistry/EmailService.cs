@@ -15,7 +15,6 @@ namespace OnlinerTask.WEB.TimeRegistry
         }
         public object Any(UsersUpdateEmail req)
         {
-            Debug.WriteLine($"##########################Get req {req.UserEmail} {req.ProductName}");
             manager.Set(req);
             return new object();
         }

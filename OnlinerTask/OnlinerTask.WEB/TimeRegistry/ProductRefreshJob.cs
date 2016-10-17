@@ -5,7 +5,6 @@ using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.BLL.Services;
 using OnlinerTask.Data.SearchModels;
 using System.Web.Mvc;
-using OnlinerTask.Data.EntityMappers.Interfaces;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Repository.Interfaces;
 using OnlinerTask.Data.ScheduleModels;
@@ -35,14 +34,16 @@ namespace OnlinerTask.WEB.TimeRegistry
         public async void Execute()
         {
             CreateServer();
-            var mqClient = CreateClient();
-            var products = repository.GetAllProducts();
-            foreach (var item in products)
+            using (var mqClient = CreateClient())
             {
-                var product = await ProductUpdated(item);
-                if (product == null) continue;
-                var redisElem = WriteProduct(product, item.UserEmail);
-                mqClient.Publish(redisElem);
+                var products = repository.GetAllProducts();
+                foreach (var item in products)
+                {
+                    var product = await ProductUpdated(item);
+                    if (product == null) continue;
+                    var redisElem = WriteProduct(product, item.UserEmail);
+                    mqClient.Publish(redisElem);
+                }
             }
         }
 
