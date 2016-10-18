@@ -59,8 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ISearchService.cs" />
-    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Services\Job\EmailJobService.cs" />
+    <Compile Include="Services\Job\IEmailJob.cs" />
+    <Compile Include="Services\Job\IJobExecute.cs" />
+    <Compile Include="Services\Search\ISearchService.cs" />
+    <Compile Include="Services\Search\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlinerTask.Data\OnlinerTask.DAL.csproj">
