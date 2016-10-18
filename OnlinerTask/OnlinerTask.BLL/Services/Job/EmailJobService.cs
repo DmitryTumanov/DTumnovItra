@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlinerTask.BLL.Services.Job.Interfaces;
 using OnlinerTask.Data.Extensions;
 using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.ScheduleModels;
