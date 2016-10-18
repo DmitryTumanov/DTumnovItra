@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.Repository.Interfaces;
 using OnlinerTask.Data.SearchModels;
@@ -10,29 +9,26 @@ using System.Linq;
 
 namespace OnlinerTask.Data.Repository
 {
-    public class MsSQLRepository : IRepository
+    public class MsSqlRepository : IRepository
     {
-        private IProductMapper<Product, ProductModel> productMapper;
+        private readonly IProductMapper<Product, ProductModel> productMapper;
 
-        public MsSQLRepository(IProductMapper<Product, ProductModel> productMapper)
+        public MsSqlRepository(IProductMapper<Product, ProductModel> productMapper)
         {
             this.productMapper = productMapper;
         }
 
-        public bool CreateOnlinerProduct(ProductModel model, string UserEmail)
+        public bool CreateOnlinerProduct(ProductModel model, string userEmail)
         {
             if (model == null)
             {
                 return false;
             }
-            else
-            {
-                int maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
-                int minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
-                var product = ModelToDB(model, UserEmail, maxid, minid);
-                CreateProduct(product);
-                return true;
-            }
+            var maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
+            var minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
+            var product = ModelToDb(model, userEmail, maxid, minid);
+            CreateProduct(product);
+            return true;
         }
 
         public int CreatePriceAmmount(PriceAmmount price)
@@ -55,14 +51,11 @@ namespace OnlinerTask.Data.Repository
             {
                 return false;
             }
-            else
+            using (var context = new OnlinerProducts())
             {
-                using (var context = new OnlinerProducts())
-                {
-                    context.Product.Add((Product)product);
-                    context.SaveChanges();
-                    return true;
-                }
+                context.Product.Add(product);
+                context.SaveChanges();
+                return true;
             }
         }
 
@@ -97,9 +90,9 @@ namespace OnlinerTask.Data.Repository
             await context.SaveChangesAsync();
         }
 
-        private Product ModelToDB(ProductModel model, string UserEmail, int maxid, int minid)
+        private Product ModelToDb(ProductModel model, string userEmail, int maxid, int minid)
         {
-            return productMapper.ConvertToModel(model, UserEmail, maxid, minid);
+            return productMapper.ConvertToModel(model, userEmail, maxid, minid);
         }
 
         public List<Product> GetPersonalProducts(string name)

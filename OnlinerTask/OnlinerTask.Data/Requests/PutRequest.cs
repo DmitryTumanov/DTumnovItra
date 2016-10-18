@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlinerTask.Data.Requests
+﻿namespace OnlinerTask.Data.Requests
 {
     public class PutRequest: SearchRequest
     {
+        public PutRequest(string putString) : base(putString)
+        {
+        }
     }
 }
