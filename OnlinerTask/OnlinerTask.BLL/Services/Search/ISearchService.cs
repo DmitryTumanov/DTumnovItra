@@ -1,10 +1,10 @@
-﻿using OnlinerTask.Data.SearchModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.BLL.Services
+namespace OnlinerTask.BLL.Services.Search
 {
     public interface ISearchService
     {
