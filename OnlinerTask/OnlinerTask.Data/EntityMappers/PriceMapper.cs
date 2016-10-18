@@ -6,8 +6,8 @@ namespace OnlinerTask.Data.EntityMappers
 {
     public class PriceMapper: IPriceMapper<Price, PriceModel>
     {
-        IDependentMapper<Offer, OffersModel> offerMapper;
-        IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper;
+        private readonly IDependentMapper<Offer, OffersModel> offerMapper;
+        private readonly IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper;
 
         public PriceMapper(IDependentMapper<Offer, OffersModel> offerMapper, IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper)
         {
@@ -32,8 +32,8 @@ namespace OnlinerTask.Data.EntityMappers
             {
                 HtmlUrl = model.HtmlUrl,
                 Offer = offerMapper.ConvertToModel(model.Offers),
-                PriceMaxAmmount = priceAmmountMapper.ConvertToModel(model.PriceMax, pricemaxid),
-                PriceMinAmmount = priceAmmountMapper.ConvertToModel(model.PriceMin, priceminid)
+                PriceMaxId = pricemaxid,
+                PriceMinId = priceminid
             };
         }
     }

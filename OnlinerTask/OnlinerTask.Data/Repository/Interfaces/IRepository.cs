@@ -8,7 +8,7 @@ namespace OnlinerTask.Data.Repository.Interfaces
     public interface IRepository
     {
         Task<bool> RemoveOnlinerProduct(int itemId, string name);
-        bool CreateOnlinerProduct(ProductModel model, string UserEmail);
+        bool CreateOnlinerProduct(ProductModel model, string userEmail);
         int CreatePriceAmmount(PriceAmmount price);
         bool CreateProduct(Product product);
         List<Product> GetPersonalProducts(string name);

@@ -3,9 +3,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using OnlinerTask.Data.SearchModels;
-using OnlinerTask.BLL.Services;
 using System.Linq;
 using System.Net.Http;
+using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Repository.Interfaces;
 
@@ -14,8 +14,8 @@ namespace OnlinerTask.WEB.Controllers
     [Authorize]
     public class ProductController : ApiController
     {
-        private ISearchService searchService;
-        private IProductRepository repository;
+        private readonly ISearchService searchService;
+        private readonly IProductRepository repository;
 
         public ProductController(ISearchService service, IProductRepository repo)
         {

@@ -1,8 +1,8 @@
-﻿using OnlinerTask.BLL.Services;
-using OnlinerTask.Data.Requests;
+﻿using OnlinerTask.Data.Requests;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Responses;
 using OnlinerTask.Data.Repository.Interfaces;
 
@@ -11,8 +11,8 @@ namespace OnlinerTask.WEB.Controllers
     [Authorize]
     public class PersonalController : ApiController
     {
-        private ISearchService searchService;
-        private IPersonalRepository repository;
+        private readonly ISearchService searchService;
+        private readonly IPersonalRepository repository;
         public PersonalController(ISearchService service, IPersonalRepository repository)
         {
             searchService = service;

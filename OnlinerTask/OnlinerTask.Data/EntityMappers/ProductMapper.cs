@@ -6,9 +6,9 @@ namespace OnlinerTask.Data.EntityMappers
 {
     public class ProductMapper : IProductMapper<Product, ProductModel>
     {
-        IDependentMapper<Image, ImageModel> imageMapper;
-        IDependentMapper<Review, ReviewModel> reviewMapper;
-        IPriceMapper<Price, PriceModel> priceMapper;
+        private readonly IDependentMapper<Image, ImageModel> imageMapper;
+        private readonly IDependentMapper<Review, ReviewModel> reviewMapper;
+        private readonly IPriceMapper<Price, PriceModel> priceMapper;
 
         public ProductMapper(IDependentMapper<Image, ImageModel> imageMapper,
                                 IDependentMapper<Review, ReviewModel> reviewMapper,
@@ -46,7 +46,7 @@ namespace OnlinerTask.Data.EntityMappers
                 FullName = model.FullName,
                 Name = model.Name,
                 HtmlUrl = model.HtmlUrl,
-                ProductId = (int)model.Id,
+                ProductId = model.Id,
                 ProductKey = model.Key,
                 ReviewUrl = model.ReviewUrl,
                 Image = imageMapper.ConvertToModel(model.Images),
