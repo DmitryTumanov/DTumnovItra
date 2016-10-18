@@ -1,4 +1,5 @@
-﻿using OnlinerTask.Data.ScheduleModels;
+﻿using System;
+using OnlinerTask.Data.ScheduleModels;
 using ServiceStack;
 using ServiceStack.Redis;
 
@@ -15,6 +16,7 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
 
         public object Any(UsersUpdateEmail req)
         {
+            req.Id = Guid.NewGuid().ToString();
             manager.Set(req);
             return new object();
         }
