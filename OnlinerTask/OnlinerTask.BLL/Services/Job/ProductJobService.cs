@@ -28,28 +28,30 @@ namespace OnlinerTask.BLL.Services.Job
 
         public async Task Execute()
         {
-            CreateServer();
-            using (var mqClient = CreateClient())
-            {
-                await GetAndPublishUpdates(mqClient);
-            }
+            CreateAppHost();
+            await GetAndPublishUpdates(CreateClient());
         }
 
-        public void CreateServer()
+        public void CreateAppHost()
         {
             var serverAppHost = new EmailAppHost();
-            if (ServiceStackHost.Instance != null) return;
+            if (ServiceStackHost.Instance != null)
+            {
+                return;
+            }
             serverAppHost.Init();
             serverAppHost.Start("http://localhost:1400/");
         }
 
         public async Task GetAndPublishUpdates(IMessageQueueClient mqClient)
         {
-            var products = repository.GetAllProducts();
-            await products.ForEachAsync(async x =>
+            await repository.GetAllProducts().ForEachAsync(async x =>
             {
                 var product = await ProductUpdated(x);
-                if (product == null) return;
+                if (product == null)
+                {
+                    return;
+                }
                 var redisElem = WriteProduct(product, x.UserEmail);
                 mqClient.Publish(redisElem);
             });
@@ -63,22 +65,22 @@ namespace OnlinerTask.BLL.Services.Job
             return mqServer.CreateMessageQueueClient();
         }
 
-        private UsersUpdateEmail WriteProduct(ProductModel item, string userEmail)
+        private UsersUpdateEmail WriteProduct(ProductModel onlinerModel, string userEmail)
         {
-            return repository.WriteUpdate(item, userEmail);
+            return repository.WriteUpdate(onlinerModel, userEmail);
         }
 
-        private async Task<ProductModel> ProductUpdated(Product item)
+        private async Task<ProductModel> ProductUpdated(Product databaseModel)
         {
-            var product = (await searchService.GetProducts(new SearchRequest(item.ProductKey), item.UserEmail)).FirstOrDefault();
-            return Check(item, product) ? product : null;
+            var product = (await searchService.GetProducts(new SearchRequest(databaseModel.ProductKey), databaseModel.UserEmail)).FirstOrDefault();
+            return Check(databaseModel, product) ? product : null;
         }
 
-        private bool Check(Product product, ProductModel model)
+        private bool Check(Product databaseModel, ProductModel onlinerModel)
         {
-            var maxAmountUpdate = model.Prices.PriceMax.Amount != product.Price.PriceMaxAmmount.Amount;
-            var minAmountUpdate = model.Prices.PriceMin.Amount != product.Price.PriceMinAmmount.Amount;
-            return maxAmountUpdate || minAmountUpdate;
+            var isMaxAmountUpdate = onlinerModel.Prices.PriceMax.Amount != databaseModel.Price.PriceMaxAmmount.Amount;
+            var isMinAmountUpdate = onlinerModel.Prices.PriceMin.Amount != databaseModel.Price.PriceMinAmmount.Amount;
+            return isMaxAmountUpdate || isMinAmountUpdate;
         }
     }
 }

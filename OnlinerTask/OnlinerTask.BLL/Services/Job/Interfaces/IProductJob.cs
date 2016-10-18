@@ -7,7 +7,7 @@ namespace OnlinerTask.BLL.Services.Job.Interfaces
     {
         IMessageQueueClient CreateClient();
 
-        void CreateServer();
+        void CreateAppHost();
 
         Task GetAndPublishUpdates(IMessageQueueClient mqClient);
     }
