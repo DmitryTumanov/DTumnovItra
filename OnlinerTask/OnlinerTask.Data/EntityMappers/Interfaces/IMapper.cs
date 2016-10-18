@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlinerTask.Data.EntityMappers.Interfaces
+﻿namespace OnlinerTask.Data.EntityMappers.Interfaces
 {
-    public interface IMapper<K,T>
+    public interface IMapper<in TK, out T>
     {
-        T ConvertToModel(K dbmodel);
+        T ConvertToModel(TK dbmodel);
     }
 }

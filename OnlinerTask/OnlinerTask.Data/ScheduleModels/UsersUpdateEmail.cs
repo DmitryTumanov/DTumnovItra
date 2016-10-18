@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OnlinerTask.Data.Repository
+namespace OnlinerTask.Data.ScheduleModels
 {
     public class UsersUpdateEmail
     {

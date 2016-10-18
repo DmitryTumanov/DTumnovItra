@@ -12,22 +12,22 @@ using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.Data.Repository
 {
-    public class MsSQLPersonalRepository : IPersonalRepository
+    public class MsSqlPersonalRepository : IPersonalRepository
     {
-        private IProductMapper<Product, ProductModel> productMapper;
-        private IRepository repository;
+        private readonly IProductMapper<Product, ProductModel> productMapper;
+        private readonly IRepository repository;
 
-        public MsSQLPersonalRepository(IProductMapper<Product, ProductModel> productMapper, IRepository repository)
+        public MsSqlPersonalRepository(IProductMapper<Product, ProductModel> productMapper, IRepository repository)
         {
             this.productMapper = productMapper;
             this.repository = repository;
         }
         
-        public async Task ChangeSendEmailTimeAsync(TimeRequest request, string UserName)
+        public async Task ChangeSendEmailTimeAsync(TimeRequest request, string userName)
         {
             using (var db = new ApplicationDbContext())
             {
-                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == UserName);
+                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == userName);
                 if (user != null && request != null)
                 {
                     user.EmailTime = request.Time.TimeOfDay;
@@ -36,18 +36,18 @@ namespace OnlinerTask.Data.Repository
             }
         }
 
-        public bool CreateOnlinerProduct(ProductModel model, string UserEmail)
+        public bool CreateOnlinerProduct(ProductModel model, string userEmail)
         {
-            return repository.CreateOnlinerProduct(model, UserEmail);
+            return repository.CreateOnlinerProduct(model, userEmail);
         }
 
-        public PersonalPageResponse PersonalProductsResponse(string UserName)
+        public PersonalPageResponse PersonalProductsResponse(string userName)
         {
-            var result =repository.GetPersonalProducts(UserName).Select(x => productMapper.ConvertToModel(x));
+            var result =repository.GetPersonalProducts(userName).Select(x => productMapper.ConvertToModel(x));
             using (var db = new ApplicationDbContext())
             {
                 var time = DateTime.Now.TimeOfDay;
-                var user = db.Users.Where(x => x.UserName == (UserName)).FirstOrDefault();
+                var user = db.Users.FirstOrDefault(x => x.UserName == (userName));
                 if (user != null)
                 {
                     time = user.EmailTime;

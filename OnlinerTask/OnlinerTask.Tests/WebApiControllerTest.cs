@@ -3,13 +3,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using OnlinerTask.WEB.Controllers;
-using OnlinerTask.BLL.Repository;
 using OnlinerTask.BLL.Services;
 using System.Data.Entity;
 using OnlinerTask.Data.EntityMappers;
 using System.Threading.Tasks;
-using OnlinerTask.WEB.Models;
-using OnlinerTask.Data.SearchModels;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.IdentityModels;
@@ -20,15 +17,15 @@ namespace OnlinerTask.Tests
     [TestClass]
     public class WebApiControllerTest
     {
-        private readonly string testname = "TEST";
+        private const string Testname = "TEST";
 
         [TestMethod]
-        public async Task ProductPOST()
+        public async Task ProductPost()
         {
-            var testproducts = ProductsFromDB();
+            var testproducts = ProductsFromDb();
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLRepository(productMapper);
-            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var repository = new MsSqlRepository(productMapper);
+            var productRepository = new MsSqlProductRepository(repository);
             var controller = new ProductController(new SearchService(productRepository), productRepository);
             var item = await controller.Post(new SearchRequest() { SearchString = testproducts[0].ProductKey });
             var testitem = productMapper.ConvertToModel(testproducts[0]);
@@ -36,79 +33,87 @@ namespace OnlinerTask.Tests
         }
 
         [TestMethod]
-        public async Task ProductPUT()
+        public async Task ProductPut()
         {
-            var testproducts = ProductsFromDB();
+            var testproducts = ProductsFromDb();
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLRepository(productMapper);
-            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var repository = new MsSqlRepository(productMapper);
+            var productRepository = new MsSqlProductRepository(repository);
             var controller = new ProductController(new SearchService(productRepository), productRepository);
-            await controller.Put(new PutRequest() { SearchString = testproducts[0].ProductKey }, testname);
-            var testcount = ProductsFromDB().Count();
+            await controller.Put(new PutRequest() { SearchString = testproducts[0].ProductKey }, Testname);
+            var testcount = ProductsFromDb().Count;
             Assert.AreNotEqual(testproducts.Count, testcount);
         }
 
         [TestMethod]
-        public async Task ProductDELETE()
+        public async Task ProductDelete()
         {
-            var testproducts = ProductsFromDB();
+            var testproducts = ProductsFromDb();
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLRepository(productMapper);
-            var productRepository = new MsSQLProductRepository(productMapper, repository);
+            var repository = new MsSqlRepository(productMapper);
+            var productRepository = new MsSqlProductRepository(repository);
             var controller = new ProductController(new SearchService(productRepository), productRepository);
-            var deleteitems = testproducts.Where(x => x.UserEmail == testname).ToList();
+            var deleteitems = testproducts.Where(x => x.UserEmail == Testname).ToList();
             foreach (var item in deleteitems)
             {
-                await controller.Delete(new DeleteRequest() { ItemId = (int)item.ProductId }, testname);
+                await controller.Delete(new DeleteRequest() { ItemId = (int)item.ProductId }, Testname);
             }
-            var testcount = ProductsFromDB().Count();
+            var testcount = ProductsFromDb().Count;
             Assert.AreEqual(testproducts.Count - deleteitems.Count, testcount);
         }
 
         [TestMethod]
-        public void PersonalGET()
+        public void PersonalGet()
         {
-            var testemail = ProductsFromDB().First().UserEmail;
+            var testemail = ProductsFromDb().First().UserEmail;
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLRepository(productMapper);
-            var productRepository = new MsSQLProductRepository(productMapper, repository);
-            var personalRepository = new MsSQLPersonalRepository(productMapper, repository);
+            var repository = new MsSqlRepository(productMapper);
+            var productRepository = new MsSqlProductRepository(repository);
+            var personalRepository = new MsSqlPersonalRepository(productMapper, repository);
             var controller = new PersonalController(new SearchService(productRepository), personalRepository);
             var controllerresponce = controller.Get(testemail);
 
             using (var db = new ApplicationDbContext())
             {
-                var testtime = db.Users.FirstOrDefault(x => x.Email == testemail).EmailTime;
-                var actualtime = controllerresponce.EmailTime;
-                Assert.AreEqual(testtime, actualtime.TimeOfDay);
+                var firstOrDefault = db.Users.FirstOrDefault(x => x.Email == testemail);
+                if (firstOrDefault != null)
+                {
+                    var testtime = firstOrDefault.EmailTime;
+                    var actualtime = controllerresponce.EmailTime;
+                    Assert.AreEqual(testtime, actualtime.TimeOfDay);
+                }
             }
-            using (var mdb = new OnlinerProducts())
+            using (new OnlinerProducts())
             {
-                var testproducts = ProductsFromDB().Where(x => x.UserEmail == testemail).Select(x => productMapper.ConvertToModel(x)).ToList();
+                var testproducts = ProductsFromDb().Where(x => x.UserEmail == testemail).Select(x => productMapper.ConvertToModel(x)).ToList();
                 var actualproducts = controllerresponce.Products;
                 Assert.AreEqual(testproducts.Count, actualproducts.Count);
             }
         }
 
         [TestMethod]
-        public async Task PersonalPOST()
+        public async Task PersonalPost()
         {
-            var testemail = ProductsFromDB().First().UserEmail;
+            var testemail = ProductsFromDb().First().UserEmail;
             var actualtime = DateTime.Now;
             var productMapper = new ProductMapper(new ImageMapper(), new ReviewMapper(), new PriceMapper(new OfferMapper(), new PriceAmmountMapper()));
-            var repository = new MsSQLRepository(productMapper);
-            var productRepository = new MsSQLProductRepository(productMapper, repository);
-            var personalRepository = new MsSQLPersonalRepository(productMapper, repository);
+            var repository = new MsSqlRepository(productMapper);
+            var productRepository = new MsSqlProductRepository(repository);
+            var personalRepository = new MsSqlPersonalRepository(productMapper, repository);
             var controller = new PersonalController(new SearchService(productRepository), personalRepository);
             using (var db = new ApplicationDbContext())
             {
                 await controller.Post(new TimeRequest() { Time = actualtime }, testemail);
-                var usertime = db.Users.FirstOrDefault(x => x.Email == testemail).EmailTime;
-                Assert.AreEqual(usertime, actualtime.TimeOfDay);
+                var actualUser = db.Users.FirstOrDefault(x => x.Email == testemail);
+                if (actualUser != null)
+                {
+                    var usertime = actualUser.EmailTime;
+                    Assert.AreEqual(usertime, actualtime.TimeOfDay);
+                }
             }
         }
 
-        public List<Product> ProductsFromDB()
+        public List<Product> ProductsFromDb()
         {
             using (var db = new OnlinerProducts())
             {
