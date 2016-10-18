@@ -32,8 +32,8 @@ namespace OnlinerTask.Data.EntityMappers
             {
                 HtmlUrl = model.HtmlUrl,
                 Offer = offerMapper.ConvertToModel(model.Offers),
-                PriceMaxAmmount = priceAmmountMapper.ConvertToModel(model.PriceMax, pricemaxid),
-                PriceMinAmmount = priceAmmountMapper.ConvertToModel(model.PriceMin, priceminid)
+                PriceMaxId = pricemaxid,
+                PriceMinId = priceminid
             };
         }
     }
