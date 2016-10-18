@@ -9,7 +9,7 @@ using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.BLL.Services
 {
-    public class SearchService: ISearchService
+    public class SearchService : ISearchService
     {
         private readonly IProductRepository repository;
         public SearchService(IProductRepository repository)
@@ -21,19 +21,16 @@ namespace OnlinerTask.BLL.Services
         {
             var responseStream = webResponse.GetResponseStream();
             var serializer = new JsonSerializer();
-            if (responseStream != null)
-            {
-                using (var sr = new StreamReader(responseStream))
-                {
-                    using (var textReader = new JsonTextReader(sr))
-                    {
-                        return serializer.Deserialize<SearchResult>(textReader);
-                    }
-                }
-            }
-            else
+            if (responseStream == null)
             {
                 return null;
+            }
+            using (var sr = new StreamReader(responseStream))
+            {
+                using (var textReader = new JsonTextReader(sr))
+                {
+                    return serializer.Deserialize<SearchResult>(textReader);
+                }
             }
         }
 
@@ -48,7 +45,9 @@ namespace OnlinerTask.BLL.Services
         public async Task<List<ProductModel>> GetProducts(SearchRequest responce, string userName)
         {
             if (string.IsNullOrEmpty(responce?.SearchString))
+            {
                 return null;
+            }
             var request = OnlinerRequest(responce.SearchString);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = ProductsFromOnliner(webResponse);

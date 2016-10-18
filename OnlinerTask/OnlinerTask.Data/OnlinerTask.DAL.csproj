@@ -133,6 +133,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RedisManager\EmailCacheManager.cs" />
     <Compile Include="RedisManager\IEmailManager.cs" />
+    <Compile Include="RedisManager\RedisServer\EmailAppHost.cs" />
+    <Compile Include="RedisManager\RedisServer\EmailService.cs" />
     <Compile Include="Repository\Interfaces\IPersonalRepository.cs" />
     <Compile Include="Repository\Interfaces\IProductRepository.cs" />
     <Compile Include="Repository\Interfaces\IRepository.cs" />

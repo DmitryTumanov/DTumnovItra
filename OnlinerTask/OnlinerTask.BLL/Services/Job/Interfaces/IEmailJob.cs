@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using OnlinerTask.Data.ScheduleModels;
 
-namespace OnlinerTask.BLL.Services.Job
+namespace OnlinerTask.BLL.Services.Job.Interfaces
 {
     public interface IEmailJob : IJobExecute
     {
