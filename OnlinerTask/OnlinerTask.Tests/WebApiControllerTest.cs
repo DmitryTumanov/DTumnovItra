@@ -27,7 +27,7 @@ namespace OnlinerTask.Tests
             var repository = new MsSqlRepository(productMapper);
             var productRepository = new MsSqlProductRepository(repository);
             var controller = new ProductController(new SearchService(productRepository), productRepository);
-            var item = await controller.Post(new SearchRequest() { SearchString = testproducts[0].ProductKey });
+            var item = await controller.Post(new SearchRequest(testproducts[0].ProductKey ));
             var testitem = productMapper.ConvertToModel(testproducts[0]);
             Assert.AreEqual(testitem.Description, item[0].Description);
         }
@@ -40,7 +40,7 @@ namespace OnlinerTask.Tests
             var repository = new MsSqlRepository(productMapper);
             var productRepository = new MsSqlProductRepository(repository);
             var controller = new ProductController(new SearchService(productRepository), productRepository);
-            await controller.Put(new PutRequest() { SearchString = testproducts[0].ProductKey }, Testname);
+            await controller.Put(new PutRequest(testproducts[0].ProductKey ), Testname);
             var testcount = ProductsFromDb().Count;
             Assert.AreNotEqual(testproducts.Count, testcount);
         }
