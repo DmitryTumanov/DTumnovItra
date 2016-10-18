@@ -6,7 +6,7 @@ namespace OnlinerTask.Data.ScheduleModels
     {
         public string UserEmail { get; set; }
         public string ProductName { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public TimeSpan Time { get; set; }
     }
 }

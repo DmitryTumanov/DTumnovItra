@@ -51,7 +51,6 @@ namespace OnlinerTask.Data.Repository
                 UpdateProduct(dbmodel, model);
                 return new UsersUpdateEmail()
                 {
-                    Id = model.Id,
                     ProductName = model.FullName,
                     UserEmail = dbmodel.UserEmail,
                     Time = time
