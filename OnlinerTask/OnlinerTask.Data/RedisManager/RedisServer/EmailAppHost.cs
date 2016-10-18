@@ -4,7 +4,7 @@ using ServiceStack;
 using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;
 
-namespace OnlinerTask.WEB.TimeRegistry
+namespace OnlinerTask.Data.RedisManager.RedisServer
 {
     public class EmailAppHost : AppHostHttpListenerBase
     {

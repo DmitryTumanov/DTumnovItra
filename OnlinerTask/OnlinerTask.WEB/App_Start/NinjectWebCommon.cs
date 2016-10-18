@@ -1,4 +1,5 @@
 using Ninject.Syntax;
+using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.Data.RedisManager;
 using ServiceStack.Redis;
 
@@ -91,6 +92,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind(typeof(IPriceAmmountMapper<,>)).To(typeof(PriceAmmountMapper)).WhenInjectedInto<PriceMapper>();
             kernel.Bind<IRedisClient>().ToMethod(x => new RedisClient("localhost", 6379));
             kernel.Bind<IEmailManager>().To<EmailCacheManager>();
+            kernel.Bind<IProductJob>().To<ProductJobService>();
+            kernel.Bind<IEmailJob>().To<EmailJobService>();
         }        
     }
 }

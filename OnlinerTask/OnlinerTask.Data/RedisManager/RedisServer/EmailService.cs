@@ -1,18 +1,18 @@
-﻿using System.Diagnostics;
-using System.Web.Mvc;
-using OnlinerTask.Data.RedisManager;
-using OnlinerTask.Data.ScheduleModels;
+﻿using OnlinerTask.Data.ScheduleModels;
 using ServiceStack;
+using ServiceStack.Redis;
 
-namespace OnlinerTask.WEB.TimeRegistry
+namespace OnlinerTask.Data.RedisManager.RedisServer
 {
     public class EmailService : Service
     {
         private readonly IEmailManager manager;
+
         public EmailService()
         {
-            this.manager = DependencyResolver.Current.GetService<IEmailManager>();
+            manager = new EmailCacheManager(new RedisClient("localhost", 6379));
         }
+
         public object Any(UsersUpdateEmail req)
         {
             manager.Set(req);

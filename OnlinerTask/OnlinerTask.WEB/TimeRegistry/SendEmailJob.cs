@@ -1,9 +1,6 @@
 ﻿using FluentScheduler;
-using System;
 using System.Web.Mvc;
 using OnlinerTask.BLL.Services.Job;
-using OnlinerTask.Data.RedisManager;
-using OnlinerTask.Data.ScheduleModels;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
