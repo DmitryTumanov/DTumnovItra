@@ -29,8 +29,9 @@ namespace OnlinerTask.BLL.Services.Job
 
         public IEnumerable<UsersUpdateEmail> GetUsersUpdateEmails()
         {
-            var date = DateTime.Now.TimeOfDay;
-            return emailManager.GetAll<UsersUpdateEmail>().Where(x=>x.Time < date);
+            var actualtime = DateTime.Now.TimeOfDay;
+            var interval = TimeSpan.FromSeconds(30);
+            return emailManager.GetAll<UsersUpdateEmail>().Where(x=>x.Time < actualtime - interval);
         }
     }
 }
