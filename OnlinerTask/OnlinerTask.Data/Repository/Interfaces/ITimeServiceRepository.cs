@@ -1,16 +1,16 @@
 ﻿using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.ScheduleModels;
 using System;
 using System.Collections.Generic;
+using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.Data.Repository.Interfaces
 {
     public interface ITimeServiceRepository
     {
-        void DeleteUserAndProduct(int id, string userEmail);
-        bool UpdateProduct(Product item);
-        bool WriteUpdateToProduct(Product item, TimeSpan time);
-        void WriteUpdate(Product item);
-        IEnumerable<UsersUpdateEmail> GetUsersEmails();
+        bool UpdateProduct(Product item, ProductModel model);
+        UsersUpdateEmail WriteUpdateToProduct(ProductModel item, TimeSpan time);
+        UsersUpdateEmail WriteUpdate(ProductModel item, string useremail);
         List<Product> GetAllProducts();
     }
 }

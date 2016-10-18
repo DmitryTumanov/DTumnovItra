@@ -6,8 +6,8 @@ namespace OnlinerTask.Data.EntityMappers
 {
     public class PriceMapper: IPriceMapper<Price, PriceModel>
     {
-        IDependentMapper<Offer, OffersModel> offerMapper;
-        IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper;
+        private readonly IDependentMapper<Offer, OffersModel> offerMapper;
+        private readonly IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper;
 
         public PriceMapper(IDependentMapper<Offer, OffersModel> offerMapper, IPriceAmmountMapper<PriceAmmount, PriceAmmountModel> priceAmmountMapper)
         {

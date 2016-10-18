@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnlinerTask.Data.Requests
+﻿namespace OnlinerTask.Data.Requests
 {
     public class SearchRequest
     {
         public string SearchString { get; set; }
+
+        public SearchRequest(string searchString)
+        {
+            SearchString = searchString;
+        }
     }
 }
