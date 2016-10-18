@@ -1,6 +1,7 @@
 using Ninject.Syntax;
 using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.BLL.Services.Job.Interfaces;
+using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.RedisManager;
 using ServiceStack.Redis;
 
