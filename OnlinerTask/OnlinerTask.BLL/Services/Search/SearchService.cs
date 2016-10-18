@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using OnlinerTask.Data.SearchModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using OnlinerTask.Data.Requests;
+using Newtonsoft.Json;
 using OnlinerTask.Data.Repository.Interfaces;
+using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.BLL.Services
+namespace OnlinerTask.BLL.Services.Search
 {
     public class SearchService : ISearchService
     {
