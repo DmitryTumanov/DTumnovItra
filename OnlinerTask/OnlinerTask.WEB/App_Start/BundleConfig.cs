@@ -60,6 +60,9 @@ namespace OnlinerTask.WEB
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/bootstrap-timepicker.js",
                 "~/Scripts/timeexec.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
+                "~/Scripts/toastr.min.js"));
         }
     }
 }
