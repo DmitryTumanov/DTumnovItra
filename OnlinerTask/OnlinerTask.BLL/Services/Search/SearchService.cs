@@ -42,13 +42,13 @@ namespace OnlinerTask.BLL.Services.Search
             return webRequest;
         }
 
-        public async Task<List<ProductModel>> GetProducts(SearchRequest responce, string userName)
+        public async Task<List<ProductModel>> GetProducts(SearchRequest searchRequest, string userName)
         {
-            if (string.IsNullOrEmpty(responce?.SearchString))
+            if (string.IsNullOrEmpty(searchRequest?.SearchString))
             {
                 return null;
             }
-            var request = OnlinerRequest(responce.SearchString);
+            var request = OnlinerRequest(searchRequest.SearchString);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = ProductsFromOnliner(webResponse);
             return await repository.CheckProducts(result.Products, userName);
