@@ -38,8 +38,9 @@
 </div>
 @section SPAViews {
     <div id="outer" ng-controller="APIController">
-        <div style="float: left; font-size:15px;">
-            <span style="font-weight: bold; margin-left:45px;">Time to get emails: </span>
+        <span id="testspan"></span>
+        <div style="float: left; font-size: 15px;">
+            <span style="font-weight: bold; margin-left: 45px;">Time to get emails: </span>
             <span id="oldtimeDisplay" ng-model="emailtime">{{emailtime | date:'h:mm a'}}</span>
             <span id="timeDisplay"></span>
             <button class="button button_orange schema-product-button" ng-click="submitTime()" id="submitbutton">Submit</button>
@@ -60,6 +61,7 @@
     </div>
 }
 @section Scripts{
+    <script src="~/Scripts/toastr.min.js"></script>
     @Scripts.Render("~/bundles/timer")
     @Scripts.Render("~/bundles/cabinet")
 }
