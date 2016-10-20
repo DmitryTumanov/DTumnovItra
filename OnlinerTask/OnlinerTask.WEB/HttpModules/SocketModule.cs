@@ -8,16 +8,10 @@ namespace OnlinerTask.WEB.HttpModules
 {
     public class SocketModule : IHttpModule
     {
-        private NetMQContext netMqContext;
-        private WSRouter router;
-        private WSPublisher publisher;
         private NetSocket socket;
 
         public void Init(HttpApplication context)
         {
-            netMqContext = NetMQContext.Create();
-            router = netMqContext.CreateWSRouter();
-            publisher = netMqContext.CreateWSPublisher();
             socket = new NetSocket();
 
             var addThread = new Thread(socket.AddProduct) {IsBackground = true};
@@ -32,9 +26,6 @@ namespace OnlinerTask.WEB.HttpModules
 
         public void Dispose()
         {
-            publisher.Dispose();
-            router.Dispose();
-            netMqContext.Dispose();
         }
     }
 }

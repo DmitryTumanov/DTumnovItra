@@ -10,9 +10,7 @@ namespace OnlinerTask.WEB.Sockets
         {
             try
             {
-                var socket = CreateSocket("ws://localhost:3339");
-                var publisher = CreatePublisher("ws://localhost:81");
-                UpdateProductOrInfo(socket, publisher, "addProduct");
+                ExecuteUpdate("ws://localhost:3339", "ws://localhost:81", "addProduct");
             }
             catch (NetMQException ex)
             {
@@ -24,9 +22,7 @@ namespace OnlinerTask.WEB.Sockets
         {
             try
             {
-                var socket = CreateSocket("ws://localhost:3340");
-                var publisher = CreatePublisher("ws://localhost:82");
-                UpdateProductOrInfo(socket, publisher, "removeProduct");
+                ExecuteUpdate("ws://localhost:3340", "ws://localhost:82", "removeProduct");
             }
             catch (NetMQException ex)
             {
@@ -38,13 +34,22 @@ namespace OnlinerTask.WEB.Sockets
         {
             try
             {
-                var socket = CreateSocket("ws://localhost:3341");
-                var publisher = CreatePublisher("ws://localhost:83");
-                UpdateProductOrInfo(socket, publisher, "infoProduct");
+                ExecuteUpdate("ws://localhost:3341", "ws://localhost:83", "infoProduct");
             }
             catch (NetMQException ex)
             {
                 Debug.WriteLine(ex.Message);
+            }
+        }
+
+        private void ExecuteUpdate(string socketPath, string publisherPath, string chatType)
+        {
+            using (var socket = CreateSocket(socketPath))
+            {
+                using (var publisher = CreatePublisher(publisherPath))
+                {
+                    UpdateProductOrInfo(socket, publisher, chatType);
+                }
             }
         }
 
@@ -73,7 +78,7 @@ namespace OnlinerTask.WEB.Sockets
             return socket;
         }
 
-        private IOutgoingSocket CreatePublisher(string path)
+        private WSPublisher CreatePublisher(string path)
         {
             var publisher = NetMQContext.Create().CreateWSPublisher();
             publisher.Bind(path);
