@@ -1,8 +1,7 @@
-﻿using OnlinerTask.Data.SearchModels;
-using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.EntityMappers.Interfaces;
+﻿using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.Data.EntityMappers
+namespace OnlinerTask.Data.EntityMappers.Implementations
 {
     public class PriceAmmountMapper: IPriceAmmountMapper<PriceAmmount, PriceAmmountModel>
     {

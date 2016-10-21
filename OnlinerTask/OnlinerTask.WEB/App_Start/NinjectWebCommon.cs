@@ -2,6 +2,7 @@ using Ninject.Syntax;
 using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.BLL.Services.Job.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.RedisManager;
 using ServiceStack.Redis;
 
@@ -18,7 +19,6 @@ namespace OnlinerTask.WEB.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using Data.EntityMappers;
-    using Data.EntityMappers.Interfaces;
     using Data.SearchModels;
     using Data.DataBaseModels;
     using Data.Repository.Interfaces;

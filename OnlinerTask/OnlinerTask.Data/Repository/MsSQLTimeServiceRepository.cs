@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.EntityMappers.Interfaces;
+using OnlinerTask.Data.EntityMappers;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.Repository.Interfaces;
 using OnlinerTask.Data.ScheduleModels;

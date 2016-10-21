@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OnlinerTask.BLL.Services.Job.Implementations;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.EntityMappers;
+using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.Repository;

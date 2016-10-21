@@ -3,9 +3,9 @@ using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.Repository.Interfaces;
 using OnlinerTask.Data.SearchModels;
 using System.Data.Entity;
-using OnlinerTask.Data.EntityMappers.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using OnlinerTask.Data.EntityMappers;
 
 namespace OnlinerTask.Data.Repository
 {
