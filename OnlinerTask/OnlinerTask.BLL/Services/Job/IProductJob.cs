@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using ServiceStack.Messaging;
 
-namespace OnlinerTask.BLL.Services.Job.Interfaces
+namespace OnlinerTask.BLL.Services.Job
 {
     public interface IProductJob: IJobExecute
     {

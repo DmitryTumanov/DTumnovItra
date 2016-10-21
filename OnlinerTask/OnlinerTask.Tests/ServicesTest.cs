@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OnlinerTask.BLL.Services.Job;
+using OnlinerTask.BLL.Services.Job.Implementations;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers;

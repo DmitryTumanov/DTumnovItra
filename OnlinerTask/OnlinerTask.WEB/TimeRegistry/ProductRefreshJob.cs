@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using FluentScheduler;
-using OnlinerTask.BLL.Services.Job.Interfaces;
+using OnlinerTask.BLL.Services.Job;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
