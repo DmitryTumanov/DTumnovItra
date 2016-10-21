@@ -1,4 +1,5 @@
 ﻿using Funq;
+using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.ScheduleModels;
 using ServiceStack;
 using ServiceStack.Messaging.Redis;
@@ -8,15 +9,15 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
 {
     public class EmailAppHost : AppHostHttpListenerBase
     {
-        public EmailAppHost() : base("Test Server", typeof(EmailService).Assembly) { }
+        public EmailAppHost() : base(ResourceSection.RedisServerName, typeof(EmailService).Assembly) { }
 
         public override void Configure(Container container)
         {
             base.Routes
-                .Add<UsersUpdateEmail>("/sendemail")
-                .Add<UsersUpdateEmail>("/sendemail/{Id}/{UserEmail}/{ProductName}/{Time}");
+                .Add<UsersUpdateEmail>(ResourceSection.RedisRoute)
+                .Add<UsersUpdateEmail>(ResourceSection.RedisFullRoute);
 
-            var redisFactory = new PooledRedisClientManager("localhost:6379");
+            var redisFactory = new PooledRedisClientManager(ResourceSection.RedisClient);
             container.Register<IRedisClientsManager>(redisFactory);
             var mqHost = new RedisMqServer(redisFactory);
 

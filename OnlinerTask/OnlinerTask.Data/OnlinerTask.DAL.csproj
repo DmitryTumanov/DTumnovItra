@@ -88,6 +88,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
@@ -143,6 +144,7 @@
     <Compile Include="Repository\MsSQLProductRepository.cs" />
     <Compile Include="Repository\MsSQLRepository.cs" />
     <Compile Include="Repository\MsSQLTimeServiceRepository.cs" />
+    <Compile Include="Resources\ResourceSection.cs" />
     <Compile Include="ScheduleModels\UsersUpdateEmail.cs" />
     <Compile Include="Requests\PutRequest.cs" />
     <Compile Include="Requests\SearchRequest.cs" />
