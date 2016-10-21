@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OnlinerTask.Data.Extensions
+namespace OnlinerTask.Extensions.Extensions
 {
     public static class AsyncOperations
     {

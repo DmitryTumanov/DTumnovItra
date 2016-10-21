@@ -120,7 +120,6 @@
     <Compile Include="EntityMappers\PriceMapper.cs" />
     <Compile Include="EntityMappers\ProductMapper.cs" />
     <Compile Include="EntityMappers\ReviewMapper.cs" />
-    <Compile Include="Extensions\AsyncOperations.cs" />
     <Compile Include="IdentityModels\IdentityModels.cs" />
     <Compile Include="Migrations\201610101310426_DateTimeEnable.cs" />
     <Compile Include="Migrations\201610101310426_DateTimeEnable.Designer.cs">
@@ -170,6 +169,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OnlinerTask.Extensions\OnlinerTask.Extensions.csproj">
+      <Project>{5D8C72DC-9FC2-4FC2-A947-94CCE38DDCAD}</Project>
+      <Name>OnlinerTask.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
