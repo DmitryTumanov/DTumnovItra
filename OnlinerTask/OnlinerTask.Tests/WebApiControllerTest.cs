@@ -11,6 +11,7 @@ using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers.Implementations;
+using OnlinerTask.Data.Repository.Implementations;
 
 namespace OnlinerTask.Tests
 {

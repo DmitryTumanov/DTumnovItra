@@ -6,8 +6,8 @@ using OnlinerTask.Data.SearchModels;
 using System.Linq;
 using System.Net.Http;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
-using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.Controllers
 {

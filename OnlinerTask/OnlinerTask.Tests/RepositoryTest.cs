@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.Repository.Implementations;
 
 namespace OnlinerTask.Tests
 {

@@ -1,9 +1,9 @@
-﻿using OnlinerTask.Data.SearchModels;
-using OnlinerTask.Data.DataBaseModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.Data.Repository.Interfaces
+namespace OnlinerTask.Data.Repository
 {
     public interface IProductRepository
     {

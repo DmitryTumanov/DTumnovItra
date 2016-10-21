@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.Repository.Implementations;
 
 namespace OnlinerTask.Tests
 {

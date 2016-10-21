@@ -4,7 +4,7 @@ using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.Extensions;
 using OnlinerTask.Data.RedisManager.RedisServer;
-using OnlinerTask.Data.Repository.Interfaces;
+using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;

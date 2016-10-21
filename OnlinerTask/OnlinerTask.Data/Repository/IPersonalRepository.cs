@@ -1,9 +1,9 @@
-﻿using OnlinerTask.Data.Requests;
+﻿using System.Threading.Tasks;
+using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
 using OnlinerTask.Data.SearchModels;
-using System.Threading.Tasks;
 
-namespace OnlinerTask.Data.Repository.Interfaces
+namespace OnlinerTask.Data.Repository
 {
     public interface IPersonalRepository
     {

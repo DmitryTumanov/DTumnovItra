@@ -4,11 +4,10 @@ using System.Linq;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers;
 using OnlinerTask.Data.IdentityModels;
-using OnlinerTask.Data.Repository.Interfaces;
 using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.Data.Repository
+namespace OnlinerTask.Data.Repository.Implementations
 {
     public class MsSqlTimeServiceRepository : ITimeServiceRepository
     {

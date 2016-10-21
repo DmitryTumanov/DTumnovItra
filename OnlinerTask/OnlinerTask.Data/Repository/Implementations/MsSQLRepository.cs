@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
-using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.Repository.Interfaces;
-using OnlinerTask.Data.SearchModels;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers;
+using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.Data.Repository
+namespace OnlinerTask.Data.Repository.Implementations
 {
     public class MsSqlRepository : IRepository
     {

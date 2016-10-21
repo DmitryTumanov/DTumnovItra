@@ -10,6 +10,7 @@ using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.Repository.Implementations;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.ScheduleModels;
 using ServiceStack.Redis;

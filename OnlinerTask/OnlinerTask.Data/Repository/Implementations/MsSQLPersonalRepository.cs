@@ -1,16 +1,15 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.EntityMappers;
+using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
 using OnlinerTask.Data.SearchModels;
-using System.Linq;
-using OnlinerTask.Data.IdentityModels;
-using System.Data.Entity;
-using OnlinerTask.Data.EntityMappers;
-using OnlinerTask.Data.Repository.Interfaces;
 
-namespace OnlinerTask.Data.Repository
+namespace OnlinerTask.Data.Repository.Implementations
 {
     public class MsSqlPersonalRepository : IPersonalRepository
     {

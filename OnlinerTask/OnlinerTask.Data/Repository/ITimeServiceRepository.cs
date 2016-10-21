@@ -1,10 +1,10 @@
-﻿using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.ScheduleModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.Data.Repository.Interfaces
+namespace OnlinerTask.Data.Repository
 {
     public interface ITimeServiceRepository
     {
