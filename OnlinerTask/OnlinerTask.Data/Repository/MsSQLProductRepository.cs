@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
-using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.Extensions;
 using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.DataBaseModels;
+using System.Data.Entity;
+using OnlinerTask.Data.Repository.Interfaces;
+using OnlinerTask.Extensions.Extensions;
 
-namespace OnlinerTask.Data.Repository.Implementations
+namespace OnlinerTask.Data.Repository
 {
     public class MsSqlProductRepository : IProductRepository
     {

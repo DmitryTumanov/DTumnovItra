@@ -105,6 +105,10 @@
       <Project>{2685539b-25b1-48c8-a9ec-7721ee8aa9fd}</Project>
       <Name>OnlinerTask.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OnlinerTask.Extensions\OnlinerTask.Extensions.csproj">
+      <Project>{5D8C72DC-9FC2-4FC2-A947-94CCE38DDCAD}</Project>
+      <Name>OnlinerTask.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

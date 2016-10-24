@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.Extensions;
 using OnlinerTask.Data.RedisManager.RedisServer;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Extensions.Extensions;
 using ServiceStack;
 using ServiceStack.Messaging;
 using ServiceStack.Messaging.Redis;
