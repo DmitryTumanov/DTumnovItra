@@ -141,7 +141,7 @@
     <Compile Include="Repository\IProductRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ITimeServiceRepository.cs" />
-    <Compile Include="Repository\MsSQLProductRepository.cs" />
+    <Compile Include="Repository\Implementations\MsSQLProductRepository.cs" />
     <Compile Include="ScheduleModels\UsersUpdateEmail.cs" />
     <Compile Include="Requests\PutRequest.cs" />
     <Compile Include="Requests\SearchRequest.cs" />
