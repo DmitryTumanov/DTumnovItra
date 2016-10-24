@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using OnlinerTask.Data.Resources;
 using ServiceStack.Redis;
 
 namespace OnlinerTask.Data.RedisManager
@@ -40,10 +41,10 @@ namespace OnlinerTask.Data.RedisManager
 
         private SmtpClient CreateClient()
         {
-            var client = new SmtpClient("smtp.mail.ru", 587)
+            var client = new SmtpClient(ResourceSection.EmailSmtp, 587)
             {
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential("tumanov.97.dima@mail.ru", "102938usugen"),
+                Credentials = new NetworkCredential(ResourceSection.EmailName, ResourceSection.EmailPassword),
                 EnableSsl = true
             };
             return client;
@@ -51,7 +52,7 @@ namespace OnlinerTask.Data.RedisManager
 
         private MailMessage CreateMail(string username, string productname)
         {
-            var mail = new MailMessage("tumanov.97.dima@mail.ru", username)
+            var mail = new MailMessage(ResourceSection.EmailName, username)
             {
                 Subject = productname,
                 Body = $"Dear, {username}, product {productname} has been changed."

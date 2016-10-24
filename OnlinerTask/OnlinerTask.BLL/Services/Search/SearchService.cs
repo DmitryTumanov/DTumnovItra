@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.BLL.Services.Search
@@ -36,7 +37,7 @@ namespace OnlinerTask.BLL.Services.Search
 
         public HttpWebRequest OnlinerRequest(string strRequest)
         {
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create("https://catalog.api.onliner.by/search/products?query=" + strRequest);
+            var webRequest = (HttpWebRequest)WebRequest.Create(ResourceSection.OnlinerApiPath + strRequest);
             webRequest.Method = "GET";
             webRequest.ContentType = webRequest.Accept = webRequest.MediaType = "application/json";
             return webRequest;

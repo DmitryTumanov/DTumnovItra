@@ -5,6 +5,7 @@ using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.RedisManager.RedisServer;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
 using OnlinerTask.Extensions.Extensions;
@@ -40,7 +41,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
                 return;
             }
             serverAppHost.Init();
-            serverAppHost.Start("http://localhost:1400/");
+            serverAppHost.Start(ResourceSection.RedisAppHost);
         }
 
         public async Task GetAndPublishUpdates(IMessageQueueClient mqClient)
@@ -59,7 +60,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
 
         public IMessageQueueClient CreateClient()
         {
-            var redisFactory = new PooledRedisClientManager("localhost:6379");
+            var redisFactory = new PooledRedisClientManager(ResourceSection.RedisClient);
             var mqServer = new RedisMqServer(redisFactory);
             mqServer.Start();
             return mqServer.CreateMessageQueueClient();
