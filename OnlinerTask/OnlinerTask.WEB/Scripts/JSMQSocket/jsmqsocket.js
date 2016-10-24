@@ -22,30 +22,6 @@ infoSubscriber.onMessage = function (message) {
     console.log("sdjghj");
 };
 
-function addProduct(name) {
-    var message = createMessage(name);
-    addProd.send(message);
-}
-
-function removeProduct(name) {
-    var message = createMessage(name);
-    remProd.send(message);
-}
-
-function changeInfo(name) {
-    var message = createMessage(name);
-    infoChng.send(message);
-}
-
-
-
-
-function createMessage(name) {
-    var message = new JSMQ.Message();
-    message.addString(name);
-    return message;
-}
-
 function createSubscriber(route, name) {
     var subscriber = new JSMQ.Subscriber();
     subscriber.connect(route);

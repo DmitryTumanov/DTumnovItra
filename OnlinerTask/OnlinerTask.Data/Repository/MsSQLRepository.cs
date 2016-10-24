@@ -59,19 +59,19 @@ namespace OnlinerTask.Data.Repository
             }
         }
 
-        public async Task<bool> RemoveOnlinerProduct(int itemId, string name)
+        public async Task<string> RemoveOnlinerProduct(int itemId, string name)
         {
             using (var context = new OnlinerProducts())
             {
                 var model = await context.Product.FirstOrDefaultAsync(x => x.UserEmail == name && x.ProductId == itemId);
                 if (model == null)
                 {
-                    return false;
+                    return "";
                 }
                 await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
                 context.Product.Remove(model);
                 await context.SaveChangesAsync();
-                return true;
+                return model.FullName;
             }
         }
 

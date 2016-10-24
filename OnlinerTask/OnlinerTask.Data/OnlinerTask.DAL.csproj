@@ -46,6 +46,14 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NetMQ, Version=3.3.0.11, Culture=neutral, PublicKeyToken=a6decef4ddc58b3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetMQ.3.3.0.11\lib\net40\NetMQ.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NetMQ.WebSockets, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NetMQ.WebSockets.0.5.0.0-beta\lib\net40\NetMQ.WebSockets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -133,8 +141,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RedisManager\EmailCacheManager.cs" />
     <Compile Include="RedisManager\IEmailManager.cs" />
-    <Compile Include="RedisManager\RedisServer\EmailAppHost.cs" />
-    <Compile Include="RedisManager\RedisServer\EmailService.cs" />
+    <Compile Include="RedisManager\RedisServer\NotificationAppHost.cs" />
+    <Compile Include="RedisManager\RedisServer\NotificationService.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\AddProductRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\ChangeTimeRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\INotifyRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\RemoveProductRequest.cs" />
     <Compile Include="Repository\Interfaces\IPersonalRepository.cs" />
     <Compile Include="Repository\Interfaces\IProductRepository.cs" />
     <Compile Include="Repository\Interfaces\IRepository.cs" />
@@ -158,6 +170,7 @@
     <Compile Include="SearchModels\SearchModels.cs" />
     <Compile Include="Requests\TimeRequest.cs" />
     <Compile Include="SearchModels\UsersAndProducts.cs" />
+    <Compile Include="Sockets\NetSocket.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">

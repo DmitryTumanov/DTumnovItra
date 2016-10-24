@@ -11,7 +11,7 @@ namespace OnlinerTask.Data.Repository.Interfaces
         Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string userName);
         List<Product> GetPersonalProducts(string name);
         List<Product> GetAllProducts();
-        Task<bool> RemoveOnlinerProduct(int itemId, string name);
+        Task<string> RemoveOnlinerProduct(int itemId, string name);
         bool CreateOnlinerProduct(ProductModel model, string userEmail);
     }
 }

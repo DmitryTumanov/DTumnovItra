@@ -95,7 +95,9 @@
     <Compile Include="Services\Job\EmailJobService.cs" />
     <Compile Include="Services\Job\Interfaces\IEmailJob.cs" />
     <Compile Include="Services\Job\Interfaces\IJobExecute.cs" />
+    <Compile Include="Services\Job\Interfaces\INotification.cs" />
     <Compile Include="Services\Job\Interfaces\IProductJob.cs" />
+    <Compile Include="Services\Job\NotifyJobService.cs" />
     <Compile Include="Services\Job\ProductJobService.cs" />
     <Compile Include="Services\Search\ISearchService.cs" />
     <Compile Include="Services\Search\SearchService.cs" />

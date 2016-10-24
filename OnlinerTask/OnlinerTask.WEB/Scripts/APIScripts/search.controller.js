@@ -8,11 +8,9 @@
     $scope.checkboxChange = function (item) {
         if (!item.is_checked) {
             APISearchService.uncheckProduct(item.id);
-            removeProduct(item.full_name);
         }
         else {
             APISearchService.checkProduct(item.key);
-            addProduct(item.full_name);
         }
         return true;
     };

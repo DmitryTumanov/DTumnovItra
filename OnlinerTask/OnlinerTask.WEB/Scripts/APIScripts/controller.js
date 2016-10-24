@@ -10,11 +10,9 @@
     $scope.checkboxChange = function (item) {
         if (!item.is_checked) {
             APIService.uncheckProduct(item.id);
-            removeProduct(item.full_name);
         }
         else {
             APIService.checkProduct(item.key);
-            addProduct(item.full_name);
         }
         return true;
     };
@@ -25,7 +23,6 @@
         APIService.changeTime(time);
         $('#submitbutton').hide();
         $('#cancelbutton').hide();
-        changeInfo("change");
     };
 
     function getAll() {

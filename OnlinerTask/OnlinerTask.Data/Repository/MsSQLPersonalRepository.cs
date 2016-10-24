@@ -56,7 +56,7 @@ namespace OnlinerTask.Data.Repository
             }
         }
 
-        public Task<bool> RemoveOnlinerProduct(int itemId, string name)
+        public Task<string> RemoveOnlinerProduct(int itemId, string name)
         {
             return repository.RemoveOnlinerProduct(itemId, name);
         }
