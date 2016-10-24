@@ -5,6 +5,7 @@ using System.Web.Http;
 using OnlinerTask.Data.SearchModels;
 using System.Linq;
 using System.Net.Http;
+using OnlinerTask.BLL.Services.Job.Interfaces;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Repository.Interfaces;
@@ -16,11 +17,13 @@ namespace OnlinerTask.WEB.Controllers
     {
         private readonly ISearchService searchService;
         private readonly IProductRepository repository;
+        private readonly INotification notify;
 
-        public ProductController(ISearchService service, IProductRepository repo)
+        public ProductController(ISearchService service, IProductRepository repo, INotification notify)
         {
             searchService = service;
             repository = repo;
+            this.notify = notify;
         }
 
         public HttpResponseMessage Get()
@@ -37,11 +40,13 @@ namespace OnlinerTask.WEB.Controllers
         {
             var result = (await Post(request)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
+            notify.AddProductFromSearch(result.FullName);
         }
         
         public async Task Delete(DeleteRequest request, string testname = null)
         {
-            await repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
+            var name = await repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
+            notify.DeleteProductFromSearch(name);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(OnlinerTask.WEB.Startup))]
+[assembly: OwinStartup("WebStartup",typeof(OnlinerTask.WEB.Startup))]
 
 namespace OnlinerTask.WEB
 {

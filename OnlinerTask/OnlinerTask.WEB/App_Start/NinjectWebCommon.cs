@@ -96,6 +96,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IEmailManager>().To<EmailCacheManager>();
             kernel.Bind<IProductJob>().To<ProductJobService>();
             kernel.Bind<IEmailJob>().To<EmailJobService>();
+            kernel.Bind<INotification>().To<NotifyJobService>();
         }        
     }
 }

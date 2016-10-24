@@ -9,11 +9,9 @@
     $scope.checkboxChange = function (item) {
         if (!item.is_checked) {
             APISearchService.uncheckProduct(item.id);
-            hub.server.deleteProduct(item.full_name);
         }
         else {
             APISearchService.checkProduct(item.key);
-            hub.server.addProduct(item.full_name);
         }
         return true;
     };
@@ -28,22 +26,22 @@
         });
     };
 
-    hub.client.deleteProduct = function (name) {
+    hub.client.deleteProduct = function (name, redirect) {
         toastr.options = {
             "positionClass": "toast-bottom-right"
         };
         toastr.options.onclick = function () {
-            window.location.href = "http://localhost:33399/Manage";
+            window.location.href = redirect;
         };
         toastr["warning"]("Product " + name + " was deleted from your cabinet succesfully. Click to see.", "Delete Product");
     };
 
-    hub.client.addProduct = function (name) {
+    hub.client.addProduct = function (name, redirect) {
         toastr.options = {
             "positionClass": "toast-bottom-right"
         };
         toastr.options.onclick = function () {
-            window.location.href = "http://localhost:33399/Manage";
+            window.location.href = redirect;
         };
         toastr["success"]("Product " + name + " was returned to your cabinet succesfully. Click to see.", "Add Product");
     };

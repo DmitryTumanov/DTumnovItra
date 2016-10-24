@@ -9,7 +9,7 @@ namespace OnlinerTask.Data.Repository.Interfaces
     {
         Task ChangeSendEmailTimeAsync(TimeRequest request, string userName);
         PersonalPageResponse PersonalProductsResponse(string userName);
-        Task<bool> RemoveOnlinerProduct(int itemId, string name);
+        Task<string> RemoveOnlinerProduct(int itemId, string name);
         bool CreateOnlinerProduct(ProductModel model, string userEmail);
     }
 }

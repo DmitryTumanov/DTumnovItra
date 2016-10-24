@@ -11,11 +11,9 @@
     $scope.checkboxChange = function (item) {
         if (!item.is_checked) {
             APIService.uncheckProduct(item.id);
-            hub.server.deleteProduct(item.full_name);
         }
         else {
             APIService.checkProduct(item.key);
-            hub.server.addProduct(item.full_name);
         }
         return true;
     };
@@ -26,7 +24,6 @@
         APIService.changeTime(time);
         $('#submitbutton').hide();
         $('#cancelbutton').hide();
-        hub.server.changeSettings(time);
     };
 
     function getAll() {
@@ -41,23 +38,23 @@
     }
 
     hub.client.changeTime = function (time) {
-        toastr.options= {
+        toastr.options = {
             "positionClass": "toast-bottom-right"
-        }
+        };
         toastr["info"]("Now you will have messages at " + time, "Settings Changed");
     };
 
-    hub.client.deleteProduct = function (name) {
+    hub.client.deleteProduct = function (name, redirect) {
         toastr.options = {
             "positionClass": "toast-bottom-right"
-        }
+        };
         toastr["warning"]("Product " + name + " was deleted from your cabinet succesfully.", "Delete Product");
     };
 
-    hub.client.addProduct = function (name) {
+    hub.client.addProduct = function (name, redirect) {
         toastr.options = {
             "positionClass": "toast-bottom-right"
-        }
+        };
         toastr["success"]("Product " + name + " was returned to your cabinet succesfully.", "Add Product");
     };
 
