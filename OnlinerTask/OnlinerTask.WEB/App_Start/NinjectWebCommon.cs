@@ -1,8 +1,10 @@
 using Ninject.Syntax;
 using OnlinerTask.BLL.Services.Job;
-using OnlinerTask.BLL.Services.Job.Interfaces;
+using OnlinerTask.BLL.Services.Job.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.RedisManager;
+using OnlinerTask.Data.Repository.Implementations;
 using ServiceStack.Redis;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
@@ -17,12 +19,9 @@ namespace OnlinerTask.WEB.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using BLL.Services;
     using Data.EntityMappers;
-    using Data.EntityMappers.Interfaces;
     using Data.SearchModels;
     using Data.DataBaseModels;
-    using Data.Repository.Interfaces;
     using Data.Repository;
 
     public static class NinjectWebCommon 

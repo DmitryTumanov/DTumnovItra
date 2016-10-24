@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using OnlinerTask.WEB.Controllers;
 using System.Data.Entity;
-using OnlinerTask.Data.EntityMappers;
 using System.Threading.Tasks;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.EntityMappers.Implementations;
+using OnlinerTask.Data.Repository.Implementations;
 
 namespace OnlinerTask.Tests
 {

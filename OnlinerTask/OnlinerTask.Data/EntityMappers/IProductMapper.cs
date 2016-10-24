@@ -1,4 +1,4 @@
-﻿namespace OnlinerTask.Data.EntityMappers.Interfaces
+﻿namespace OnlinerTask.Data.EntityMappers
 {
     public interface IProductMapper<TK, T> : IMapper<TK, T>
     {

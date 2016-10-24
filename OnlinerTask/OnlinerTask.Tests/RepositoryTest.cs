@@ -1,9 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.EntityMappers.Interfaces;
-using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.Repository.Implementations;
 
 namespace OnlinerTask.Tests
 {
