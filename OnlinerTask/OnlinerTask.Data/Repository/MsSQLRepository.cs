@@ -20,15 +20,22 @@ namespace OnlinerTask.Data.Repository
 
         public bool CreateOnlinerProduct(ProductModel model, string userEmail)
         {
+            Product product;
             if (model == null)
             {
                 return false;
             }
-            var maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
-            var minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
-            var product = ModelToDb(model, userEmail, maxid, minid);
-            CreateProduct(product);
-            return true;
+            if (model.Prices != null)
+            {
+                var maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
+                var minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
+                product = ModelToDb(model, userEmail, maxid, minid);
+            }
+            else
+            {
+                product = ModelToDb(model, userEmail);
+            }
+            return CreateProduct(product);
         }
 
         public int CreatePriceAmmount(PriceAmmount price)
@@ -90,7 +97,7 @@ namespace OnlinerTask.Data.Repository
             await context.SaveChangesAsync();
         }
 
-        private Product ModelToDb(ProductModel model, string userEmail, int maxid, int minid)
+        private Product ModelToDb(ProductModel model, string userEmail, int maxid = 0, int minid = 0)
         {
             return productMapper.ConvertToModel(model, userEmail, maxid, minid);
         }

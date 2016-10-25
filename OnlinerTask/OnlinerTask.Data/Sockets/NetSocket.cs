@@ -34,7 +34,7 @@ namespace OnlinerTask.Data.Sockets
         {
             try
             {
-                ExecuteUpdate("ws://localhost:3341", "ws://localhost:83", "infoProduct", time);
+                ExecuteUpdate("ws://localhost:3350", "ws://localhost:84", "infoProduct", time.ToString("t"));
             }
             catch (NetMQException ex)
             {
@@ -55,13 +55,8 @@ namespace OnlinerTask.Data.Sockets
 
         private void UpdateProductOrInfo(WSSocket newSocket, IOutgoingSocket publisher, string socketType, string text)
         {
-            newSocket.ReceiveReady += (sender, eventArgs) =>
-            {
-                var identity = eventArgs.WSSocket.Receive();
-
-                eventArgs.WSSocket.SendMore(identity).Send("OK");
-                publisher.SendMore(socketType).Send(text);
-            };
+            newSocket.SendMore(newSocket.Receive()).Send("OK");
+            publisher.SendMore(socketType).Send(text);
             var poller = new Poller();
             poller.AddSocket(newSocket);
 
