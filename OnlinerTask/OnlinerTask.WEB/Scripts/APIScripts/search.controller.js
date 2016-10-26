@@ -43,7 +43,7 @@
         toastr.options.onclick = function () {
             window.location.href = redirect;
         };
-        toastr["success"]("Product " + name + " was returned to your cabinet succesfully. Click to see.", "Add Product");
+        toastr["success"]("Product " + name + " was added to your cabinet succesfully. Click to see.", "Add Product");
     };
 
     $.connection.hub.start();

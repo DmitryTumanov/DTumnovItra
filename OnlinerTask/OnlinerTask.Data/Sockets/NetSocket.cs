@@ -13,14 +13,14 @@ namespace OnlinerTask.Data.Sockets
             ExecuteTcpConnection("tcp://localhost:5556", "ws://localhost:81");
         }
 
-        public void AddProduct(dynamic name)
+        public void AddProduct(dynamic name, dynamic path = null)
         {
-            SendTcpMessage(name, "tcp://localhost:5556", "addProduct");
+            SendTcpMessage(name, "tcp://localhost:5556", path ? "addProductSearch" : "addProduct", path);
         }
 
-        public void RemoveProduct(dynamic name)
+        public void RemoveProduct(dynamic name, dynamic path = null)
         {
-            SendTcpMessage(name, "tcp://localhost:5556", "removeProduct");
+            SendTcpMessage(name, "tcp://localhost:5556", path ? "removeProductSearch" : "removeProduct", path);
         }
 
         public void ChangeInfo(dynamic time)
@@ -28,7 +28,7 @@ namespace OnlinerTask.Data.Sockets
             SendTcpMessage(time, "tcp://localhost:5556", "infoProduct");
         }
 
-        private static void SendTcpMessage(string text, string tcpString, string type)
+        private static void SendTcpMessage(string text, string tcpString, string type, string path = null)
         {
             using (var client = NetMQContext.Create().CreateRequestSocket())
             {
@@ -36,6 +36,10 @@ namespace OnlinerTask.Data.Sockets
                 var message = new NetMQMessage();
                 message.Append(type);
                 message.Append(text);
+                if (!string.IsNullOrEmpty(path))
+                {
+                    message.Append(path);
+                }
                 client.SendMessage(message);
             }
         }
