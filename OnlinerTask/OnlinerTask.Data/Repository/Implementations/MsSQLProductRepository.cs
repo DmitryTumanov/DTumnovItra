@@ -43,7 +43,7 @@ namespace OnlinerTask.Data.Repository.Implementations
             return repository.GetPersonalProducts(name);
         }
 
-        public Task<bool> RemoveOnlinerProduct(int itemId, string name)
+        public Task<string> RemoveOnlinerProduct(int itemId, string name)
         {
             return repository.RemoveOnlinerProduct(itemId, name);
         }

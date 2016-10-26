@@ -1,4 +1,5 @@
 ﻿app.controller('APIController', function ($scope, APISearchService) {
+    var hub = $.connection.personalHub;
     $scope.currencies = [
         { name: 'BYN', factor: 1 },
         { name: 'USD', factor: 0.5225 }
@@ -24,4 +25,26 @@
             $log.error('Something went wrong while fetching the data.');
         });
     };
+
+    hub.client.deleteProduct = function (name, redirect) {
+        toastr.options = {
+            "positionClass": "toast-bottom-right"
+        };
+        toastr.options.onclick = function () {
+            window.location.href = redirect;
+        };
+        toastr["warning"]("Product " + name + " was deleted from your cabinet succesfully. Click to see.", "Delete Product");
+    };
+
+    hub.client.addProduct = function (name, redirect) {
+        toastr.options = {
+            "positionClass": "toast-bottom-right"
+        };
+        toastr.options.onclick = function () {
+            window.location.href = redirect;
+        };
+        toastr["success"]("Product " + name + " was returned to your cabinet succesfully. Click to see.", "Add Product");
+    };
+
+    $.connection.hub.start();
 });

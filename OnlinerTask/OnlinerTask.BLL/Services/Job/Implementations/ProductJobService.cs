@@ -35,7 +35,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
 
         public void CreateAppHost()
         {
-            var serverAppHost = new EmailAppHost();
+            var serverAppHost = new NotificationAppHost();
             if (ServiceStackHost.Instance != null)
             {
                 return;
