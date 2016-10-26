@@ -1,10 +1,9 @@
-﻿using OnlinerTask.BLL.Services.Job.Interfaces;
-using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
+﻿using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
 using ServiceStack.Messaging;
 using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;
 
-namespace OnlinerTask.BLL.Services.Job
+namespace OnlinerTask.BLL.Services.Job.Implementations
 {
     public class NotifyJobService : INotification
     {

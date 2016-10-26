@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using OnlinerTask.BLL.Services.Job.Interfaces;
+using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Responses;

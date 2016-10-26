@@ -3,7 +3,7 @@ using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
 
 namespace OnlinerTask.Data.Hubs
 {
-    public class PersonalHub:Hub
+    public class PersonalHub : Hub
     {
         public void ChangeSettings(ChangeTimeRequest req)
         {

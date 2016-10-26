@@ -46,9 +46,19 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.4.5.0\lib\net45\ServiceStack.dll</HintPath>
@@ -110,6 +120,7 @@
     <Compile Include="DataBaseModels\Product.cs" />
     <Compile Include="DataBaseModels\Review.cs" />
     <Compile Include="DataBaseModels\UpdatedProducts.cs" />
+    <Compile Include="DataStartUp.cs" />
     <Compile Include="EntityMappers\IDependentMapper.cs" />
     <Compile Include="EntityMappers\IMapper.cs" />
     <Compile Include="EntityMappers\Implementations\ImageMapper.cs" />
@@ -121,6 +132,7 @@
     <Compile Include="EntityMappers\IPriceAmmountMapper.cs" />
     <Compile Include="EntityMappers\IPriceMapper.cs" />
     <Compile Include="EntityMappers\IProductMapper.cs" />
+    <Compile Include="Hubs\PersonalHub.cs" />
     <Compile Include="IdentityModels\IdentityModels.cs" />
     <Compile Include="Migrations\201610101310426_DateTimeEnable.cs" />
     <Compile Include="Migrations\201610101310426_DateTimeEnable.Designer.cs">
@@ -133,8 +145,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RedisManager\EmailCacheManager.cs" />
     <Compile Include="RedisManager\IEmailManager.cs" />
-    <Compile Include="RedisManager\RedisServer\EmailAppHost.cs" />
-    <Compile Include="RedisManager\RedisServer\EmailService.cs" />
+    <Compile Include="RedisManager\RedisServer\NotificationAppHost.cs" />
+    <Compile Include="RedisManager\RedisServer\NotificationService.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\AddProductRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\ChangeTimeRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\INotifyRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\RemoveProductRequest.cs" />
     <Compile Include="Repository\Implementations\MsSQLPersonalRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLTimeServiceRepository.cs" />
