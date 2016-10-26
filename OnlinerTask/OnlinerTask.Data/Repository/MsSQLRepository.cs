@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.EntityMappers;
+using OnlinerTask.Data.Repository.Interfaces;
 using OnlinerTask.Data.SearchModels;
+using System.Data.Entity;
+using OnlinerTask.Data.EntityMappers.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace OnlinerTask.Data.Repository.Implementations
+namespace OnlinerTask.Data.Repository
 {
     public class MsSqlRepository : IRepository
     {
@@ -19,15 +20,22 @@ namespace OnlinerTask.Data.Repository.Implementations
 
         public bool CreateOnlinerProduct(ProductModel model, string userEmail)
         {
+            Product product;
             if (model == null)
             {
                 return false;
             }
-            var maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
-            var minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
-            var product = ModelToDb(model, userEmail, maxid, minid);
-            CreateProduct(product);
-            return true;
+            if (model.Prices != null)
+            {
+                var maxid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMax.Amount, Currency = model.Prices.PriceMax.Currency });
+                var minid = CreatePriceAmmount(new PriceAmmount() { Amount = model.Prices.PriceMin.Amount, Currency = model.Prices.PriceMin.Currency });
+                product = ModelToDb(model, userEmail, maxid, minid);
+            }
+            else
+            {
+                product = ModelToDb(model, userEmail);
+            }
+            return CreateProduct(product);
         }
 
         public int CreatePriceAmmount(PriceAmmount price)
@@ -67,7 +75,10 @@ namespace OnlinerTask.Data.Repository.Implementations
                 {
                     return "";
                 }
-                await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
+                if (model.Price != null)
+                {
+                    await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
+                }
                 context.Product.Remove(model);
                 await context.SaveChangesAsync();
                 return model.FullName;
@@ -89,7 +100,7 @@ namespace OnlinerTask.Data.Repository.Implementations
             await context.SaveChangesAsync();
         }
 
-        private Product ModelToDb(ProductModel model, string userEmail, int maxid, int minid)
+        private Product ModelToDb(ProductModel model, string userEmail, int maxid = 0, int minid = 0)
         {
             return productMapper.ConvertToModel(model, userEmail, maxid, minid);
         }

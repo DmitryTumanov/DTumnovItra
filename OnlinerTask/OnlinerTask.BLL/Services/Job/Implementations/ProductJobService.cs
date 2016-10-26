@@ -79,6 +79,10 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
 
         private bool Check(Product databaseModel, ProductModel onlinerModel)
         {
+            if (databaseModel.Price == null)
+            {
+                return false;
+            }
             var isMaxAmountUpdate = onlinerModel.Prices.PriceMax.Amount != databaseModel.Price.PriceMaxAmmount.Amount;
             var isMinAmountUpdate = onlinerModel.Prices.PriceMin.Amount != databaseModel.Price.PriceMinAmmount.Amount;
             return isMaxAmountUpdate || isMinAmountUpdate;

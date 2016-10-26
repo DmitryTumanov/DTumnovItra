@@ -38,7 +38,7 @@ namespace OnlinerTask.Data.EntityMappers.Implementations
 
         public Product ConvertToModel(ProductModel model, string useremail, int pricemaxid, int priceminid)
         {
-            return new Product()
+            var product = new Product()
             {
                 UserEmail = useremail,
                 Description = model.Description,
@@ -49,9 +49,13 @@ namespace OnlinerTask.Data.EntityMappers.Implementations
                 ProductKey = model.Key,
                 ReviewUrl = model.ReviewUrl,
                 Image = imageMapper.ConvertToModel(model.Images),
-                Review = reviewMapper.ConvertToModel(model.Reviews),
-                Price = priceMapper.ConvertToModel(model.Prices, pricemaxid, priceminid)
+                Review = reviewMapper.ConvertToModel(model.Reviews)
             };
+            if (pricemaxid != 0 && priceminid != 0)
+            {
+                product.Price = priceMapper.ConvertToModel(model.Prices, pricemaxid, priceminid);
+            }
+            return product;
         }
     }
 }

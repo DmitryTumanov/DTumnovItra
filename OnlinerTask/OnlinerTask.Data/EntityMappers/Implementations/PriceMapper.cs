@@ -16,6 +16,10 @@ namespace OnlinerTask.Data.EntityMappers.Implementations
 
         public PriceModel ConvertToModel(Price dbmodel)
         {
+            if (dbmodel == null)
+            {
+                return null;
+            }
             return new PriceModel()
             {
                 HtmlUrl = dbmodel.HtmlUrl,
