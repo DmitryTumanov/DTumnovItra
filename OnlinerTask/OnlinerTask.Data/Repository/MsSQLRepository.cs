@@ -75,7 +75,10 @@ namespace OnlinerTask.Data.Repository
                 {
                     return "";
                 }
-                await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
+                if (model.Price != null)
+                {
+                    await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
+                }
                 context.Product.Remove(model);
                 await context.SaveChangesAsync();
                 return model.FullName;

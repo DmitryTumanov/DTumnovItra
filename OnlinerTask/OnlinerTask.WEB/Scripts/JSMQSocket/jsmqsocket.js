@@ -1,25 +1,22 @@
-﻿var addProd = createDealer("ws://localhost:3339");
+﻿var addSubscriber = createSubscriber("ws://localhost:81", "addProduct");
 
-var remProd = createDealer("ws://localhost:3340");
+var removeSubscriber = createSubscriber("ws://localhost:81", "removeProduct");
 
-var infoChng = createDealer("ws://localhost:3341");
-
-var addSubscriber = createSubscriber("ws://localhost:81", "addProduct");
-
-var removeSubscriber = createSubscriber("ws://localhost:82", "removeProduct");
-
-var infoSubscriber = createSubscriber("ws://localhost:83", "infoProduct");
+var infoSubscriber = createSubscriber("ws://localhost:81", "infoProduct");
 
 addSubscriber.onMessage = function (message) {
-    console.log("asf");
+    message.popString();
+    console.log(message.popString());
 };
 
 removeSubscriber.onMessage = function (message) {
-    console.log("asfausytf");
+    message.popString();
+    console.log(message.popString());
 };
 
 infoSubscriber.onMessage = function (message) {
-    console.log("sdjghj");
+    message.popString();
+    console.log(message.popString());
 };
 
 function createSubscriber(route, name) {
@@ -27,10 +24,4 @@ function createSubscriber(route, name) {
     subscriber.connect(route);
     subscriber.subscribe(name);
     return subscriber;
-}
-
-function createDealer(path) {
-    var dealer = new JSMQ.Dealer();
-    dealer.connect(path);
-    return dealer;
 }

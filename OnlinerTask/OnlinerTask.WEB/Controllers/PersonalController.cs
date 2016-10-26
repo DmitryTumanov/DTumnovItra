@@ -1,5 +1,7 @@
 ﻿using OnlinerTask.Data.Requests;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using OnlinerTask.BLL.Services.Job.Interfaces;
@@ -28,23 +30,26 @@ namespace OnlinerTask.WEB.Controllers
             return repository.PersonalProductsResponse(testname ?? User.Identity.Name);
         }
 
-        public async Task Post(TimeRequest request, string testname = null)
+        public async Task<HttpResponseMessage> Post(TimeRequest request, string testname = null)
         {
             await repository.ChangeSendEmailTimeAsync(request, testname ?? User.Identity.Name);
             notification.ChangeSettings(request.Time);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public async Task Put(PutRequest request)
+        public async Task<HttpResponseMessage> Put(PutRequest request)
         {
             var result = (await searchService.GetProducts(request, User.Identity.Name)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, User.Identity.Name);
             notification.AddProduct(result.FullName);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public async Task Delete(DeleteRequest request)
+        public async Task<HttpResponseMessage> Delete(DeleteRequest request)
         {
             var name = await repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
             notification.DeleteProduct(name);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

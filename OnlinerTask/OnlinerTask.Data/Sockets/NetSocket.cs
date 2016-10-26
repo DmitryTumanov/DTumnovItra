@@ -1,81 +1,90 @@
 ﻿using System.Diagnostics;
+using System.Threading;
 using NetMQ;
 using NetMQ.WebSockets;
+using Poller = NetMQ.Poller;
 
 namespace OnlinerTask.Data.Sockets
 {
     public class NetSocket
     {
+        public NetSocket()
+        {
+            ExecuteTcpConnection("tcp://localhost:5556", "ws://localhost:81");
+        }
+
         public void AddProduct(dynamic name)
         {
-            try
-            {
-                ExecuteUpdate("ws://localhost:3339", "ws://localhost:81", "addProduct", name);
-            }
-            catch (NetMQException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+            SendTcpMessage(name, "tcp://localhost:5556", "addProduct");
         }
 
         public void RemoveProduct(dynamic name)
         {
-            try
-            {
-                ExecuteUpdate("ws://localhost:3340", "ws://localhost:82", "removeProduct", name);
-            }
-            catch (NetMQException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+            SendTcpMessage(name, "tcp://localhost:5556", "removeProduct");
         }
 
         public void ChangeInfo(dynamic time)
         {
-            try
-            {
-                ExecuteUpdate("ws://localhost:3350", "ws://localhost:84", "infoProduct", time.ToString("t"));
-            }
-            catch (NetMQException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+            SendTcpMessage(time, "tcp://localhost:5556", "infoProduct");
         }
 
-        private void ExecuteUpdate(string socketPath, string publisherPath, string chatType, dynamic message)
+        private static void SendTcpMessage(string text, string tcpString, string type)
         {
-            using (var socket = CreateSocket(socketPath))
+            using (var client = NetMQContext.Create().CreateRequestSocket())
             {
-                using (var publisher = CreatePublisher(publisherPath))
-                {
-                    UpdateProductOrInfo(socket, publisher, chatType, message);
-                }
+                client.Connect(tcpString);
+                var message = new NetMQMessage();
+                message.Append(type);
+                message.Append(text);
+                client.SendMessage(message);
             }
         }
 
-        private void UpdateProductOrInfo(WSSocket newSocket, IOutgoingSocket publisher, string socketType, string text)
-        {
-            newSocket.SendMore(newSocket.Receive()).Send("OK");
-            publisher.SendMore(socketType).Send(text);
-            var poller = new Poller();
-            poller.AddSocket(newSocket);
-
-            poller.Start();
-            newSocket.Receive();
-        }
-
-        private WSSocket CreateSocket(string path)
-        {
-            var socket = NetMQContext.Create().CreateWSRouter();
-            socket.Bind(path);
-            return socket;
-        }
-
-        private WSPublisher CreatePublisher(string path)
+        private static WSPublisher CreatePublisher(string path)
         {
             var publisher = NetMQContext.Create().CreateWSPublisher();
             publisher.Bind(path);
             return publisher;
+        }
+
+        private static void ExecuteTcpConnection(string tcpString, string wsSocket)
+        {
+            new Thread(() =>
+            {
+                using (var tcp = NetMQContext.Create().CreateResponseSocket())
+                {
+                    try
+                    {
+                        ConfigureTcpConnection(tcp, tcpString, wsSocket);
+                    }
+                    catch (NetMQException)
+                    {
+                        Debug.WriteLine($"{tcpString} is used.");
+                    }
+                }
+            })
+            { IsBackground = true }.Start();
+        }
+
+        private static void ConfigureTcpConnection(NetMQSocket tcp, string tcpString, string wsSocket)
+        {
+            tcp.Bind(tcpString);
+            using (var publisher = CreatePublisher(wsSocket))
+            {
+                using (var poller = new Poller())
+                {
+                    tcp.ReceiveReady += (sender, args) =>
+                    {
+                        var message = args.Socket.ReceiveMessage();
+                        var type = message[0].ConvertToString();
+                        var text = message[1].ConvertToString();
+                        publisher.SendMore(type).Send(text);
+                        tcp.Send("OK");
+                    };
+                    poller.AddSocket(tcp);
+                    poller.Start();
+                }
+            }
         }
     }
 }
