@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using OnlinerTask.BLL.Services.Job.Interfaces;
+using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Responses;
-using OnlinerTask.Data.Repository.Interfaces;
 
 namespace OnlinerTask.WEB.Controllers
 {

@@ -36,17 +36,19 @@ namespace OnlinerTask.WEB.Controllers
             return await searchService.GetProducts(request, User.Identity.Name);
         }
 
-        public async Task Put(PutRequest request, string testname = null)
+        public async Task<HttpResponseMessage> Put(PutRequest request, string testname = null)
         {
             var result = (await Post(request)).FirstOrDefault();
             repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
             notify.AddProductFromSearch(result.FullName);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
         
-        public async Task Delete(DeleteRequest request, string testname = null)
+        public async Task<HttpResponseMessage> Delete(DeleteRequest request, string testname = null)
         {
             var name = await repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
             notify.DeleteProductFromSearch(name);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
