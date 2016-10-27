@@ -1,6 +1,8 @@
 ﻿@model OnlinerTask.WEB.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
+    var signalr = System.Configuration.ConfigurationManager.AppSettings["SignalRTechnology"];
+    var netmq = System.Configuration.ConfigurationManager.AppSettings["NetMqTechnology"];
 }
 @section Styles{
     <link href="~/Content/onliner.css" rel="stylesheet" />
@@ -53,6 +55,7 @@
         <hr />
         <div id="currencyid">
             <div class="input-group">
+                @Html.Partial("_Radio")
                 <select class="form-control" ng-model="selectedCurrency" ng-options="x.name for x in currencies"></select>
             </div>
         </div>

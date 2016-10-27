@@ -204,6 +204,7 @@
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ITimeServiceRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLProductRepository.cs" />
+    <Compile Include="Requests\TechnologyRequest.cs" />
     <Compile Include="Resources\Configurations.cs" />
     <Compile Include="ScheduleModels\UsersUpdateEmail.cs" />
     <Compile Include="Requests\PutRequest.cs" />

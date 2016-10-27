@@ -1,0 +1,41 @@
+﻿@{
+    var signalr = System.Configuration.ConfigurationManager.AppSettings["SignalRTechnology"];
+    var netmq = System.Configuration.ConfigurationManager.AppSettings["NetMqTechnology"];
+    var value = System.Configuration.ConfigurationManager.AppSettings["NotifyTechnology"];
+}
+@if (User.IsInRole("Admin"))
+{
+    <form name="myForm" ng-controller="RadioController">
+        <label>
+            <input type="radio" ng-model="value" value="@signalr" ng-click='changeRadio("@signalr")'>
+            @signalr
+        </label>
+        <label>
+            <input type="radio" ng-model="value" value="@netmq" ng-click='changeRadio("@netmq")'>
+            @netmq
+        </label>
+    </form>
+}
+<script type="text/javascript">
+    app.service("RadioService", function ($http) {
+        this.changeTechnology = function (value) {
+            return $http({
+                method: 'POST',
+                url: '/api/Technology',
+                data:{
+                    Technology: value
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                }
+            });
+        };
+    });
+    app.controller('RadioController', function ($scope, RadioService) {
+        $scope.value = "@value";
+
+        $scope.changeRadio = function (value) {
+            RadioService.changeTechnology(value);
+        }
+    });
+</script>
