@@ -41,7 +41,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
                 return;
             }
             serverAppHost.Init();
-            serverAppHost.Start(ResourceSection.RedisAppHost);
+            serverAppHost.Start(Configurations.RedisAppHost);
         }
 
         public async Task GetAndPublishUpdates(IMessageQueueClient mqClient)
@@ -60,7 +60,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
 
         public IMessageQueueClient CreateClient()
         {
-            var redisFactory = new PooledRedisClientManager(ResourceSection.RedisClient);
+            var redisFactory = new PooledRedisClientManager(Configurations.RedisClient);
             var mqServer = new RedisMqServer(redisFactory);
             mqServer.Start();
             return mqServer.CreateMessageQueueClient();

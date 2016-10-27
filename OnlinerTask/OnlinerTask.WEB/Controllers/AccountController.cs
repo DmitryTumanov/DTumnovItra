@@ -141,6 +141,7 @@ namespace OnlinerTask.WEB.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmailTime = DateTime.Now.TimeOfDay };
                 var result = await UserManager.CreateAsync(user, model.Password);
+                await UserManager.AddToRoleAsync(user.Id, "User");
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -308,6 +309,7 @@ namespace OnlinerTask.WEB.Controllers
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmailTime = DateTime.Now.TimeOfDay };
                 var result = await UserManager.CreateAsync(user);
+                await UserManager.AddToRoleAsync(user.Id, "User");
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);

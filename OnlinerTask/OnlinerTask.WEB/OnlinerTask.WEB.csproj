@@ -294,11 +294,13 @@
     <Compile Include="Controllers\PersonalController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Modules\SocketModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="TimeRegistry\ProductRefreshJob.cs" />
@@ -1188,6 +1190,7 @@
     <Content Include="Views\Search\_Search.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Manage\_Radio.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
