@@ -221,7 +221,9 @@
     <Compile Include="SearchModels\SearchModels.cs" />
     <Compile Include="Requests\TimeRequest.cs" />
     <Compile Include="SearchModels\UsersAndProducts.cs" />
+    <Compile Include="Sockets\ISocketLauncher.cs" />
     <Compile Include="Sockets\NetSocket.cs" />
+    <Compile Include="Sockets\SocketLauncher.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">

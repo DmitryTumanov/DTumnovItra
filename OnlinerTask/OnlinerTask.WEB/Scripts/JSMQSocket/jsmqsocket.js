@@ -13,7 +13,7 @@ addSubscriber.onMessage = function (message) {
     toastr.options = {
         "positionClass": "toast-bottom-right"
     };
-    toastr["success"]("Product " + message.popString() + " was returned to your cabinet succesfully.", "Add Product");
+    toastr["success"]("Product " + message.popString() + " was returned to your cabinet succesfully. NetMQ.", "Add Product");
 };
 
 removeSubscriber.onMessage = function (message) {
@@ -21,7 +21,7 @@ removeSubscriber.onMessage = function (message) {
     toastr.options = {
         "positionClass": "toast-bottom-right"
     };
-    toastr["warning"]("Product " + message.popString() + " was deleted from your cabinet succesfully.", "Delete Product");
+    toastr["warning"]("Product " + message.popString() + " was deleted from your cabinet succesfully. NetMQ.", "Delete Product");
 };
 
 infoSubscriber.onMessage = function (message) {
@@ -29,7 +29,7 @@ infoSubscriber.onMessage = function (message) {
     toastr.options = {
         "positionClass": "toast-bottom-right"
     };
-    toastr["info"]("Now you will have messages at " + message.popString(), "Settings Changed");
+    toastr["info"]("Now you will have messages at " + message.popString() + " NetMQ.", "Settings Changed");
 };
 
 removeSubscriberSearch.onMessage = function (message) {
@@ -42,7 +42,7 @@ removeSubscriberSearch.onMessage = function (message) {
     toastr.options.onclick = function () {
         window.location.href = path;
     };
-    toastr["warning"]("Product " + text + " was deleted from your cabinet succesfully. Click to see.", "Delete Product");
+    toastr["warning"]("Product " + text + " was deleted from your cabinet succesfully. Click to see. NetMQ.", "Delete Product");
 };
 
 addSubscriberSearch.onMessage = function (message) {
@@ -55,7 +55,7 @@ addSubscriberSearch.onMessage = function (message) {
     toastr.options.onclick = function () {
         window.location.href = path;
     };
-    toastr["success"]("Product " + text + " was added to your cabinet succesfully. Click to see.", "Add Product");
+    toastr["success"]("Product " + text + " was added to your cabinet succesfully. Click to see. NetMQ.", "Add Product");
 };
 
 function createSubscriber(route, name) {

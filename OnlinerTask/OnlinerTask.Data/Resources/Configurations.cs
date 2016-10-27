@@ -34,5 +34,19 @@ namespace OnlinerTask.Data.Resources
         public static string SignalRTechnology => ConfigurationManager.AppSettings["SignalRTechnology"];
 
         public static string NetMqTechnology => ConfigurationManager.AppSettings["NetMqTechnology"];
+
+        public static string TcpConnectionPath => ConfigurationManager.AppSettings["TcpConnectionPath"];
+
+        public static string WebSocketConnectionPath => ConfigurationManager.AppSettings["WebSocketConnectionPath"];
+
+        public static string SearchAddChatType => ConfigurationManager.AppSettings["SearchAddChatType"];
+
+        public static string SearchRemoveChatType => ConfigurationManager.AppSettings["SearchRemoveChatType"];
+
+        public static string AddChatType => ConfigurationManager.AppSettings["AddChatType"];
+
+        public static string RemoveChatType => ConfigurationManager.AppSettings["RemoveChatType"];
+
+        public static string InfoChatType => ConfigurationManager.AppSettings["InfoChatType"];
     }
 }

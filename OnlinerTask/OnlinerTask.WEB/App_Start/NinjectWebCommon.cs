@@ -9,6 +9,7 @@ using OnlinerTask.Data.Notifications.Technologies.Implementations;
 using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.Repository.Implementations;
 using OnlinerTask.Data.Resources;
+using OnlinerTask.Data.Sockets;
 using ServiceStack.Redis;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
@@ -103,6 +104,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<INotificator>().To<Notificator>();
             kernel.Bind<INotifyTechnology>().To<SignalRNotificator>().When(x=> Configurations.SignalRTechnology == Configurations.NotifyTechnology);
             kernel.Bind<INotifyTechnology>().To<NetMqNotificator>().When(x => Configurations.NetMqTechnology == Configurations.NotifyTechnology);
+            kernel.Bind<ISocketLauncher>().To<SocketLauncher>();
         }        
     }
 }
