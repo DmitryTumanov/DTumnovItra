@@ -4,9 +4,9 @@ var removeSubscriber = createSubscriber("ws://localhost:81", "removeProduct");
 
 var infoSubscriber = createSubscriber("ws://localhost:81", "infoProduct");
 
-var addSubscriberSearch = createSubscriber("ws://localhost:81", "addProductSearch");
+var addSubscriberSearch = createSubscriber("ws://localhost:81", "SearchAddProduct");
 
-var removeSubscriberSearch = createSubscriber("ws://localhost:81", "removeProductSearch");
+var removeSubscriberSearch = createSubscriber("ws://localhost:81", "SearchRemoveProduct");
 
 addSubscriber.onMessage = function (message) {
     message.popString();
@@ -42,7 +42,7 @@ removeSubscriberSearch.onMessage = function (message) {
     toastr.options.onclick = function () {
         window.location.href = path;
     };
-    toastr["warning"]("Product " + text + " was deleted from your cabinet succesfully.", "Delete Product");
+    toastr["warning"]("Product " + text + " was deleted from your cabinet succesfully. Click to see.", "Delete Product");
 };
 
 addSubscriberSearch.onMessage = function (message) {

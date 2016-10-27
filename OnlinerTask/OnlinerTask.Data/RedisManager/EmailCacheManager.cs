@@ -40,10 +40,10 @@ namespace OnlinerTask.Data.RedisManager
 
         private SmtpClient CreateClient()
         {
-            var client = new SmtpClient(ResourceSection.EmailSmtp, 587)
+            var client = new SmtpClient(Configurations.EmailSmtp, 587)
             {
                 DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential(ResourceSection.EmailName, ResourceSection.EmailPassword),
+                Credentials = new NetworkCredential(Configurations.EmailName, Configurations.EmailPassword),
                 EnableSsl = true
             };
             return client;
@@ -51,7 +51,7 @@ namespace OnlinerTask.Data.RedisManager
 
         private MailMessage CreateMail(string username, string productname)
         {
-            var mail = new MailMessage(ResourceSection.EmailName, username)
+            var mail = new MailMessage(Configurations.EmailName, username)
             {
                 Subject = productname,
                 Body = $"Dear, {username}, product {productname} has been changed."

@@ -37,7 +37,7 @@ namespace OnlinerTask.BLL.Services.Search
 
         public HttpWebRequest OnlinerRequest(string strRequest)
         {
-            var webRequest = (HttpWebRequest)WebRequest.Create(ResourceSection.OnlinerApiPath + strRequest);
+            var webRequest = (HttpWebRequest)WebRequest.Create(Configurations.OnlinerApiPath + strRequest);
             webRequest.Method = "GET";
             webRequest.ContentType = webRequest.Accept = webRequest.MediaType = "application/json";
             return webRequest;

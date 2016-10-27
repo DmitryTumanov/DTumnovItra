@@ -15,12 +15,12 @@ namespace OnlinerTask.Data.Sockets
 
         public void AddProduct(dynamic name, dynamic path = null)
         {
-            SendTcpMessage(name, "tcp://localhost:5556", path ? "addProductSearch" : "addProduct", path);
+            SendTcpMessage(name, "tcp://localhost:5556", path != null ? "SearchAddProduct" : "addProduct", path);
         }
 
         public void RemoveProduct(dynamic name, dynamic path = null)
         {
-            SendTcpMessage(name, "tcp://localhost:5556", path ? "removeProductSearch" : "removeProduct", path);
+            SendTcpMessage(name, "tcp://localhost:5556", path != null ? "SearchRemoveProduct" : "removeProduct", path);
         }
 
         public void ChangeInfo(dynamic time)

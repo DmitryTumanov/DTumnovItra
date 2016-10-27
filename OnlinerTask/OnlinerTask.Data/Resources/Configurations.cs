@@ -2,7 +2,7 @@
 
 namespace OnlinerTask.Data.Resources
 {
-    public class ResourceSection: ConfigurationSection
+    public class Configurations : ConfigurationSection
     {
         public static string OnlinerApiPath => ConfigurationManager.AppSettings["OnlinerApiPath"];
 
@@ -21,5 +21,18 @@ namespace OnlinerTask.Data.Resources
         public static string EmailName => ConfigurationManager.AppSettings["EmailName"];
 
         public static string EmailPassword => ConfigurationManager.AppSettings["EmailPassword"];
+
+        public static string NotifyTechnology
+        {
+            get { return ConfigurationManager.AppSettings["NotifyTechnology"]; }
+            set
+            {
+                ConfigurationManager.AppSettings["NotifyTechnology"] = value == SignalRTechnology ? SignalRTechnology : NetMqTechnology;
+            }
+        }
+
+        public static string SignalRTechnology => ConfigurationManager.AppSettings["SignalRTechnology"];
+
+        public static string NetMqTechnology => ConfigurationManager.AppSettings["NetMqTechnology"];
     }
 }
