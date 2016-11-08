@@ -1,46 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
+using OnlinerTask.Data.DataBaseContexts;
+using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
-using OnlinerTask.Extensions.Extensions;
 
 namespace OnlinerTask.Data.Repository.Implementations
 {
     public class MsSqlProductRepository : IProductRepository
     {
-        public async Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string userName)
+        private readonly IUserContext userContext;
+        private readonly IOnlinerContext onlinerContext;
+
+        public MsSqlProductRepository(IUserContext userContext, IOnlinerContext onlinerContext)
         {
-            await products.ForEachAsync(async i =>
+            this.userContext = userContext;
+            this.onlinerContext = onlinerContext;
+        }
+
+        public List<ProductModel> CheckProducts(List<ProductModel> products, string userName)
+        {
+            products.ForEach(i =>
             {
-                i.IsChecked = await CheckItem(i.Id, userName);
+                i.IsChecked = CheckItem(i.Id, userName);
             });
             return products;
         }
 
         public UsersUpdateEmail WriteUpdate(ProductModel item, string useremail)
         {
-            using (var db = new ApplicationDbContext())
+            var time = userContext.Users.FirstOrDefault(x => x.Email == useremail);
+            if (time == null)
             {
-                var time = db.Users.FirstOrDefault(x => x.Email == useremail);
-                if (time != null)
-                {
-                    return WriteUpdateToProduct(item, time.EmailTime);
-                }
+                return null;
             }
-            return null;
+            return WriteUpdateToProduct(item, time.EmailTime);
         }
 
-        private async Task<bool> CheckItem(int itemId, string username)
+        private bool CheckItem(int itemId, string username)
         {
-            using (var context = new OnlinerProducts())
-            {
-                return await context.Product.FirstOrDefaultAsync(x => x.ProductId == itemId && x.UserEmail == username) != null;
-            }
+                var checkResult = onlinerContext.Product.FirstOrDefault(x => x.ProductId == itemId && x.UserEmail == username);
+                return checkResult != null;
         }
 
         private void UpdateProduct(Product item, ProductModel model)
@@ -49,17 +51,14 @@ namespace OnlinerTask.Data.Repository.Implementations
             {
                 return;
             }
-            using (var db = new OnlinerProducts())
+            var product = onlinerContext.Product.FirstOrDefault(x => x.ProductId == item.ProductId);
+            if (product == null)
             {
-                var product = db.Product.FirstOrDefault(x => x.ProductId == item.ProductId);
-                if (product == null)
-                {
-                    return;
-                }
-                product.Price.PriceMaxAmmount.Amount = model.Prices.PriceMax.Amount;
-                product.Price.PriceMinAmmount.Amount = model.Prices.PriceMin.Amount;
-                db.SaveChanges();
+                return;
             }
+            product.Price.PriceMaxAmmount.Amount = model.Prices.PriceMax.Amount;
+            product.Price.PriceMinAmmount.Amount = model.Prices.PriceMin.Amount;
+            onlinerContext.SaveChanges();
         }
 
         private UsersUpdateEmail WriteUpdateToProduct(ProductModel model, TimeSpan time)
@@ -68,17 +67,14 @@ namespace OnlinerTask.Data.Repository.Implementations
             {
                 return null;
             }
-            using (var db = new OnlinerProducts())
+            var dbmodel = onlinerContext.Product.FirstOrDefault(x => x.ProductId == model.Id);
+            UpdateProduct(dbmodel, model);
+            return new UsersUpdateEmail()
             {
-                var dbmodel = db.Product.FirstOrDefault(x => x.ProductId == model.Id);
-                UpdateProduct(dbmodel, model);
-                return new UsersUpdateEmail()
-                {
-                    ProductName = model.FullName,
-                    UserEmail = dbmodel.UserEmail,
-                    Time = time
-                };
-            }
+                ProductName = model.FullName,
+                UserEmail = dbmodel.UserEmail,
+                Time = time
+            };
         }
     }
 }

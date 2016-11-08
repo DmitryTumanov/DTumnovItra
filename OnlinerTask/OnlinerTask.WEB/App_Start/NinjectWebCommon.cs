@@ -6,7 +6,10 @@ using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.BLL.Services.TimeChange.Implementations;
+using OnlinerTask.Data.DataBaseContexts;
+using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.EntityMappers.Implementations;
+using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.Notifications;
 using OnlinerTask.Data.Notifications.Technologies;
 using OnlinerTask.Data.Notifications.Technologies.Implementations;
@@ -113,6 +116,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IManager>().To<PersonalManager>().WhenInjectedInto<PersonalController>();
             kernel.Bind<IManager>().To<ProductManager>().WhenInjectedInto<ProductController>();
             kernel.Bind<ITimeChanger>().To<TimeChanger>();
+            kernel.Bind<IOnlinerContext>().To<OnlinerProducts>().InThreadScope();
+            kernel.Bind<IUserContext>().To<ApplicationDbContext>().InThreadScope();
         }        
     }
 }

@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers;
 using OnlinerTask.Data.SearchModels;
@@ -11,10 +12,12 @@ namespace OnlinerTask.Data.Repository.Implementations
     public class MsSqlRepository : IRepository
     {
         private readonly IProductMapper<Product, ProductModel> productMapper;
+        private readonly IOnlinerContext context;
 
-        public MsSqlRepository(IProductMapper<Product, ProductModel> productMapper)
+        public MsSqlRepository(IProductMapper<Product, ProductModel> productMapper, IOnlinerContext context)
         {
             this.productMapper = productMapper;
+            this.context = context;
         }
 
         public bool CreateOnlinerProduct(ProductModel model, string userEmail)
@@ -43,12 +46,9 @@ namespace OnlinerTask.Data.Repository.Implementations
             {
                 return -1;
             }
-            using (var context = new OnlinerProducts())
-            {
-                context.PriceAmmount.Add(price);
-                context.SaveChanges();
-                return price.Id;
-            }
+            context.PriceAmmount.Add(price);
+            context.SaveChanges();
+            return price.Id;
         }
 
         private bool CreateProduct(Product product)
@@ -57,34 +57,28 @@ namespace OnlinerTask.Data.Repository.Implementations
             {
                 return false;
             }
-            using (var context = new OnlinerProducts())
-            {
-                context.Product.Add(product);
-                context.SaveChanges();
-                return true;
-            }
+            context.Product.Add(product);
+            context.SaveChanges();
+            return true;
         }
 
         public async Task<string> RemoveOnlinerProduct(int itemId, string name)
         {
-            using (var context = new OnlinerProducts())
+            var model = await context.Product.FirstOrDefaultAsync(x => x.UserEmail == name && x.ProductId == itemId);
+            if (model == null)
             {
-                var model = await context.Product.FirstOrDefaultAsync(x => x.UserEmail == name && x.ProductId == itemId);
-                if (model == null)
-                {
-                    return "";
-                }
-                if (model.Price != null)
-                {
-                    await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
-                }
-                context.Product.Remove(model);
-                await context.SaveChangesAsync();
-                return model.FullName;
+                return "";
             }
+            if (model.Price != null)
+            {
+                await RemovePriceAmount(context, model.Price.PriceMaxId, model.Price.PriceMinId);
+            }
+            context.Product.Remove(model);
+            await context.SaveChangesAsync();
+            return model.FullName;
         }
 
-        private async Task RemovePriceAmount(OnlinerProducts context, int? priceMaxId, int? priceMinId)
+        private async Task RemovePriceAmount(IOnlinerContext context, int? priceMaxId, int? priceMinId)
         {
             var minprice = await context.PriceAmmount.FirstOrDefaultAsync(x => x.Id == priceMinId);
             var maxprice = await context.PriceAmmount.FirstOrDefaultAsync(x => x.Id == priceMaxId);
@@ -106,31 +100,25 @@ namespace OnlinerTask.Data.Repository.Implementations
 
         public List<Product> GetPersonalProducts(string name)
         {
-            using (var context = new OnlinerProducts())
-            {
-                return context.Product.Where(x => x.UserEmail == name)
-                    .OrderBy(x => x.FullName)
-                    .Include(x => x.Image)
-                    .Include(x => x.Price)
-                    .Include(x => x.Price.Offer)
-                    .Include(x => x.Price.PriceMinAmmount)
-                    .Include(x => x.Price.PriceMaxAmmount)
-                    .Include(x => x.Review).ToList();
-            }
+            return context.Product.Where(x => x.UserEmail == name)
+                .OrderBy(x => x.FullName)
+                .Include(x => x.Image)
+                .Include(x => x.Price)
+                .Include(x => x.Price.Offer)
+                .Include(x => x.Price.PriceMinAmmount)
+                .Include(x => x.Price.PriceMaxAmmount)
+                .Include(x => x.Review).ToList();
         }
 
         public List<Product> GetAllProducts()
         {
-            using (var context = new OnlinerProducts())
-            {
-                return context.Product
-                    .Include(x => x.Image)
-                    .Include(x => x.Price)
-                    .Include(x => x.Price.Offer)
-                    .Include(x => x.Price.PriceMinAmmount)
-                    .Include(x => x.Price.PriceMaxAmmount)
-                    .Include(x => x.Review).ToList();
-            }
+            return context.Product
+                .Include(x => x.Image)
+                .Include(x => x.Price)
+                .Include(x => x.Price.Offer)
+                .Include(x => x.Price.PriceMinAmmount)
+                .Include(x => x.Price.PriceMaxAmmount)
+                .Include(x => x.Review).ToList();
         }
     }
 }

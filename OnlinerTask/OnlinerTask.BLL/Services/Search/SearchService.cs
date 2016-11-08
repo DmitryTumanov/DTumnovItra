@@ -52,7 +52,7 @@ namespace OnlinerTask.BLL.Services.Search
             var request = OnlinerRequest(searchRequest.SearchString);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = ProductsFromOnliner(webResponse);
-            return await repository.CheckProducts(result.Products, userName);
+            return repository.CheckProducts(result.Products, userName);
         }
     }
 }

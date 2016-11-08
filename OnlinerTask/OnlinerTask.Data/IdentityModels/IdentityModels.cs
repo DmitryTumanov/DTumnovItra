@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using OnlinerTask.Data.DataBaseContexts;
 
 namespace OnlinerTask.Data.IdentityModels
 {
@@ -17,7 +18,7 @@ namespace OnlinerTask.Data.IdentityModels
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IUserContext
     {
         public ApplicationDbContext()
             : base("OnlinerProducts", throwIfV1Schema: false)
@@ -27,6 +28,11 @@ namespace OnlinerTask.Data.IdentityModels
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        async Task IUserContext.SaveChangesAsync()
+        {
+            await base.SaveChangesAsync();
         }
     }
 }

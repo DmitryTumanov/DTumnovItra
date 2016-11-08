@@ -151,6 +151,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBaseContexts\IUserContext.cs" />
+    <Compile Include="DataBaseContexts\IOnlinerContext.cs" />
     <Compile Include="DataBaseModels\DisturbSchedule.cs" />
     <Compile Include="DataBaseModels\Image.cs" />
     <Compile Include="DataBaseModels\Offer.cs" />

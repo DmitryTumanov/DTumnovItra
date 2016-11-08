@@ -1,8 +1,12 @@
+using OnlinerTask.Data.DataBaseInterfaces;
+
 namespace OnlinerTask.Data.DataBaseModels
 {
+    using System;
     using System.Data.Entity;
+    using System.Threading.Tasks;
 
-    public partial class OnlinerProducts : DbContext
+    public partial class OnlinerProducts : DbContext, IOnlinerContext
     {
         public OnlinerProducts()
             : base("name=OnlinerProducts")
@@ -54,6 +58,16 @@ namespace OnlinerTask.Data.DataBaseModels
                 .HasMany(e => e.UpdatedProducts)
                 .WithOptional(e => e.Product)
                 .WillCascadeOnDelete();
+        }
+
+        void IOnlinerContext.SaveChanges()
+        {
+            base.SaveChanges();
+        }
+
+        async Task IOnlinerContext.SaveChangesAsync()
+        {
+            await base.SaveChangesAsync();
         }
     }
 }
