@@ -7,10 +7,10 @@ namespace OnlinerTask.BLL.Services.TimeChange.Implementations
 {
     public class TimeChanger : ITimeChanger
     {
-        private readonly IPersonalRepository repository;
+        private readonly ITimeServiceRepository repository;
         private readonly INotification notify;
 
-        public TimeChanger(IPersonalRepository repository, INotification notify)
+        public TimeChanger(ITimeServiceRepository repository, INotification notify)
         {
             this.notify = notify;
             this.repository = repository;

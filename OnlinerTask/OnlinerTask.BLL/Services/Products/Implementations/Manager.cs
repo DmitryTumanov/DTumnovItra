@@ -10,9 +10,9 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
     public abstract class Manager : IManager
     {
         private readonly ISearchService searchService;
-        private readonly IPersonalRepository repository;
+        private readonly IRepository repository;
 
-        protected Manager(ISearchService searchService, IPersonalRepository repository)
+        protected Manager(ISearchService searchService, IRepository repository)
         {
             this.searchService = searchService;
             this.repository = repository;

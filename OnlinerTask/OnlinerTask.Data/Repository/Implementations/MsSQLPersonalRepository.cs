@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers;
 using OnlinerTask.Data.IdentityModels;
-using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
 using OnlinerTask.Data.SearchModels;
 
@@ -21,25 +20,6 @@ namespace OnlinerTask.Data.Repository.Implementations
             this.productMapper = productMapper;
             this.repository = repository;
         }
-        
-        public async Task ChangeSendEmailTimeAsync(TimeRequest request, string userName)
-        {
-            using (var db = new ApplicationDbContext())
-            {
-                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == userName);
-                if (user != null && request != null)
-                {
-                    user.EmailTime = request.Time.TimeOfDay;
-                    await db.SaveChangesAsync();
-                    //
-                }
-            }
-        }
-
-        public bool CreateOnlinerProduct(ProductModel model, string userEmail)
-        {
-            return repository.CreateOnlinerProduct(model, userEmail);
-        }
 
         public async Task<PersonalPageResponse> PersonalProductsResponse(string userName)
         {
@@ -54,11 +34,6 @@ namespace OnlinerTask.Data.Repository.Implementations
                 }
                 return new PersonalPageResponse() { EmailTime = DateTime.Now.Date + time, Products = result.ToList() };
             }
-        }
-
-        public Task<string> RemoveOnlinerProduct(int itemId, string name)
-        {
-            return repository.RemoveOnlinerProduct(itemId, name);
         }
     }
 }

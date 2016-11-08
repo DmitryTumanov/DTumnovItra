@@ -8,7 +8,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
     {
         private readonly INotification notification;
 
-        public ProductManager(ISearchService searchService, IPersonalRepository repository, INotification notification): base(searchService, repository)
+        public ProductManager(ISearchService searchService, IRepository repository, INotification notification): base(searchService, repository)
         {
             this.notification = notification;
         }

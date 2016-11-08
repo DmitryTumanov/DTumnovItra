@@ -9,11 +9,12 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
     public class PersonalManager : Manager
     {
         private readonly INotification notification;
-        private readonly IPersonalRepository repository;
+        private readonly IPersonalRepository personalRepository;
 
-        public PersonalManager(ISearchService searchService, IPersonalRepository repository, INotification notification) : base(searchService, repository)
+        public PersonalManager(ISearchService searchService, IPersonalRepository personalRepository, IRepository repository, INotification notification) 
+            : base(searchService, repository)
         {
-            this.repository = repository;
+            this.personalRepository = personalRepository;
             this.notification = notification;
         }
 
@@ -29,7 +30,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
 
         public override async Task<PersonalPageResponse> GetAllProducts(string userName)
         {
-            return await repository.PersonalProductsResponse(userName);
+            return await personalRepository.PersonalProductsResponse(userName);
         }
     }
 }

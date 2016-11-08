@@ -13,18 +13,21 @@ using ServiceStack;
 using ServiceStack.Messaging;
 using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;
+using IRepository = OnlinerTask.Data.Repository.IRepository;
 
 namespace OnlinerTask.BLL.Services.Job.Implementations
 {
     public class ProductJobService : IProductJob
     {
         private readonly ISearchService searchService;
-        private readonly ITimeServiceRepository repository;
+        private readonly IProductRepository productRepository;
+        private readonly IRepository repository;
 
-        public ProductJobService(ITimeServiceRepository repository, ISearchService searchService)
+        public ProductJobService(IProductRepository productRepository, ISearchService searchService, IRepository repository)
         {
             this.repository = repository;
             this.searchService = searchService;
+            this.productRepository = productRepository;
         }
 
         public async Task Execute()
@@ -68,7 +71,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
 
         private UsersUpdateEmail WriteProduct(ProductModel onlinerModel, string userEmail)
         {
-            return repository.WriteUpdate(onlinerModel, userEmail);
+            return productRepository.WriteUpdate(onlinerModel, userEmail);
         }
 
         private async Task<ProductModel> ProductUpdated(Product databaseModel)

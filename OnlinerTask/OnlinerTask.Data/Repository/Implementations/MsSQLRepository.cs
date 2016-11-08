@@ -37,7 +37,7 @@ namespace OnlinerTask.Data.Repository.Implementations
             return CreateProduct(product);
         }
 
-        public int CreatePriceAmmount(PriceAmmount price)
+        private int CreatePriceAmmount(PriceAmmount price)
         {
             if (price == null)
             {
@@ -51,7 +51,7 @@ namespace OnlinerTask.Data.Repository.Implementations
             }
         }
 
-        public bool CreateProduct(Product product)
+        private bool CreateProduct(Product product)
         {
             if (product == null)
             {
