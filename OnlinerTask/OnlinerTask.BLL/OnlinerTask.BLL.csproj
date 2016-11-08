@@ -100,8 +100,14 @@
     <Compile Include="Services\Job\INotification.cs" />
     <Compile Include="Services\Job\IProductJob.cs" />
     <Compile Include="Services\Job\Implementations\ProductJobService.cs" />
+    <Compile Include="Services\Products\IManager.cs" />
+    <Compile Include="Services\Products\Implementations\Manager.cs" />
+    <Compile Include="Services\Products\Implementations\PersonalManager.cs" />
+    <Compile Include="Services\Products\Implementations\ProductManager.cs" />
     <Compile Include="Services\Search\ISearchService.cs" />
     <Compile Include="Services\Search\SearchService.cs" />
+    <Compile Include="Services\TimeChange\Implementations\TimeChanger.cs" />
+    <Compile Include="Services\TimeChange\ITimeChanger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlinerTask.Data\OnlinerTask.DAL.csproj">

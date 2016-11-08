@@ -1,7 +1,11 @@
 using Ninject.Syntax;
 using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.BLL.Services.Job.Implementations;
+using OnlinerTask.BLL.Services.Products;
+using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.BLL.Services.TimeChange;
+using OnlinerTask.BLL.Services.TimeChange.Implementations;
 using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.Notifications;
 using OnlinerTask.Data.Notifications.Technologies;
@@ -10,6 +14,7 @@ using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.Repository.Implementations;
 using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.Sockets;
+using OnlinerTask.WEB.Controllers;
 using ServiceStack.Redis;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
@@ -105,6 +110,9 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<INotifyTechnology>().To<SignalRNotificator>().When(x=> Configurations.SignalRTechnology == Configurations.NotifyTechnology);
             kernel.Bind<INotifyTechnology>().To<NetMqNotificator>().When(x => Configurations.NetMqTechnology == Configurations.NotifyTechnology);
             kernel.Bind<ISocketLauncher>().To<SocketLauncher>();
+            kernel.Bind<IManager>().To<PersonalManager>().WhenInjectedInto<PersonalController>();
+            kernel.Bind<IManager>().To<ProductManager>().WhenInjectedInto<ProductController>();
+            kernel.Bind<ITimeChanger>().To<TimeChanger>();
         }        
     }
 }

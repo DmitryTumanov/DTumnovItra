@@ -41,13 +41,13 @@ namespace OnlinerTask.Data.Repository.Implementations
             return repository.CreateOnlinerProduct(model, userEmail);
         }
 
-        public PersonalPageResponse PersonalProductsResponse(string userName)
+        public async Task<PersonalPageResponse> PersonalProductsResponse(string userName)
         {
-            var result =repository.GetPersonalProducts(userName).Select(x => productMapper.ConvertToModel(x));
+            var result = repository.GetPersonalProducts(userName).Select(x => productMapper.ConvertToModel(x));
             using (var db = new ApplicationDbContext())
             {
                 var time = DateTime.Now.TimeOfDay;
-                var user = db.Users.FirstOrDefault(x => x.UserName == (userName));
+                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == (userName));
                 if (user != null)
                 {
                     time = user.EmailTime;

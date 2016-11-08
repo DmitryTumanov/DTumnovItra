@@ -8,7 +8,7 @@ namespace OnlinerTask.Data.Repository
     public interface IPersonalRepository
     {
         Task ChangeSendEmailTimeAsync(TimeRequest request, string userName);
-        PersonalPageResponse PersonalProductsResponse(string userName);
+        Task<PersonalPageResponse> PersonalProductsResponse(string userName);
         Task<string> RemoveOnlinerProduct(int itemId, string name);
         bool CreateOnlinerProduct(ProductModel model, string userEmail);
     }

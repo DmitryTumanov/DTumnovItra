@@ -3,11 +3,9 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using OnlinerTask.Data.SearchModels;
-using System.Linq;
 using System.Net.Http;
-using OnlinerTask.BLL.Services.Job;
+using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.Search;
-using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.WEB.Controllers
@@ -16,14 +14,12 @@ namespace OnlinerTask.WEB.Controllers
     public class ProductController : ApiController
     {
         private readonly ISearchService searchService;
-        private readonly IProductRepository repository;
-        private readonly INotification notify;
+        private readonly IManager manager;
 
-        public ProductController(ISearchService service, IProductRepository repo, INotification notify)
+        public ProductController(ISearchService searchService, IManager manager)
         {
-            searchService = service;
-            repository = repo;
-            this.notify = notify;
+            this.searchService = searchService;
+            this.manager = manager;
         }
 
         public HttpResponseMessage Get()
@@ -38,16 +34,13 @@ namespace OnlinerTask.WEB.Controllers
 
         public async Task<HttpResponseMessage> Put(PutRequest request, string testname = null)
         {
-            var result = (await Post(request)).FirstOrDefault();
-            repository.CreateOnlinerProduct(result, testname ?? User.Identity.Name);
-            notify.AddProductFromSearch(result.FullName);
+            await manager.AddProduct(request, testname ?? User.Identity.Name);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
         
         public async Task<HttpResponseMessage> Delete(DeleteRequest request, string testname = null)
         {
-            var name = await repository.RemoveOnlinerProduct(request.ItemId, testname ?? User.Identity.Name);
-            notify.DeleteProductFromSearch(name);
+            await manager.RemoveProduct(request, testname ?? User.Identity.Name);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
