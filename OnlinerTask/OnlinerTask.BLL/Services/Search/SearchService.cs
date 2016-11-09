@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using OnlinerTask.BLL.Services.Search.ProductParser;
+using OnlinerTask.BLL.Services.Search.Request;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
-using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.BLL.Services.Search
@@ -13,34 +12,14 @@ namespace OnlinerTask.BLL.Services.Search
     public class SearchService : ISearchService
     {
         private readonly IProductRepository repository;
-        public SearchService(IProductRepository repository)
+        private readonly IRequestCreator requestCreator;
+        private readonly IProductParser productParser;
+
+        public SearchService(IProductRepository repository, IRequestCreator requestCreator, IProductParser productParser)
         {
             this.repository = repository;
-        }
-
-        public SearchResult ProductsFromOnliner(HttpWebResponse webResponse)
-        {
-            var responseStream = webResponse.GetResponseStream();
-            var serializer = new JsonSerializer();
-            if (responseStream == null)
-            {
-                return null;
-            }
-            using (var sr = new StreamReader(responseStream))
-            {
-                using (var textReader = new JsonTextReader(sr))
-                {
-                    return serializer.Deserialize<SearchResult>(textReader);
-                }
-            }
-        }
-
-        public HttpWebRequest OnlinerRequest(string strRequest)
-        {
-            var webRequest = (HttpWebRequest)WebRequest.Create(Configurations.OnlinerApiPath + strRequest);
-            webRequest.Method = "GET";
-            webRequest.ContentType = webRequest.Accept = webRequest.MediaType = "application/json";
-            return webRequest;
+            this.requestCreator = requestCreator;
+            this.productParser = productParser;
         }
 
         public async Task<List<ProductModel>> GetProducts(SearchRequest searchRequest, string userName)
@@ -49,9 +28,9 @@ namespace OnlinerTask.BLL.Services.Search
             {
                 return null;
             }
-            var request = OnlinerRequest(searchRequest.SearchString);
+            var request = requestCreator.CreateRequest(searchRequest.SearchString);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
-            var result = ProductsFromOnliner(webResponse);
+            var result = productParser.ParseProductsFromRequest(webResponse);
             return repository.CheckProducts(result.Products, userName);
         }
     }

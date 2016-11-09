@@ -5,10 +5,6 @@ namespace OnlinerTask.BLL.Services.Job
 {
     public interface IProductJob: IJobExecute
     {
-        IMessageQueueClient CreateClient();
-
-        void CreateAppHost();
-
         Task GetAndPublishUpdates(IMessageQueueClient mqClient);
     }
 }

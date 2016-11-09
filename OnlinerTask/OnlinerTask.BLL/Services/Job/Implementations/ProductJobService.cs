@@ -36,7 +36,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
             await GetAndPublishUpdates(CreateClient());
         }
 
-        public void CreateAppHost()
+        private void CreateAppHost()
         {
             var serverAppHost = new NotificationAppHost();
             if (ServiceStackHost.Instance != null)
@@ -61,7 +61,7 @@ namespace OnlinerTask.BLL.Services.Job.Implementations
             });
         }
 
-        public IMessageQueueClient CreateClient()
+        private IMessageQueueClient CreateClient()
         {
             var redisFactory = new PooledRedisClientManager(Configurations.RedisClient);
             var mqServer = new RedisMqServer(redisFactory);

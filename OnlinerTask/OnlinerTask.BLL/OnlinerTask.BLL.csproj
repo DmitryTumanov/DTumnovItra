@@ -107,6 +107,10 @@
     <Compile Include="Services\Products\Implementations\PersonalManager.cs" />
     <Compile Include="Services\Products\Implementations\ProductManager.cs" />
     <Compile Include="Services\Search\ISearchService.cs" />
+    <Compile Include="Services\Search\ProductParser\IProductParser.cs" />
+    <Compile Include="Services\Search\ProductParser\Implementations\OnlinerProductParser.cs" />
+    <Compile Include="Services\Search\Request\IRequestCreator.cs" />
+    <Compile Include="Services\Search\Request\Implementations\OnlinerRequestCreator.cs" />
     <Compile Include="Services\Search\SearchService.cs" />
     <Compile Include="Services\TimeChange\Implementations\TimeChanger.cs" />
     <Compile Include="Services\TimeChange\ITimeChanger.cs" />

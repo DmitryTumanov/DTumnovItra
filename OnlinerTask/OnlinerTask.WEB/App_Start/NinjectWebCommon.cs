@@ -6,6 +6,10 @@ using OnlinerTask.BLL.Services.Job.Implementations;
 using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.BLL.Services.Search.ProductParser;
+using OnlinerTask.BLL.Services.Search.ProductParser.Implementations;
+using OnlinerTask.BLL.Services.Search.Request;
+using OnlinerTask.BLL.Services.Search.Request.Implementations;
 using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.BLL.Services.TimeChange.Implementations;
 using OnlinerTask.Data.DataBaseContexts;
@@ -121,6 +125,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IOnlinerContext>().To<OnlinerProducts>().InThreadScope();
             kernel.Bind<IUserContext>().To<ApplicationDbContext>().InThreadScope();
             kernel.Bind<ITechnologyChanger>().To<TechnologyChanger>();
+            kernel.Bind<IProductParser>().To<OnlinerProductParser>();
+            kernel.Bind<IRequestCreator>().To<OnlinerRequestCreator>();
         }        
     }
 }
