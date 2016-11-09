@@ -185,6 +185,7 @@
       <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MqConstituents\Implementations\RedisConstituentsFactory.cs" />
     <Compile Include="Notifications\INotificator.cs" />
     <Compile Include="Notifications\Technologies\Implementations\NetMqNotificator.cs" />
     <Compile Include="Notifications\Technologies\Implementations\SignalRNotificator.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Notifications\Notificator.cs" />
     <Compile Include="RedisManager\EmailCacheManager.cs" />
     <Compile Include="RedisManager\IEmailManager.cs" />
+    <Compile Include="MqConstituents\IMqConstituentsFactory.cs" />
     <Compile Include="RedisManager\RedisServer\NotificationAppHost.cs" />
     <Compile Include="RedisManager\RedisServer\NotificationService.cs" />
     <Compile Include="RedisManager\RedisServer\RedisRequests\AddProductRequest.cs" />

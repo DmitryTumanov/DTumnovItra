@@ -7,7 +7,7 @@ using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.SearchModels;
 
-namespace OnlinerTask.BLL.Services.Search
+namespace OnlinerTask.BLL.Services.Search.Implementations
 {
     public class SearchService : ISearchService
     {

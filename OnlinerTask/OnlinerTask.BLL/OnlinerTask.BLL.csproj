@@ -98,6 +98,8 @@
     <Compile Include="Services\Job\EmailJob\Implementations\EmailJobService.cs" />
     <Compile Include="Services\Job\EmailJob\IEmailJob.cs" />
     <Compile Include="Services\Job\IJobExecute.cs" />
+    <Compile Include="Services\Job\ProductJob\ProductUpdate\Implementations\OnlinerProductUpdater.cs" />
+    <Compile Include="Services\Job\ProductJob\ProductUpdate\IProductUpdater.cs" />
     <Compile Include="Services\Notification\Implementations\NotifyJobService.cs" />
     <Compile Include="Services\Notification\INotification.cs" />
     <Compile Include="Services\Job\ProductJob\IProductJob.cs" />
@@ -111,7 +113,7 @@
     <Compile Include="Services\Search\ProductParser\Implementations\OnlinerProductParser.cs" />
     <Compile Include="Services\Search\Request\IRequestFactory.cs" />
     <Compile Include="Services\Search\Request\Implementations\OnlinerRequestFactory.cs" />
-    <Compile Include="Services\Search\SearchService.cs" />
+    <Compile Include="Services\Search\Implementations\SearchService.cs" />
     <Compile Include="Services\TimeChange\Implementations\TimeChanger.cs" />
     <Compile Include="Services\TimeChange\ITimeChanger.cs" />
   </ItemGroup>

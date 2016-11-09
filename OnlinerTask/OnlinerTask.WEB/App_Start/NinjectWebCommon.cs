@@ -5,11 +5,14 @@ using OnlinerTask.BLL.Services.Job.EmailJob;
 using OnlinerTask.BLL.Services.Job.EmailJob.Implementations;
 using OnlinerTask.BLL.Services.Job.ProductJob;
 using OnlinerTask.BLL.Services.Job.ProductJob.Implementations;
+using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate;
+using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate.Implementations;
 using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.BLL.Services.Notification.Implementations;
 using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.BLL.Services.Search.Implementations;
 using OnlinerTask.BLL.Services.Search.ProductParser;
 using OnlinerTask.BLL.Services.Search.ProductParser.Implementations;
 using OnlinerTask.BLL.Services.Search.Request;
@@ -20,6 +23,8 @@ using OnlinerTask.Data.DataBaseContexts;
 using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.IdentityModels;
+using OnlinerTask.Data.MqConstituents;
+using OnlinerTask.Data.MqConstituents.Implementations;
 using OnlinerTask.Data.Notifications;
 using OnlinerTask.Data.Notifications.Technologies;
 using OnlinerTask.Data.Notifications.Technologies.Implementations;
@@ -131,6 +136,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<ITechnologyChanger>().To<TechnologyChanger>();
             kernel.Bind<IProductParser>().To<OnlinerProductParser>();
             kernel.Bind<IRequestFactory>().To<OnlinerRequestFactory>();
+            kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
+            kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
         }        
     }
 }
