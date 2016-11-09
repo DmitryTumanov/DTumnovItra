@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using OnlinerTask.BLL.Services.Job;
+using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 

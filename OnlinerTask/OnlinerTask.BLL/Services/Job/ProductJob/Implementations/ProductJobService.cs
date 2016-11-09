@@ -15,7 +15,7 @@ using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;
 using IRepository = OnlinerTask.Data.Repository.IRepository;
 
-namespace OnlinerTask.BLL.Services.Job.Implementations
+namespace OnlinerTask.BLL.Services.Job.ProductJob.Implementations
 {
     public class ProductJobService : IProductJob
     {

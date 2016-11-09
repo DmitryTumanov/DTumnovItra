@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using OnlinerTask.Data.DataBaseContexts;
 using OnlinerTask.Data.DataBaseInterfaces;
@@ -41,8 +42,16 @@ namespace OnlinerTask.Data.Repository.Implementations
 
         private bool CheckItem(int itemId, string username)
         {
+            try
+            {
                 var checkResult = onlinerContext.Product.FirstOrDefault(x => x.ProductId == itemId && x.UserEmail == username);
                 return checkResult != null;
+            }
+            catch(NullReferenceException exception)
+            {
+                Debug.WriteLine(exception.InnerException);
+                return false;
+            }
         }
 
         private void UpdateProduct(Product item, ProductModel model)

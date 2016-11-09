@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using System.Net;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using FluentScheduler;
-using OnlinerTask.BLL.Services.Job;
+using OnlinerTask.BLL.Services.Job.ProductJob;
 
 namespace OnlinerTask.WEB.TimeRegistry
 {
@@ -17,14 +15,7 @@ namespace OnlinerTask.WEB.TimeRegistry
 
         public async void Execute()
         {
-            try
-            {
-                await productJob.Execute();
-            }
-            catch (HttpListenerException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
+            await productJob.Execute();
         }
     }
 }

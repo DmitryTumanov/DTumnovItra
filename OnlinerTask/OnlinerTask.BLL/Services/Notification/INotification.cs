@@ -1,4 +1,4 @@
-﻿namespace OnlinerTask.BLL.Services.Job
+﻿namespace OnlinerTask.BLL.Services.Notification
 {
     public interface INotification
     {

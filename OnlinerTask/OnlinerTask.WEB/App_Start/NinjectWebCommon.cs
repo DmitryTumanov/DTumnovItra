@@ -1,8 +1,12 @@
 using Ninject.Syntax;
 using OnlinerTask.BLL.Services.ConfigChange;
 using OnlinerTask.BLL.Services.ConfigChange.Implementations;
-using OnlinerTask.BLL.Services.Job;
-using OnlinerTask.BLL.Services.Job.Implementations;
+using OnlinerTask.BLL.Services.Job.EmailJob;
+using OnlinerTask.BLL.Services.Job.EmailJob.Implementations;
+using OnlinerTask.BLL.Services.Job.ProductJob;
+using OnlinerTask.BLL.Services.Job.ProductJob.Implementations;
+using OnlinerTask.BLL.Services.Notification;
+using OnlinerTask.BLL.Services.Notification.Implementations;
 using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;

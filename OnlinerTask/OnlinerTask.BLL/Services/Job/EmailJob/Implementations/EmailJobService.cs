@@ -6,7 +6,7 @@ using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Extensions.Extensions;
 
-namespace OnlinerTask.BLL.Services.Job.Implementations
+namespace OnlinerTask.BLL.Services.Job.EmailJob.Implementations
 {
     public class EmailJobService : IEmailJob
     {

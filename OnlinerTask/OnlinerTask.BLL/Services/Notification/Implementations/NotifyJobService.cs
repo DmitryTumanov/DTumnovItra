@@ -3,7 +3,7 @@ using ServiceStack.Messaging;
 using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;
 
-namespace OnlinerTask.BLL.Services.Job.Implementations
+namespace OnlinerTask.BLL.Services.Notification.Implementations
 {
     public class NotifyJobService : INotification
     {
