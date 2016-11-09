@@ -9,16 +9,16 @@ namespace OnlinerTask.WEB.Controllers
 {
     public class TechnologyController : ApiController
     {
-        private readonly IConfigChanger changer;
+        private readonly ITechnologyChanger changer;
 
-        public TechnologyController(IConfigChanger changer)
+        public TechnologyController(ITechnologyChanger changer)
         {
             this.changer = changer;
         }
 
         public HttpResponseMessage Post(TechnologyRequest request)
         {
-            changer.TechnologySwap(request.Technology);
+            changer.ChangeTechnology(request.Technology);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

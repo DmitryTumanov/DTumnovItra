@@ -120,7 +120,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<ITimeChanger>().To<TimeChanger>();
             kernel.Bind<IOnlinerContext>().To<OnlinerProducts>().InThreadScope();
             kernel.Bind<IUserContext>().To<ApplicationDbContext>().InThreadScope();
-            kernel.Bind<IConfigChanger>().To<ConfigSwapper>();
+            kernel.Bind<ITechnologyChanger>().To<TechnologyChanger>();
         }        
     }
 }

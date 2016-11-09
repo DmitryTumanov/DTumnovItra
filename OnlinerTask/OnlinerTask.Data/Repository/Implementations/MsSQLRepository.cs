@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -67,7 +68,7 @@ namespace OnlinerTask.Data.Repository.Implementations
             var model = await context.Product.FirstOrDefaultAsync(x => x.UserEmail == name && x.ProductId == itemId);
             if (model == null)
             {
-                return "";
+                return string.Empty;
             }
             if (model.Price != null)
             {
