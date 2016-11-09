@@ -2,7 +2,7 @@
 
 namespace OnlinerTask.BLL.Services.Search.Request
 {
-    public interface IRequestCreator
+    public interface IRequestFactory
     {
         HttpWebRequest CreateRequest(string requestString);
     }

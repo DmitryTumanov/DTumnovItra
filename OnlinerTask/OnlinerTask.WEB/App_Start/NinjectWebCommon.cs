@@ -126,7 +126,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IUserContext>().To<ApplicationDbContext>().InThreadScope();
             kernel.Bind<ITechnologyChanger>().To<TechnologyChanger>();
             kernel.Bind<IProductParser>().To<OnlinerProductParser>();
-            kernel.Bind<IRequestCreator>().To<OnlinerRequestCreator>();
+            kernel.Bind<IRequestFactory>().To<OnlinerRequestFactory>();
         }        
     }
 }

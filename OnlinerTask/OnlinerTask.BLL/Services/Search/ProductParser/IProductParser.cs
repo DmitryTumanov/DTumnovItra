@@ -5,6 +5,6 @@ namespace OnlinerTask.BLL.Services.Search.ProductParser
 {
     public interface IProductParser
     {
-        SearchResult ParseProductsFromRequest(HttpWebResponse webResponse);
+        SearchResult FromRequest(HttpWebResponse webResponse);
     }
 }

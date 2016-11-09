@@ -12,10 +12,10 @@ namespace OnlinerTask.BLL.Services.Search
     public class SearchService : ISearchService
     {
         private readonly IProductRepository repository;
-        private readonly IRequestCreator requestCreator;
+        private readonly IRequestFactory requestCreator;
         private readonly IProductParser productParser;
 
-        public SearchService(IProductRepository repository, IRequestCreator requestCreator, IProductParser productParser)
+        public SearchService(IProductRepository repository, IRequestFactory requestCreator, IProductParser productParser)
         {
             this.repository = repository;
             this.requestCreator = requestCreator;
@@ -30,7 +30,7 @@ namespace OnlinerTask.BLL.Services.Search
             }
             var request = requestCreator.CreateRequest(searchRequest.SearchString);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
-            var result = productParser.ParseProductsFromRequest(webResponse);
+            var result = productParser.FromRequest(webResponse);
             return repository.CheckProducts(result.Products, userName);
         }
     }

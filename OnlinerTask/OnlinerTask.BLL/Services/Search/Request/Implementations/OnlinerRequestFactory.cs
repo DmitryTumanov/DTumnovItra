@@ -3,7 +3,7 @@ using OnlinerTask.Data.Resources;
 
 namespace OnlinerTask.BLL.Services.Search.Request.Implementations
 {
-    public class OnlinerRequestCreator : IRequestCreator
+    public class OnlinerRequestFactory : IRequestFactory
     {
         public HttpWebRequest CreateRequest(string requestString)
         {

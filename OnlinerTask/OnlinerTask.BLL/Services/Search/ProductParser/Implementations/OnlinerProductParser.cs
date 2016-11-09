@@ -7,7 +7,7 @@ namespace OnlinerTask.BLL.Services.Search.ProductParser.Implementations
 {
     public class OnlinerProductParser : IProductParser
     {
-        public SearchResult ParseProductsFromRequest(HttpWebResponse webResponse)
+        public SearchResult FromRequest(HttpWebResponse webResponse)
         {
             var responseStream = webResponse.GetResponseStream();
             var serializer = new JsonSerializer();
