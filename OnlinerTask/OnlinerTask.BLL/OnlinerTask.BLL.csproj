@@ -93,6 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConfigChange\IConfigChanger.cs" />
+    <Compile Include="Services\ConfigChange\Implementations\ConfigSwapper.cs" />
     <Compile Include="Services\Job\Implementations\EmailJobService.cs" />
     <Compile Include="Services\Job\IEmailJob.cs" />
     <Compile Include="Services\Job\IJobExecute.cs" />

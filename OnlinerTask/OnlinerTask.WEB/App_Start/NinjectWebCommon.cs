@@ -1,4 +1,6 @@
 using Ninject.Syntax;
+using OnlinerTask.BLL.Services.ConfigChange;
+using OnlinerTask.BLL.Services.ConfigChange.Implementations;
 using OnlinerTask.BLL.Services.Job;
 using OnlinerTask.BLL.Services.Job.Implementations;
 using OnlinerTask.BLL.Services.Products;
@@ -118,6 +120,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<ITimeChanger>().To<TimeChanger>();
             kernel.Bind<IOnlinerContext>().To<OnlinerProducts>().InThreadScope();
             kernel.Bind<IUserContext>().To<ApplicationDbContext>().InThreadScope();
+            kernel.Bind<IConfigChanger>().To<ConfigSwapper>();
         }        
     }
 }
