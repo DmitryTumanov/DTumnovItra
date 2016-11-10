@@ -22,12 +22,8 @@ namespace OnlinerTask.Data.Notifications.Technologies.Implementations
 
         private static void SendTcpMessage(string text, string tcpString, string type, string path = null)
         {
-            using (var client = NetMQContext.Create().CreateRequestSocket())
-            {
-                client.Connect(tcpString);
-                var message = CreateMessage(type, text, path);
-                client.SendMessage(message);
-            }
+            var message = CreateMessage(type, text, path);
+            ConfigureClientAndSend(tcpString, message);
         }
 
         private static NetMQMessage CreateMessage(string type, string text, string path = null)
@@ -40,6 +36,15 @@ namespace OnlinerTask.Data.Notifications.Technologies.Implementations
                 message.Append(path);
             }
             return message;
+        }
+
+        private static void ConfigureClientAndSend(string tcpString, NetMQMessage message)
+        {
+            using (var client = NetMQContext.Create().CreateRequestSocket())
+            {
+                client.Connect(tcpString);
+                client.SendMessage(message);
+            }
         }
     }
 }
