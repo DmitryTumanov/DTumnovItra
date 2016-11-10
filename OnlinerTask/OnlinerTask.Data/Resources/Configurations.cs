@@ -48,5 +48,7 @@ namespace OnlinerTask.Data.Resources
         public static string RemoveChatType => ConfigurationManager.AppSettings["RemoveChatType"];
 
         public static string InfoChatType => ConfigurationManager.AppSettings["InfoChatType"];
+
+        public static string OnlinerPageVariable => ConfigurationManager.AppSettings["OnlinerPageVariable"];
     }
 }

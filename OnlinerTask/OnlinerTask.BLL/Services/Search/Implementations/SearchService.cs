@@ -24,11 +24,11 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
 
         public async Task<List<ProductModel>> GetProducts(SearchRequest searchRequest, string userName)
         {
-            if (string.IsNullOrEmpty(searchRequest?.SearchString))
+            if (string.IsNullOrEmpty(searchRequest?.SearchString) || searchRequest.PageNumber == 0)
             {
                 return null;
             }
-            var request = requestCreator.CreateRequest(searchRequest.SearchString);
+            var request = requestCreator.CreateRequest(searchRequest.SearchString, searchRequest.PageNumber);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = productParser.FromRequest(webResponse);
             return repository.CheckProducts(result.Products, userName);
