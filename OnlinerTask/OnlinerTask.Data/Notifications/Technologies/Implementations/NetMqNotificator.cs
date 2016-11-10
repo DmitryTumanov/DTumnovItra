@@ -25,15 +25,21 @@ namespace OnlinerTask.Data.Notifications.Technologies.Implementations
             using (var client = NetMQContext.Create().CreateRequestSocket())
             {
                 client.Connect(tcpString);
-                var message = new NetMQMessage();
-                message.Append(type);
-                message.Append(text);
-                if (!string.IsNullOrEmpty(path))
-                {
-                    message.Append(path);
-                }
+                var message = CreateMessage(type, text, path);
                 client.SendMessage(message);
             }
+        }
+
+        private static NetMQMessage CreateMessage(string type, string text, string path = null)
+        {
+            var message = new NetMQMessage();
+            message.Append(type);
+            message.Append(text);
+            if (!string.IsNullOrEmpty(path))
+            {
+                message.Append(path);
+            }
+            return message;
         }
     }
 }
