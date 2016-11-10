@@ -3,7 +3,7 @@ using System.Threading;
 using NetMQ;
 using NetMQ.WebSockets;
 
-namespace OnlinerTask.Data.Sockets
+namespace OnlinerTask.Data.Sockets.TcpSocket.Implementations
 {
     public class SocketLauncher : ISocketLauncher
     {

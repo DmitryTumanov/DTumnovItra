@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using OnlinerTask.Data.Resources;
 using ServiceStack.Redis;
 
-namespace OnlinerTask.Data.RedisManager
+namespace OnlinerTask.Data.RedisManager.Implementations
 {
     public class EmailCacheManager: IEmailManager
     {

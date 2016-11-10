@@ -1,5 +1,5 @@
 ﻿using Funq;
-using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
+using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 using OnlinerTask.Data.ScheduleModels;
 using ServiceStack;
 using ServiceStack.Messaging.Redis;

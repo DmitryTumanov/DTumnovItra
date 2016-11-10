@@ -26,12 +26,16 @@ using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.MqConstituents;
 using OnlinerTask.Data.MqConstituents.Implementations;
 using OnlinerTask.Data.Notifications;
+using OnlinerTask.Data.Notifications.Implementations;
 using OnlinerTask.Data.Notifications.Technologies;
 using OnlinerTask.Data.Notifications.Technologies.Implementations;
 using OnlinerTask.Data.RedisManager;
+using OnlinerTask.Data.RedisManager.Implementations;
 using OnlinerTask.Data.Repository.Implementations;
 using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.Sockets;
+using OnlinerTask.Data.Sockets.TcpSocket;
+using OnlinerTask.Data.Sockets.TcpSocket.Implementations;
 using OnlinerTask.WEB.Controllers;
 using ServiceStack.Redis;
 

@@ -1,4 +1,4 @@
-﻿using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
+﻿using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 using ServiceStack.Messaging;
 using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;

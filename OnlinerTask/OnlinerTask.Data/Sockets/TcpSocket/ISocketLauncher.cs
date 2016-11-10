@@ -1,4 +1,4 @@
-﻿namespace OnlinerTask.Data.Sockets
+﻿namespace OnlinerTask.Data.Sockets.TcpSocket
 {
     public interface ISocketLauncher
     {

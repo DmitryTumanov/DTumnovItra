@@ -1,7 +1,7 @@
 ﻿using OnlinerTask.Data.Notifications.Technologies;
-using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
+using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 
-namespace OnlinerTask.Data.Notifications
+namespace OnlinerTask.Data.Notifications.Implementations
 {
     public class Notificator: INotificator
     {
