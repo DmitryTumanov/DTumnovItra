@@ -7,6 +7,10 @@ namespace OnlinerTask.BLL.Services.Search.Request.Implementations
     {
         public HttpWebRequest CreateRequest(string endpoint, params string[] arguments)
         {
+            if (endpoint == null)
+            {
+                return null;
+            }
             var argumentsString = GetArgumentsString(arguments);
             var webRequest = (HttpWebRequest)WebRequest.Create(endpoint + argumentsString);
             webRequest.Method = "GET";
@@ -16,6 +20,10 @@ namespace OnlinerTask.BLL.Services.Search.Request.Implementations
 
         private static string GetArgumentsString(params string[] arguments)
         {
+            if (arguments == null)
+            {
+                return string.Empty;
+            }
             return arguments.Aggregate(string.Empty, (current, element) => current + element);
         }
     }

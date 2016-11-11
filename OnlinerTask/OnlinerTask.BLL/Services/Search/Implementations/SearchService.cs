@@ -16,10 +16,10 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
         private readonly IRequestFactory requestFactory;
         private readonly IProductParser productParser;
 
-        public SearchService(IProductRepository repository, IRequestFactory requestCreator, IProductParser productParser)
+        public SearchService(IProductRepository repository, IRequestFactory requestFactory, IProductParser productParser)
         {
             this.repository = repository;
-            this.requestFactory = requestCreator;
+            this.requestFactory = requestFactory;
             this.productParser = productParser;
         }
 
@@ -31,6 +31,15 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
             }
             var request = requestFactory.CreateRequest(Configurations.OnlinerApiPath,
                 searchRequest.SearchString, Configurations.OnlinerPageVariable, searchRequest.PageNumber.ToString());
+            if (request == null)
+            {
+                return null;
+            }
+            return await GetProductsFromRequest(request, userName);
+        }
+
+        private async Task<List<ProductModel>> GetProductsFromRequest(WebRequest request, string userName)
+        {
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = productParser.FromRequest(webResponse);
             return repository.CheckProducts(result.Products, userName);

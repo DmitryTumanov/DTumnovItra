@@ -148,6 +148,7 @@
     <Compile Include="TimeRepositoryTest.cs" />
     <Compile Include="ProductRepositoryTest.cs" />
     <Compile Include="PersonalRepositoryTest.cs" />
+    <Compile Include="RequestFactoryTest.cs" />
     <Compile Include="WebApiControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
