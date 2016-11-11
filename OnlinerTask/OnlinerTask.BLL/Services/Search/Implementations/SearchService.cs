@@ -5,6 +5,7 @@ using OnlinerTask.BLL.Services.Search.ProductParser;
 using OnlinerTask.BLL.Services.Search.Request;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.BLL.Services.Search.Implementations
@@ -28,7 +29,7 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
             {
                 return null;
             }
-            var request = requestCreator.CreateRequest(searchRequest.SearchString, searchRequest.PageNumber);
+            var request = requestCreator.CreateRequest(searchRequest.SearchString + Configurations.OnlinerPageVariable + searchRequest.PageNumber);
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = productParser.FromRequest(webResponse);
             return repository.CheckProducts(result.Products, userName);

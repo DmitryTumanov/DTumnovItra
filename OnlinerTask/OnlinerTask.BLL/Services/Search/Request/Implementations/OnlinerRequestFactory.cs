@@ -5,10 +5,9 @@ namespace OnlinerTask.BLL.Services.Search.Request.Implementations
 {
     public class OnlinerRequestFactory : IRequestFactory
     {
-        public HttpWebRequest CreateRequest(string requestString, int page = 1)
+        public HttpWebRequest CreateRequest(string requestString)
         {
-            var webRequest = (HttpWebRequest)WebRequest.Create(Configurations.OnlinerApiPath + requestString + 
-                Configurations.OnlinerPageVariable + page);
+            var webRequest = (HttpWebRequest)WebRequest.Create(Configurations.OnlinerApiPath + requestString);
             webRequest.Method = "GET";
             webRequest.ContentType = webRequest.Accept = webRequest.MediaType = "application/json";
             return webRequest;
