@@ -4,6 +4,6 @@ namespace OnlinerTask.BLL.Services.Search.Request
 {
     public interface IRequestFactory
     {
-        HttpWebRequest CreateRequest(string requestString);
+        HttpWebRequest CreateRequest(string endpoint, params string[] arguments);
     }
 }
