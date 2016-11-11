@@ -25,7 +25,7 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
 
         public async Task<List<ProductModel>> GetProducts(SearchRequest searchRequest, string userName)
         {
-            if (string.IsNullOrEmpty(searchRequest?.SearchString) || searchRequest.PageNumber < 1)
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(searchRequest?.SearchString) || searchRequest.PageNumber < 1)
             {
                 return null;
             }
