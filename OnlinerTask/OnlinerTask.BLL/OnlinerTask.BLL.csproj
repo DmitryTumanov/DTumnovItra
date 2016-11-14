@@ -114,6 +114,8 @@
     <Compile Include="Services\Search\Request\IRequestFactory.cs" />
     <Compile Include="Services\Search\Request\Implementations\OnlinerRequestFactory.cs" />
     <Compile Include="Services\Search\Implementations\SearchService.cs" />
+    <Compile Include="Services\Search\Request\RequestQueryFactory\Implementations\OnlinerRequestQueryFactory.cs" />
+    <Compile Include="Services\Search\Request\RequestQueryFactory\IRequestQueryFactory.cs" />
     <Compile Include="Services\TimeChange\Implementations\TimeChanger.cs" />
     <Compile Include="Services\TimeChange\ITimeChanger.cs" />
   </ItemGroup>

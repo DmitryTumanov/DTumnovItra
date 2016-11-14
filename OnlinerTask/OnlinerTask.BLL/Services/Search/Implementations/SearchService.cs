@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using OnlinerTask.BLL.Services.Search.ProductParser;
 using OnlinerTask.BLL.Services.Search.Request;
+using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Resources;
@@ -15,12 +16,14 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
         private readonly IProductRepository repository;
         private readonly IRequestFactory requestFactory;
         private readonly IProductParser productParser;
+        private readonly IRequestQueryFactory queryFactory;
 
-        public SearchService(IProductRepository repository, IRequestFactory requestFactory, IProductParser productParser)
+        public SearchService(IProductRepository repository, IRequestFactory requestFactory, IProductParser productParser, IRequestQueryFactory queryFactory)
         {
             this.repository = repository;
             this.requestFactory = requestFactory;
             this.productParser = productParser;
+            this.queryFactory = queryFactory;
         }
 
         public async Task<List<ProductModel>> GetProducts(SearchRequest searchRequest, string userName)
@@ -29,8 +32,7 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
             {
                 return null;
             }
-            var request = requestFactory.CreateRequest(Configurations.OnlinerApiPath,
-                searchRequest.SearchString, Configurations.OnlinerPageVariable, searchRequest.PageNumber.ToString());
+            var request = requestFactory.CreateRequest(Configurations.OnlinerApiPath, queryFactory.FromRequest(searchRequest));
             if (request == null)
             {
                 return null;

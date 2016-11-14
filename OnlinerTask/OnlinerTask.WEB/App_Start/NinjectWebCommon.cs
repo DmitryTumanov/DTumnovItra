@@ -17,6 +17,8 @@ using OnlinerTask.BLL.Services.Search.ProductParser;
 using OnlinerTask.BLL.Services.Search.ProductParser.Implementations;
 using OnlinerTask.BLL.Services.Search.Request;
 using OnlinerTask.BLL.Services.Search.Request.Implementations;
+using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory;
+using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory.Implementations;
 using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.BLL.Services.TimeChange.Implementations;
 using OnlinerTask.Data.DataBaseContexts;
@@ -33,7 +35,6 @@ using OnlinerTask.Data.RedisManager;
 using OnlinerTask.Data.RedisManager.Implementations;
 using OnlinerTask.Data.Repository.Implementations;
 using OnlinerTask.Data.Resources;
-using OnlinerTask.Data.Sockets;
 using OnlinerTask.Data.Sockets.TcpSocket;
 using OnlinerTask.Data.Sockets.TcpSocket.Implementations;
 using OnlinerTask.WEB.Controllers;
@@ -142,6 +143,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IRequestFactory>().To<OnlinerRequestFactory>();
             kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
+            kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
         }        
     }
 }

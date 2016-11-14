@@ -1,30 +1,30 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 
 namespace OnlinerTask.BLL.Services.Search.Request.Implementations
 {
     public class OnlinerRequestFactory : IRequestFactory
     {
-        public HttpWebRequest CreateRequest(string endpoint, params string[] arguments)
+        public HttpWebRequest CreateRequest(string endpoint, IDictionary<string, string> parametersQuery)
         {
             if (endpoint == null)
             {
                 return null;
             }
-            var argumentsString = GetArgumentsString(arguments);
+            var argumentsString = GetArgumentsString(parametersQuery);
             var webRequest = (HttpWebRequest)WebRequest.Create(endpoint + argumentsString);
             webRequest.Method = "GET";
             webRequest.ContentType = webRequest.Accept = webRequest.MediaType = "application/json";
             return webRequest;
         }
 
-        private static string GetArgumentsString(params string[] arguments)
+        private static string GetArgumentsString(IDictionary<string, string> parametersQuery)
         {
-            if (arguments == null)
+            if (parametersQuery == null)
             {
                 return string.Empty;
             }
-            return arguments.Aggregate(string.Empty, (current, element) => current + element);
+            return parametersQuery["searchString"] + parametersQuery["pageVariable"] + parametersQuery["pageNumber"];
         }
     }
 }
