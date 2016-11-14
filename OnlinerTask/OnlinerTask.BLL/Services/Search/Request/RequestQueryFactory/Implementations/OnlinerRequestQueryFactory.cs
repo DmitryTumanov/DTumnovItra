@@ -9,9 +9,8 @@ namespace OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory.Implementa
         {
             return new Dictionary<string, string>
             {
-                {"searchString", searchRequest.SearchString},
-                {"pageVariable", "&page="},
-                {"pageNumber", searchRequest.PageNumber.ToString()}
+                {"query", $"?query={searchRequest.SearchString}"},
+                {"page", $"&page={searchRequest.PageNumber}"}
             };
         }
     }

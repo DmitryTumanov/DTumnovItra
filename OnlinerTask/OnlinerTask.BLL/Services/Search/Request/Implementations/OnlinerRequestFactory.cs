@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace OnlinerTask.BLL.Services.Search.Request.Implementations
@@ -24,7 +25,7 @@ namespace OnlinerTask.BLL.Services.Search.Request.Implementations
             {
                 return string.Empty;
             }
-            return parametersQuery["searchString"] + parametersQuery["pageVariable"] + parametersQuery["pageNumber"];
+            return parametersQuery.Values.Aggregate(string.Empty, (current, elem) => current + elem);
         }
     }
 }
