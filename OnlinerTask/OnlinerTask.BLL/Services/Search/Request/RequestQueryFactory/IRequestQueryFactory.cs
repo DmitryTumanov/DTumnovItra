@@ -5,6 +5,6 @@ namespace OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory
 {
     public interface IRequestQueryFactory
     {
-        IDictionary<string, string> FromRequest(SearchRequest searchRequest);
+        IDictionary<string, object> FromRequest(SearchRequest searchRequest);
     }
 }

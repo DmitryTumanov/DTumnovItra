@@ -5,12 +5,12 @@ namespace OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory.Implementa
 {
     public class OnlinerRequestQueryFactory : IRequestQueryFactory
     {
-        public IDictionary<string, string> FromRequest(SearchRequest searchRequest)
+        public IDictionary<string, object> FromRequest(SearchRequest searchRequest)
         {
-            return new Dictionary<string, string>
+            return new Dictionary<string, object>
             {
-                {"query", $"?query={searchRequest.SearchString}"},
-                {"page", $"&page={searchRequest.PageNumber}"}
+                {"query", searchRequest.SearchString},
+                {"page", searchRequest.PageNumber}
             };
         }
     }
