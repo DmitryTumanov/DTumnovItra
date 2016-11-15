@@ -7,6 +7,10 @@ namespace OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory.Implementa
     {
         public IDictionary<string, object> FromRequest(SearchRequest searchRequest)
         {
+            if (searchRequest == null)
+            {
+                return null;
+            }
             return new Dictionary<string, object>
             {
                 {"query", searchRequest.SearchString},

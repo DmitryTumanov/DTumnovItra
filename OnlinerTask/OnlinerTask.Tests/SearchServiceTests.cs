@@ -1,24 +1,28 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.BLL.Services.Search.Implementations;
 using OnlinerTask.BLL.Services.Search.Request;
+using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory;
 using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.Tests
 {
     [TestClass]
-    public class SearchServiceTest
+    public class SearchServiceTests
     {
         private ISearchService service;
         private Mock<IRequestFactory> requestFactory;
+        private Mock<IRequestQueryFactory> queryFactory;
 
         public ISearchService GetSearchService()
         {
             requestFactory = new Mock<IRequestFactory>();
-            service = new SearchService(null, requestFactory.Object, null);
+            queryFactory = new Mock<IRequestQueryFactory>();
+            service = new SearchService(null, requestFactory.Object, null, queryFactory.Object);
             return service;
         }
 
@@ -33,7 +37,8 @@ namespace OnlinerTask.Tests
         public async Task GetProducts_WithNulls_RequestIsNotCreated(string searchString, string username, int pagenumber)
         {
             await GetSearchService().GetProducts(new SearchRequest(searchString, pagenumber), username);
-            requestFactory.Verify(mock=>mock.CreateRequest(It.IsAny<string>(), It.IsAny<string[]>()), Times.Never);
+            requestFactory.Verify(mock=>mock.CreateRequest(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Never);
+            queryFactory.Verify(mock => mock.FromRequest(It.IsAny<SearchRequest>()), Times.Never);
         }
         
         [TestCase("t", "t", 1)]
@@ -42,7 +47,8 @@ namespace OnlinerTask.Tests
         public async Task GetProducts_WithoutNulls_RequestCreated(string searchString, string username, int pagenumber)
         {
             await GetSearchService().GetProducts(new SearchRequest(searchString, pagenumber), username);
-            requestFactory.Verify(mock => mock.CreateRequest(It.IsAny<string>(), It.IsAny<string[]>()), Times.Once);
+            requestFactory.Verify(mock => mock.CreateRequest(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Once);
+            queryFactory.Verify(mock => mock.FromRequest(It.IsAny<SearchRequest>()), Times.Once);
         }
     }
 }
