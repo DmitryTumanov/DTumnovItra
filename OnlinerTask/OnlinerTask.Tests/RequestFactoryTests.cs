@@ -30,7 +30,7 @@ namespace OnlinerTask.Tests
 
         [TestCase(null, true)]
         [TestCase(null, false)]
-        public void RequestFactory_CreateRequest_ReturnNull(string endpoint, bool nullQueryFlag)
+        public void CreateRequest_NullEndpoint_ReturnNull(string endpoint, bool nullQueryFlag)
         {
             IDictionary<string, object> parametersQuery = nullQueryFlag ? null : new Dictionary<string, object>();
             Assert.IsNull(GetRequestFactory().CreateRequest(endpoint, parametersQuery));
@@ -38,7 +38,7 @@ namespace OnlinerTask.Tests
 
         [TestCase("http://test.com/test", true)]
         [TestCase("https://test.com/test/test", false)]
-        public void RequestFactory_CreateRequest_ReturnNotNull(string endpoint, bool nullQueryFlag)
+        public void CreateRequest_ValidEndpoint_ReturnNotNull(string endpoint, bool nullQueryFlag)
         {
             IDictionary<string, object> parametersQuery = nullQueryFlag ? null : new Dictionary<string, object>();
             Assert.IsNotNull(GetRequestFactory().CreateRequest(endpoint, parametersQuery));
@@ -47,7 +47,7 @@ namespace OnlinerTask.Tests
         [TestCase("http://test.com/")]
         [TestCase("http://test.com/test")]
         [TestCase("https://test.com/test/test")]
-        public void RequestFactory_CreateRequest_ReturnGoodValueWithoutDictionary(string endpoint)
+        public void CreateRequest_NullDictionary_ReturnValidRequest(string endpoint)
         {
             var request = GetRequestFactory().CreateRequest(endpoint, null);
 
@@ -60,7 +60,7 @@ namespace OnlinerTask.Tests
         [TestCase("http://test.com/test", "test1", "test2")]
         [TestCase("https://test.com/test/test", "test1", "test2", "test3")]
         [TestCase("https://test.com/test/test/test", "test1", "test2", "test3", "test4")]
-        public void RequestFactory_CreateRequest_ReturnGoodValueWithDictionary(string endpoint, params string[] parameters)
+        public void CreateRequest_NotNullDictionary_ReturnValidRequest(string endpoint, params string[] parameters)
         {
             var dictionary = GetDictionary(parameters);
             var request = GetRequestFactory().CreateRequest(endpoint, dictionary);

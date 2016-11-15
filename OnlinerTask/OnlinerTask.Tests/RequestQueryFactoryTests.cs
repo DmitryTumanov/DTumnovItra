@@ -16,7 +16,7 @@ namespace OnlinerTask.Tests
         }
 
         [TestMethod]
-        public void RequestQueryFactory_FromRequest_ReturnNull()
+        public void FromRequest_NullRequest_ReturnsNull()
         {
             Assert.IsNull(GetQueryFactory().FromRequest(null));
         }
@@ -25,7 +25,7 @@ namespace OnlinerTask.Tests
         [TestCase(null, 1)]
         [TestCase("test", null)]
         [TestCase("test", 1)]
-        public void RequestQueryFactory_FromRequest_ReturnDictionary(string searchString, int pageNumber)
+        public void FromRequest_ValidRequest_ReturnDictionary(string searchString, int pageNumber)
         {
             var request = new SearchRequest(searchString, pageNumber);
             var dictionary = GetQueryFactory().FromRequest(request);
