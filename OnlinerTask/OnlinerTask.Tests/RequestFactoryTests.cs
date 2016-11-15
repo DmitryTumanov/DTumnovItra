@@ -15,7 +15,7 @@ namespace OnlinerTask.Tests
             return new OnlinerRequestFactory();
         }
 
-        static readonly object[] TestDictionaries =
+        private static readonly object[] TestDictionaries =
         {
             null,
             new Dictionary<string, object>
@@ -24,7 +24,7 @@ namespace OnlinerTask.Tests
             }
         };
 
-        static readonly object[] TestEndpointsAndDictionaries =
+        private static readonly object[] TestEndpointsAndDictionaries =
         {
             new object[]
             {
@@ -40,7 +40,7 @@ namespace OnlinerTask.Tests
             }
         };
 
-        static readonly object[] TestEndpointsAndDictionariesWithExpected =
+        private static readonly object[] TestEndpointsAndDictionariesWithExpected =
         {
             new object[] {
                 "http://test.com/test",
