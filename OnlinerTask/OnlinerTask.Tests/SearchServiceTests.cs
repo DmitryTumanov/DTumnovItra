@@ -36,7 +36,10 @@ namespace OnlinerTask.Tests
         [TestCase("https://catalog.api.onliner.by/search/products?query=", "tumanov.97.dima@gmail.com", -1)]
         public async Task GetProducts_WithNulls_RequestIsNotCreated(string searchString, string username, int pagenumber)
         {
-            await GetSearchService().GetProducts(new SearchRequest(searchString, pagenumber), username);
+            var searchService = GetSearchService();
+
+            await searchService.GetProducts(new SearchRequest(searchString, pagenumber), username);
+
             requestFactory.Verify(mock=>mock.CreateRequest(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Never);
             queryFactory.Verify(mock => mock.FromRequest(It.IsAny<SearchRequest>()), Times.Never);
         }
@@ -46,7 +49,10 @@ namespace OnlinerTask.Tests
         [TestCase("https://catalog.api.onliner.by/search/products?query=", "tumanov.97.dima@gmail.com", 20)]
         public async Task GetProducts_WithoutNulls_RequestCreated(string searchString, string username, int pagenumber)
         {
-            await GetSearchService().GetProducts(new SearchRequest(searchString, pagenumber), username);
+            var searchService = GetSearchService();
+
+            await searchService.GetProducts(new SearchRequest(searchString, pagenumber), username);
+
             requestFactory.Verify(mock => mock.CreateRequest(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()), Times.Once);
             queryFactory.Verify(mock => mock.FromRequest(It.IsAny<SearchRequest>()), Times.Once);
         }

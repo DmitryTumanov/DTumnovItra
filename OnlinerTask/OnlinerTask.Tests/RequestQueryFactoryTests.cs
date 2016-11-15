@@ -18,7 +18,11 @@ namespace OnlinerTask.Tests
         [TestMethod]
         public void FromRequest_NullRequest_ReturnsNull()
         {
-            Assert.IsNull(GetQueryFactory().FromRequest(null));
+            var factory = GetQueryFactory();
+
+            var result = factory.FromRequest(null);
+
+            Assert.IsNull(result);
         }
 
         [TestCase(null, null)]
@@ -27,11 +31,14 @@ namespace OnlinerTask.Tests
         [TestCase("test", 1)]
         public void FromRequest_ValidRequest_ReturnDictionary(string searchString, int pageNumber)
         {
+            var factory = GetQueryFactory();
             var request = new SearchRequest(searchString, pageNumber);
-            var dictionary = GetQueryFactory().FromRequest(request);
-            Assert.IsNotNull(dictionary);
-            Assert.IsTrue(dictionary.Values.Contains(searchString));
-            Assert.IsTrue(dictionary.Values.Contains(pageNumber));
+
+            var result = factory.FromRequest(request);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Values.Contains(searchString));
+            Assert.IsTrue(result.Values.Contains(pageNumber));
         }
     }
 }

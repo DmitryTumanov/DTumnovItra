@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OnlinerTask.BLL.Services.Search.Request;
@@ -17,54 +15,101 @@ namespace OnlinerTask.Tests
             return new OnlinerRequestFactory();
         }
 
-        public IDictionary<string, object> GetDictionary(IEnumerable<string> keys)
+        static readonly object[] TestDictionaries =
         {
-            var random = new Random();
-            IDictionary<string, object> dictionary = new Dictionary<string, object>();
-            foreach (var elem in keys)
+            null,
+            new Dictionary<string, object>
             {
-                dictionary.Add(elem, random.Next());
+                {"test", "test"}
             }
-            return dictionary;
+        };
+
+        static readonly object[] TestEndpointsAndDictionaries =
+        {
+            new object[]
+            {
+                "http://test.com/test",
+                null
+            },
+            new object[] {
+                "https://test.com/test/test",
+                new Dictionary<string, object>
+                {
+                    {"test", "test"}
+                }
+            }
+        };
+
+        static readonly object[] TestEndpointsAndDictionariesWithExpected =
+        {
+            new object[] {
+                "http://test.com/test",
+                "http://test.com/test?test1=0",
+                new Dictionary<string, object>
+                {
+                    {"test1", 0}
+                }
+            },
+            new object[] {
+                "https://test.com/test/test",
+                "https://test.com/test/test?test1=0&test2=0",
+                new Dictionary<string, object>
+                {
+                    {"test1", 0},
+                    {"test2", 0}
+                }
+            },
+            new object[] {
+                "https://test.com/test/test/test",
+                "https://test.com/test/test/test?test1=0&test2=0&test3=0",
+                new Dictionary<string, object>
+                {
+                    {"test1", 0},
+                    {"test2", 0},
+                    {"test3", 0}
+                }
+            },
+        };
+
+        [TestCaseSource(nameof(TestDictionaries))]
+        public void CreateRequest_NullEndpoint_ReturnNull(IDictionary<string, object> parametersQuery)
+        {
+            var factory = GetRequestFactory();
+
+            var result = factory.CreateRequest(null, parametersQuery);
+
+            Assert.IsNull(result);
         }
 
-        [TestCase(null, true)]
-        [TestCase(null, false)]
-        public void CreateRequest_NullEndpoint_ReturnNull(string endpoint, bool nullQueryFlag)
+        [TestCaseSource(nameof(TestEndpointsAndDictionaries))]
+        public void CreateRequest_ValidEndpoint_ReturnNotNull(string endpoint, IDictionary<string, object> parametersQuery)
         {
-            IDictionary<string, object> parametersQuery = nullQueryFlag ? null : new Dictionary<string, object>();
-            Assert.IsNull(GetRequestFactory().CreateRequest(endpoint, parametersQuery));
+            var factory = GetRequestFactory();
+
+            var result = factory.CreateRequest(endpoint, parametersQuery);
+
+            Assert.IsNotNull(result);
         }
 
-        [TestCase("http://test.com/test", true)]
-        [TestCase("https://test.com/test/test", false)]
-        public void CreateRequest_ValidEndpoint_ReturnNotNull(string endpoint, bool nullQueryFlag)
+        [TestCase("http://test.com/test", "http://test.com/test?")]
+        [TestCase("https://test.com/test/test", "https://test.com/test/test?")]
+        public void CreateRequest_NullDictionary_ReturnValidRequest(string endpoint, string expectedString)
         {
-            IDictionary<string, object> parametersQuery = nullQueryFlag ? null : new Dictionary<string, object>();
-            Assert.IsNotNull(GetRequestFactory().CreateRequest(endpoint, parametersQuery));
+            var factory = GetRequestFactory();
+
+            var result = factory.CreateRequest(endpoint, null);
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Address.AbsoluteUri);
+            Assert.AreEqual(expectedString, result.Address.AbsoluteUri);
         }
 
-        [TestCase("http://test.com/")]
-        [TestCase("http://test.com/test")]
-        [TestCase("https://test.com/test/test")]
-        public void CreateRequest_NullDictionary_ReturnValidRequest(string endpoint)
+        [TestCaseSource(nameof(TestEndpointsAndDictionariesWithExpected))]
+        public void CreateRequest_NotNullDictionary_ReturnValidRequest(string endpoint, string expectedString, IDictionary<string, object> parametersQuery)
         {
-            var request = GetRequestFactory().CreateRequest(endpoint, null);
+            var factory = GetRequestFactory();
 
-            Assert.IsNotNull(request);
-            Assert.IsNotNull(request.Address.AbsoluteUri);
-            Assert.AreEqual($"{endpoint}?", request.Address.AbsoluteUri);
-        }
-
-        [TestCase("http://test.com/", "test1")]
-        [TestCase("http://test.com/test", "test1", "test2")]
-        [TestCase("https://test.com/test/test", "test1", "test2", "test3")]
-        [TestCase("https://test.com/test/test/test", "test1", "test2", "test3", "test4")]
-        public void CreateRequest_NotNullDictionary_ReturnValidRequest(string endpoint, params string[] parameters)
-        {
-            var dictionary = GetDictionary(parameters);
-            var request = GetRequestFactory().CreateRequest(endpoint, dictionary);
-            var expectedString = $"{endpoint}?{string.Join("&", dictionary.Select(k => $"{k.Key}={k.Value}"))}";
+            var request = factory.CreateRequest(endpoint, parametersQuery);
 
             Assert.IsNotNull(request);
             Assert.IsNotNull(request.Address.AbsoluteUri);
