@@ -158,6 +158,8 @@
     <Compile Include="SearchServiceTests.cs" />
     <Compile Include="RequestFactoryTests.cs" />
     <Compile Include="RequestQueryFactoryTests.cs" />
+    <Compile Include="ProductManagerTests.cs" />
+    <Compile Include="PersonalManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

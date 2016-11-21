@@ -28,7 +28,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
             notification.DeleteProduct(name);
         }
 
-        public override async Task<PersonalPageResponse> GetAllProducts(string userName)
+        public override async Task<PersonalPageResponse> GetProducts(string userName)
         {
             return await personalRepository.PersonalProductsResponse(userName);
         }

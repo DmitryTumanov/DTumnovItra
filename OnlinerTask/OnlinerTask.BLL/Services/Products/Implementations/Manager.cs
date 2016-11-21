@@ -20,7 +20,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
 
         public async Task AddProduct(PutRequest request, string name)
         {
-            var result = (await searchService.GetProducts(request, name)).FirstOrDefault();
+            var result = (await searchService.GetProducts(request, name))?.FirstOrDefault();
             repository.CreateOnlinerProduct(result, name);
             AddNotify(result?.FullName);
         }
@@ -30,17 +30,12 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
             var productName = await repository.RemoveOnlinerProduct(request.ItemId, name);
             RemoveNotify(productName);
         }
-        public async Task<PersonalPageResponse> GetProducts(string name)
+        public virtual Task<PersonalPageResponse> GetProducts(string name)
         {
-            return await GetAllProducts(name);
+            return null;
         }
 
         public abstract void AddNotify(string name);
         public abstract void RemoveNotify(string name);
-
-        public virtual Task<PersonalPageResponse> GetAllProducts(string name)
-        {
-            return null;
-        }
     }
 }
