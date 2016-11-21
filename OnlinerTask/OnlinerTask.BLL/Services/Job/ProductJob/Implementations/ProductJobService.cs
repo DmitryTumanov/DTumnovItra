@@ -39,7 +39,7 @@ namespace OnlinerTask.BLL.Services.Job.ProductJob.Implementations
                     return;
                 }
                 var redisElem = productRepository.WriteUpdate(product, x.UserEmail);
-                mqClient.Publish(redisElem);
+                mqClient?.Publish(redisElem);
             });
         }
     }

@@ -160,6 +160,9 @@
     <Compile Include="RequestQueryFactoryTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="PersonalManagerTests.cs" />
+    <Compile Include="TimeChangeTests.cs" />
+    <Compile Include="EmailJobTests.cs" />
+    <Compile Include="ProductJobTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

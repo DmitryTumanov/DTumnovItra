@@ -6,7 +6,10 @@ namespace OnlinerTask.BLL.Services.ConfigChange.Implementations
     {
         public void ChangeTechnology(string technologyName)
         {
-            Configurations.NotifyTechnology = technologyName;
+            if (!string.IsNullOrEmpty(technologyName))
+            {
+                Configurations.NotifyTechnology = technologyName;
+            }
         }
     }
 }
