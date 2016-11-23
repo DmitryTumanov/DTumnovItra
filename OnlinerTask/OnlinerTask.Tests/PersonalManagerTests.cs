@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using NUnit.Framework;
@@ -26,6 +27,10 @@ namespace OnlinerTask.Tests
             repositoryMock = new Mock<IRepository>();
             notificationMock = new Mock<INotification>();
             personalRepositoryMock = new Mock<IPersonalRepository>();
+
+            searchServiceMock.Setup(mock => mock.GetProducts(It.IsAny<SearchRequest>(), It.IsAny<string>()))
+                .ReturnsAsync(new List<ProductModel> { new ProductModel() { FullName = "test" } });
+
             return new PersonalManager(searchServiceMock.Object, personalRepositoryMock.Object, repositoryMock.Object, notificationMock.Object);
         }
 
@@ -69,6 +74,21 @@ namespace OnlinerTask.Tests
             await productManager.GetProducts(username);
 
             personalRepositoryMock.Verify(mock=>mock.PersonalProductsResponse(username), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task AddProduct_SearchReturnsNull_ServicesNotCalled()
+        {
+            var productManager = GetProductManager();
+            var request = new PutRequest("");
+            searchServiceMock.Setup(mock => mock.GetProducts(It.IsAny<SearchRequest>(), It.IsAny<string>()))
+                .ReturnsAsync((List<ProductModel>)null);
+
+            await productManager.AddProduct(request, "");
+
+            searchServiceMock.Verify(mock => mock.GetProducts(It.IsAny<PutRequest>(), It.IsAny<string>()), Times.Once);
+            repositoryMock.Verify(mock => mock.CreateOnlinerProduct(It.IsAny<ProductModel>(), It.IsAny<string>()), Times.Never);
+            notificationMock.Verify(mock => mock.AddProduct(It.IsAny<string>()), Times.Never);
         }
     }
 }

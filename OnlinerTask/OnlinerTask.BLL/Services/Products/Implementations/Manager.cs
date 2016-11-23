@@ -21,8 +21,12 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
         public async Task AddProduct(PutRequest request, string name)
         {
             var result = (await searchService.GetProducts(request, name))?.FirstOrDefault();
+            if (result == null)
+            {
+                return;
+            }
             repository.CreateOnlinerProduct(result, name);
-            AddNotify(result?.FullName);
+            AddNotify(result.FullName);
         }
 
         public async Task RemoveProduct(DeleteRequest request, string name)
