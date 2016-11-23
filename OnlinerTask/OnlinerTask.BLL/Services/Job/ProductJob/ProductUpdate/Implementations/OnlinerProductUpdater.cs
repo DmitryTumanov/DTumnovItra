@@ -18,19 +18,28 @@ namespace OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate.Implementations
 
         public async Task<ProductModel> GetUpdate(Product databaseModel)
         {
-            var product = (await searchService.GetProducts(new SearchRequest(databaseModel.ProductKey), databaseModel.UserEmail)).FirstOrDefault();
+            if (databaseModel == null)
+            {
+                return null;
+            }
+            var product = (await searchService.GetProducts(new SearchRequest(databaseModel.ProductKey), databaseModel.UserEmail))?.FirstOrDefault();
             return Check(databaseModel, product) ? product : null;
         }
 
-        private bool Check(Product databaseModel, ProductModel onlinerModel)
+        private static bool Check(Product databaseModel, ProductModel onlinerModel)
         {
-            if (databaseModel.Price == null)
+            if (onlinerModel == null || IsModelsPricesNull(databaseModel, onlinerModel))
             {
                 return false;
             }
-            var isMaxAmountUpdate = onlinerModel.Prices.PriceMax.Amount != databaseModel.Price.PriceMaxAmmount.Amount;
-            var isMinAmountUpdate = onlinerModel.Prices.PriceMin.Amount != databaseModel.Price.PriceMinAmmount.Amount;
+            var isMaxAmountUpdate = onlinerModel.Prices?.PriceMax?.Amount != databaseModel.Price?.PriceMaxAmmount?.Amount;
+            var isMinAmountUpdate = onlinerModel.Prices?.PriceMin?.Amount != databaseModel.Price?.PriceMinAmmount?.Amount;
             return isMaxAmountUpdate || isMinAmountUpdate;
+        }
+
+        private static bool IsModelsPricesNull(Product databaseModel, ProductModel onlinerModel)
+        {
+            return databaseModel.Price == null && onlinerModel.Prices == null;
         }
     }
 }

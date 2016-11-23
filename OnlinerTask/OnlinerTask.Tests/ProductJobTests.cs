@@ -8,7 +8,9 @@ using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.MqConstituents;
 using OnlinerTask.Data.Repository;
+using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
+using ServiceStack.Messaging;
 
 namespace OnlinerTask.Tests
 {
@@ -63,7 +65,7 @@ namespace OnlinerTask.Tests
         }
 
         [TestMethod]
-        public async Task GetAndPublishUpdates_SendNull_ProductRepositorySeveralTimesCalled()
+        public async Task GetAndPublishUpdates_GetUpdateReturnObject_ProductRepositorySeveralTimesCalled()
         {
             var service = GetProductJob();
 
@@ -71,6 +73,41 @@ namespace OnlinerTask.Tests
             var productCount = repositoryMock.Object.GetAllProducts().Count;
 
             productRepositoryMock.Verify(mock => mock.WriteUpdate(It.IsAny<ProductModel>(), It.IsAny<string>()), Times.Exactly(productCount));
+        }
+
+        [TestMethod]
+        public async Task GetAndPublishUpdates_GetUpdateReturnNull_ProductRepositoryNeverCalled()
+        {
+            var service = GetProductJob();
+            productUpdaterMock.Setup(mock => mock.GetUpdate(It.IsAny<Product>())).ReturnsAsync((ProductModel)null);
+
+            await service.GetAndPublishUpdates(null);
+
+            productRepositoryMock.Verify(mock => mock.WriteUpdate(It.IsAny<ProductModel>(), It.IsAny<string>()), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task GetAndPublishUpdates_SendClient_ClientPublishMessage()
+        {
+            var service = GetProductJob();
+            var client = new Mock<IMessageQueueClient>();
+
+            await service.GetAndPublishUpdates(client.Object);
+            var productCount = repositoryMock.Object.GetAllProducts().Count;
+
+            client.Verify(mock => mock.Publish(It.IsAny<UsersUpdateEmail>()), Times.Exactly(productCount));
+        }
+
+        [TestMethod]
+        public async Task GetAndPublishUpdates_GetUpdateReturnNull_ClientDoNothing()
+        {
+            var service = GetProductJob();
+            var client = new Mock<IMessageQueueClient>();
+            productUpdaterMock.Setup(mock => mock.GetUpdate(It.IsAny<Product>())).ReturnsAsync((ProductModel)null);
+
+            await service.GetAndPublishUpdates(client.Object);
+
+            client.Verify(mock => mock.Publish(It.IsAny<UsersUpdateEmail>()), Times.Never);
         }
     }
 }

@@ -32,11 +32,25 @@ namespace OnlinerTask.Tests
             }
         };
 
+        private readonly IEnumerable<UsersUpdateEmail> usersNotUpdateEmails = new List<UsersUpdateEmail>()
+        {
+            new UsersUpdateEmail()
+            {
+                Id = null, ProductName = null, Time = DateTime.Now.TimeOfDay + TimeSpan.FromHours(12), UserEmail = null
+            },
+            new UsersUpdateEmail()
+            {
+                Id = null, ProductName = null, Time = DateTime.Now.TimeOfDay + TimeSpan.FromHours(12), UserEmail = null
+            },
+            new UsersUpdateEmail()
+            {
+                Id = null, ProductName = null, Time = DateTime.Now.TimeOfDay + TimeSpan.FromHours(12), UserEmail = null
+            }
+        };
+
         public IEmailJob GetEmailJob()
         {
             emailManagerMock = new Mock<IEmailManager>();
-
-            emailManagerMock.Setup(mock => mock.GetAll<UsersUpdateEmail>()).Returns(usersUpdateEmails);
 
             return new EmailJobService(emailManagerMock.Object);
         }
@@ -48,18 +62,30 @@ namespace OnlinerTask.Tests
 
             jobExecutter.GetUsersUpdateEmails();
 
-            emailManagerMock.Verify(mock=>mock.GetAll<UsersUpdateEmail>(), Times.Once);
+            emailManagerMock.Verify(mock => mock.GetAll<UsersUpdateEmail>(), Times.Once);
         }
 
         [TestMethod]
         public async Task Execute_NothingSend_ManagerSeveralTimesCalled()
         {
             var jobExecutter = GetEmailJob();
+            emailManagerMock.Setup(mock => mock.GetAll<UsersUpdateEmail>()).Returns(usersUpdateEmails);
 
             await jobExecutter.Execute();
             var count = emailManagerMock.Object.GetAll<UsersUpdateEmail>().Count();
 
             emailManagerMock.Verify(mock => mock.SendMail(It.IsAny<string>(), It.IsAny<string>()), Times.Exactly(count));
+        }
+
+        [TestMethod]
+        public async Task Execute_InvalidTime_ManagerNeverCalled()
+        {
+            var jobExecutter = GetEmailJob();
+            emailManagerMock.Setup(mock => mock.GetAll<UsersUpdateEmail>()).Returns(usersNotUpdateEmails);
+
+            await jobExecutter.Execute();
+
+            emailManagerMock.Verify(mock => mock.SendMail(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
         }
     }
 }
