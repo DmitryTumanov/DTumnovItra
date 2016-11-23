@@ -52,6 +52,30 @@ namespace OnlinerTask.Tests
             }
         };
 
+        private static readonly object[] objectsWithPriceInstability =
+        {
+            new object[] {
+                new Product()
+                {
+                    Price = null
+                },
+                new ProductModel()
+                {
+                    Prices = new PriceModel()
+                }
+            },
+            new object[] {
+                new Product()
+                {
+                    Price = new Price()
+                },
+                new ProductModel()
+                {
+                    Prices = null
+                }
+            }
+        };
+
         private IProductUpdater GetProductUpdater()
         {
             searchServiceMock = new Mock<ISearchService>();
@@ -98,26 +122,14 @@ namespace OnlinerTask.Tests
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public async Task GetUpdate_PriceAppeared_ReturnProductModel()
+        [TestCaseSource(nameof(objectsWithPriceInstability))]
+        public async Task GetUpdate_PriceInstability_ReturnProductModel(Product product, ProductModel productModel)
         {
             var updater = GetProductUpdater();
             searchServiceMock.Setup(mock => mock.GetProducts(It.IsAny<SearchRequest>(), It.IsAny<string>()))
-                .ReturnsAsync(new List<ProductModel> { new ProductModel() {Prices = new PriceModel()} });
+                .ReturnsAsync(new List<ProductModel> { productModel });
 
-            var result = await updater.GetUpdate(new Product() {Price = null});
-
-            Assert.IsNull(result);
-        }
-
-        [TestMethod]
-        public async Task GetUpdate_PriceDisAppeared_ReturnProductModel()
-        {
-            var updater = GetProductUpdater();
-            searchServiceMock.Setup(mock => mock.GetProducts(It.IsAny<SearchRequest>(), It.IsAny<string>()))
-                .ReturnsAsync(new List<ProductModel> { new ProductModel() { Prices = null } });
-
-            var result = await updater.GetUpdate(new Product() { Price = new Price() });
+            var result = await updater.GetUpdate(product);
 
             Assert.IsNull(result);
         }
