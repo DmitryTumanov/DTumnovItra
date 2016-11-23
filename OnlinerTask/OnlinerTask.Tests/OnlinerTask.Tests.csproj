@@ -164,6 +164,7 @@
     <Compile Include="EmailJobTests.cs" />
     <Compile Include="ProductJobTests.cs" />
     <Compile Include="ProductUpdateTests.cs" />
+    <Compile Include="ProductParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -43,7 +43,7 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
         private async Task<List<ProductModel>> GetProductsFromRequest(WebRequest request, string userName)
         {
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
-            var result = productParser.FromRequest(webResponse);
+            var result = productParser.FromResponse(webResponse);
             if (result == null)
             {
                 return null;

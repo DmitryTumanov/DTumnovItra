@@ -87,7 +87,7 @@ namespace OnlinerTask.Tests
 
             await searchService.GetProducts(new SearchRequest("test"), "test");
 
-            productParser.Verify(mock => mock.FromRequest(It.IsAny<HttpWebResponse>()), Times.Once);
+            productParser.Verify(mock => mock.FromResponse(It.IsAny<HttpWebResponse>()), Times.Once);
             productRepository.Verify(mock => mock.CheckProducts(It.IsAny<List<ProductModel>>(), It.IsAny<string>()), Times.Never);
         }
 
@@ -97,11 +97,11 @@ namespace OnlinerTask.Tests
             var searchService = GetSearchService();
             requestFactory.Setup(mock => mock.CreateRequest(It.IsAny<string>(), It.IsAny<IDictionary<string, object>>()))
                 .Returns(new Mock<HttpWebRequest>().Object);
-            productParser.Setup(mock => mock.FromRequest(It.IsAny<HttpWebResponse>())).Returns(new SearchResult());
+            productParser.Setup(mock => mock.FromResponse(It.IsAny<HttpWebResponse>())).Returns(new SearchResult());
 
             await searchService.GetProducts(new SearchRequest("test"), "test");
 
-            productParser.Verify(mock => mock.FromRequest(It.IsAny<HttpWebResponse>()), Times.Once);
+            productParser.Verify(mock => mock.FromResponse(It.IsAny<HttpWebResponse>()), Times.Once);
             productRepository.Verify(mock => mock.CheckProducts(It.IsAny<List<ProductModel>>(), It.IsAny<string>()), Times.Once);
         }
     }
