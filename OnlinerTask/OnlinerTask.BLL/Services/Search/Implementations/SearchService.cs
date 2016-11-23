@@ -44,6 +44,10 @@ namespace OnlinerTask.BLL.Services.Search.Implementations
         {
             var webResponse = (HttpWebResponse)(await request.GetResponseAsync());
             var result = productParser.FromRequest(webResponse);
+            if (result == null)
+            {
+                return null;
+            }
             return repository.CheckProducts(result.Products, userName);
         }
     }
