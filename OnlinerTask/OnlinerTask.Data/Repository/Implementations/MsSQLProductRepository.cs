@@ -1,56 +1,89 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using OnlinerTask.Data.DataBaseContexts;
+using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.ScheduleModels;
 using OnlinerTask.Data.SearchModels;
-using OnlinerTask.Extensions.Extensions;
 
 namespace OnlinerTask.Data.Repository.Implementations
 {
     public class MsSqlProductRepository : IProductRepository
     {
-        private readonly IRepository repository;
+        private readonly IUserContext userContext;
+        private readonly IOnlinerContext onlinerContext;
 
-        public MsSqlProductRepository(IRepository repository)
+        public MsSqlProductRepository(IUserContext userContext, IOnlinerContext onlinerContext)
         {
-            this.repository = repository;
+            this.userContext = userContext;
+            this.onlinerContext = onlinerContext;
         }
 
-        public async Task<List<ProductModel>> CheckProducts(List<ProductModel> products, string userName)
+        public List<ProductModel> CheckProducts(List<ProductModel> products, string userName)
         {
-            await products.ForEachAsync(async i =>
+            products.ForEach(i =>
             {
-                i.IsChecked = await CheckItem(i.Id, userName);
+                i.IsChecked = CheckItem(i.Id, userName);
             });
             return products;
         }
 
-        public async Task<bool> CheckItem(int itemId, string username)
+        public UsersUpdateEmail WriteUpdate(ProductModel item, string useremail)
         {
-            using (var context = new OnlinerProducts())
+            var time = userContext.Users.FirstOrDefault(x => x.Email == useremail);
+            if (time == null)
             {
-                return await context.Product.FirstOrDefaultAsync(x => x.ProductId == itemId && x.UserEmail == username) != null;
+                return null;
+            }
+            return WriteUpdateToProduct(item, time.EmailTime);
+        }
+
+        private bool CheckItem(int itemId, string username)
+        {
+            try
+            {
+                var checkResult = onlinerContext.Product.FirstOrDefault(x => x.ProductId == itemId && x.UserEmail == username);
+                return checkResult != null;
+            }
+            catch(NullReferenceException exception)
+            {
+                Debug.WriteLine(exception.InnerException);
+                return false;
             }
         }
 
-        public List<Product> GetAllProducts()
+        private void UpdateProduct(Product item, ProductModel model)
         {
-            return repository.GetAllProducts();
+            if (item == null)
+            {
+                return;
+            }
+            var product = onlinerContext.Product.FirstOrDefault(x => x.ProductId == item.ProductId);
+            if (product == null)
+            {
+                return;
+            }
+            product.Price.PriceMaxAmmount.Amount = model.Prices.PriceMax.Amount;
+            product.Price.PriceMinAmmount.Amount = model.Prices.PriceMin.Amount;
+            onlinerContext.SaveChanges();
         }
 
-        public List<Product> GetPersonalProducts(string name)
+        private UsersUpdateEmail WriteUpdateToProduct(ProductModel model, TimeSpan time)
         {
-            return repository.GetPersonalProducts(name);
-        }
-
-        public Task<string> RemoveOnlinerProduct(int itemId, string name)
-        {
-            return repository.RemoveOnlinerProduct(itemId, name);
-        }
-
-        public bool CreateOnlinerProduct(ProductModel model, string userEmail)
-        {
-            return repository.CreateOnlinerProduct(model, userEmail);
+            if (model == null)
+            {
+                return null;
+            }
+            var dbmodel = onlinerContext.Product.FirstOrDefault(x => x.ProductId == model.Id);
+            UpdateProduct(dbmodel, model);
+            return new UsersUpdateEmail()
+            {
+                ProductName = model.FullName,
+                UserEmail = dbmodel.UserEmail,
+                Time = time
+            };
         }
     }
 }

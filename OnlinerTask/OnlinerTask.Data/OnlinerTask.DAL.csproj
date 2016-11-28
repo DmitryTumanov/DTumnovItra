@@ -151,6 +151,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBaseContexts\IUserContext.cs" />
+    <Compile Include="DataBaseContexts\IOnlinerContext.cs" />
     <Compile Include="DataBaseModels\DisturbSchedule.cs" />
     <Compile Include="DataBaseModels\Image.cs" />
     <Compile Include="DataBaseModels\Offer.cs" />
@@ -183,19 +185,21 @@
       <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="MqConstituents\Implementations\RedisConstituentsFactory.cs" />
     <Compile Include="Notifications\INotificator.cs" />
     <Compile Include="Notifications\Technologies\Implementations\NetMqNotificator.cs" />
     <Compile Include="Notifications\Technologies\Implementations\SignalRNotificator.cs" />
     <Compile Include="Notifications\Technologies\INotifyTechnology.cs" />
-    <Compile Include="Notifications\Notificator.cs" />
-    <Compile Include="RedisManager\EmailCacheManager.cs" />
+    <Compile Include="Notifications\Implementations\Notificator.cs" />
+    <Compile Include="RedisManager\Implementations\EmailCacheManager.cs" />
     <Compile Include="RedisManager\IEmailManager.cs" />
+    <Compile Include="MqConstituents\IMqConstituentsFactory.cs" />
     <Compile Include="RedisManager\RedisServer\NotificationAppHost.cs" />
     <Compile Include="RedisManager\RedisServer\NotificationService.cs" />
-    <Compile Include="RedisManager\RedisServer\RedisRequests\AddProductRequest.cs" />
-    <Compile Include="RedisManager\RedisServer\RedisRequests\ChangeTimeRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\Implementations\AddProductRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\Implementations\ChangeTimeRequest.cs" />
     <Compile Include="RedisManager\RedisServer\RedisRequests\INotifyRequest.cs" />
-    <Compile Include="RedisManager\RedisServer\RedisRequests\RemoveProductRequest.cs" />
+    <Compile Include="RedisManager\RedisServer\RedisRequests\Implementations\RemoveProductRequest.cs" />
     <Compile Include="Repository\Implementations\MsSQLPersonalRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLTimeServiceRepository.cs" />
@@ -221,9 +225,8 @@
     <Compile Include="SearchModels\SearchModels.cs" />
     <Compile Include="Requests\TimeRequest.cs" />
     <Compile Include="SearchModels\UsersAndProducts.cs" />
-    <Compile Include="Sockets\ISocketLauncher.cs" />
-    <Compile Include="Sockets\NetSocket.cs" />
-    <Compile Include="Sockets\SocketLauncher.cs" />
+    <Compile Include="Sockets\TcpSocket\ISocketLauncher.cs" />
+    <Compile Include="Sockets\TcpSocket\Implementations\SocketLauncher.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">

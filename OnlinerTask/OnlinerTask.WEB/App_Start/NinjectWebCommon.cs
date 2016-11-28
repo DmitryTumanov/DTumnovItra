@@ -1,15 +1,43 @@
 using Ninject.Syntax;
-using OnlinerTask.BLL.Services.Job;
-using OnlinerTask.BLL.Services.Job.Implementations;
+using OnlinerTask.BLL.Services.ConfigChange;
+using OnlinerTask.BLL.Services.ConfigChange.Implementations;
+using OnlinerTask.BLL.Services.Job.EmailJob;
+using OnlinerTask.BLL.Services.Job.EmailJob.Implementations;
+using OnlinerTask.BLL.Services.Job.ProductJob;
+using OnlinerTask.BLL.Services.Job.ProductJob.Implementations;
+using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate;
+using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate.Implementations;
+using OnlinerTask.BLL.Services.Notification;
+using OnlinerTask.BLL.Services.Notification.Implementations;
+using OnlinerTask.BLL.Services.Products;
+using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.BLL.Services.Search.Implementations;
+using OnlinerTask.BLL.Services.Search.ProductParser;
+using OnlinerTask.BLL.Services.Search.ProductParser.Implementations;
+using OnlinerTask.BLL.Services.Search.Request;
+using OnlinerTask.BLL.Services.Search.Request.Implementations;
+using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory;
+using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory.Implementations;
+using OnlinerTask.BLL.Services.TimeChange;
+using OnlinerTask.BLL.Services.TimeChange.Implementations;
+using OnlinerTask.Data.DataBaseContexts;
+using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.EntityMappers.Implementations;
+using OnlinerTask.Data.IdentityModels;
+using OnlinerTask.Data.MqConstituents;
+using OnlinerTask.Data.MqConstituents.Implementations;
 using OnlinerTask.Data.Notifications;
+using OnlinerTask.Data.Notifications.Implementations;
 using OnlinerTask.Data.Notifications.Technologies;
 using OnlinerTask.Data.Notifications.Technologies.Implementations;
 using OnlinerTask.Data.RedisManager;
+using OnlinerTask.Data.RedisManager.Implementations;
 using OnlinerTask.Data.Repository.Implementations;
 using OnlinerTask.Data.Resources;
-using OnlinerTask.Data.Sockets;
+using OnlinerTask.Data.Sockets.TcpSocket;
+using OnlinerTask.Data.Sockets.TcpSocket.Implementations;
+using OnlinerTask.WEB.Controllers;
 using ServiceStack.Redis;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(OnlinerTask.WEB.App_Start.NinjectWebCommon), "Start")]
@@ -105,6 +133,17 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<INotifyTechnology>().To<SignalRNotificator>().When(x=> Configurations.SignalRTechnology == Configurations.NotifyTechnology);
             kernel.Bind<INotifyTechnology>().To<NetMqNotificator>().When(x => Configurations.NetMqTechnology == Configurations.NotifyTechnology);
             kernel.Bind<ISocketLauncher>().To<SocketLauncher>();
+            kernel.Bind<IManager>().To<PersonalManager>().WhenInjectedInto<PersonalController>();
+            kernel.Bind<IManager>().To<ProductManager>().WhenInjectedInto<ProductController>();
+            kernel.Bind<ITimeChanger>().To<TimeChanger>();
+            kernel.Bind<IOnlinerContext>().To<OnlinerProducts>().InThreadScope();
+            kernel.Bind<IUserContext>().To<ApplicationDbContext>().InThreadScope();
+            kernel.Bind<ITechnologyChanger>().To<TechnologyChanger>();
+            kernel.Bind<IProductParser>().To<OnlinerProductParser>();
+            kernel.Bind<IRequestFactory>().To<OnlinerRequestFactory>();
+            kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
+            kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
+            kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
         }        
     }
 }

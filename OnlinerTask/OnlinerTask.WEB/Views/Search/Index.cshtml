@@ -6,7 +6,9 @@
 }
 @section SPAViews {
     <div ng-controller="APIController">
-        @Html.Partial("_Search")
+        <div infinite-scroll="nextProductPage()" infinite-scroll-disabled="busy" infinite-scroll-distance="3">
+            @Html.Partial("_Search")
+        </div>
     </div>
 }
 @section Scripts{
@@ -16,4 +18,5 @@
     @Scripts.Render("~/bundles/toastr")
     <script src="~/Scripts/JSMQ.js"></script>
     <script src="~/Scripts/JSMQSocket/jsmqsocket.js"></script>
+    <script src="~/Scripts/ng-infinite-scroll.js"></script>
 }

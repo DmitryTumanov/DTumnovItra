@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using OnlinerTask.Data.Resources;
-using OnlinerTask.Data.Sockets;
+using OnlinerTask.Data.Sockets.TcpSocket;
 
 namespace OnlinerTask.WEB.Modules
 {

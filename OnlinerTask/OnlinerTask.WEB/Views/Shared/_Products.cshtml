@@ -1,4 +1,4 @@
-﻿<div class="schema-products" data-ng-repeat="item in products">
+﻿<div class="schema-products" ng-repeat="item in products track by $index">
     <div class="schema-product-group">
         <div class="schema-product">
 
@@ -8,7 +8,6 @@
                     <div name="schema-product-compare-template">
                         <label class="schema-product-control">
                             <span class="i-checkbox i-checkbox_yellow">
-                                @*data-bind="checked: is_checked, click: handleCheckBox"*@
                                 <input type="checkbox" ng-model="item.is_checked" class="i-checkbox-real" checked="{{item.is_checked}}" ng-change="checkboxChange(item)">
                                 <span class="i-checkbox-faux"></span>
                             </span>

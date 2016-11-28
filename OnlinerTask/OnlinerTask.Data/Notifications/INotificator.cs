@@ -1,4 +1,4 @@
-﻿using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
+﻿using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 
 namespace OnlinerTask.Data.Notifications
 {

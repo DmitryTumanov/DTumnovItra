@@ -2,10 +2,9 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using OnlinerTask.Data.DataBaseContexts;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.EntityMappers;
-using OnlinerTask.Data.IdentityModels;
-using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
 using OnlinerTask.Data.SearchModels;
 
@@ -15,50 +14,25 @@ namespace OnlinerTask.Data.Repository.Implementations
     {
         private readonly IProductMapper<Product, ProductModel> productMapper;
         private readonly IRepository repository;
+        private readonly IUserContext context;
 
-        public MsSqlPersonalRepository(IProductMapper<Product, ProductModel> productMapper, IRepository repository)
+        public MsSqlPersonalRepository(IProductMapper<Product, ProductModel> productMapper, IRepository repository, IUserContext context)
         {
             this.productMapper = productMapper;
             this.repository = repository;
+            this.context = context;
         }
-        
-        public async Task ChangeSendEmailTimeAsync(TimeRequest request, string userName)
+
+        public async Task<PersonalPageResponse> PersonalProductsResponse(string userName)
         {
-            using (var db = new ApplicationDbContext())
+            var result = repository.GetPersonalProducts(userName).Select(x => productMapper.ConvertToModel(x));
+            var time = DateTime.Now.TimeOfDay;
+            var user = await context.Users.FirstOrDefaultAsync(x => x.UserName == (userName));
+            if (user != null)
             {
-                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == userName);
-                if (user != null && request != null)
-                {
-                    user.EmailTime = request.Time.TimeOfDay;
-                    await db.SaveChangesAsync();
-                    //
-                }
+                time = user.EmailTime;
             }
-        }
-
-        public bool CreateOnlinerProduct(ProductModel model, string userEmail)
-        {
-            return repository.CreateOnlinerProduct(model, userEmail);
-        }
-
-        public PersonalPageResponse PersonalProductsResponse(string userName)
-        {
-            var result =repository.GetPersonalProducts(userName).Select(x => productMapper.ConvertToModel(x));
-            using (var db = new ApplicationDbContext())
-            {
-                var time = DateTime.Now.TimeOfDay;
-                var user = db.Users.FirstOrDefault(x => x.UserName == (userName));
-                if (user != null)
-                {
-                    time = user.EmailTime;
-                }
-                return new PersonalPageResponse() { EmailTime = DateTime.Now.Date + time, Products = result.ToList() };
-            }
-        }
-
-        public Task<string> RemoveOnlinerProduct(int itemId, string name)
-        {
-            return repository.RemoveOnlinerProduct(itemId, name);
+            return new PersonalPageResponse() { EmailTime = DateTime.Now.Date + time, Products = result.ToList() };
         }
     }
 }

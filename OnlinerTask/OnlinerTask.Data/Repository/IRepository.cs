@@ -9,8 +9,6 @@ namespace OnlinerTask.Data.Repository
     {
         Task<string> RemoveOnlinerProduct(int itemId, string name);
         bool CreateOnlinerProduct(ProductModel model, string userEmail);
-        int CreatePriceAmmount(PriceAmmount price);
-        bool CreateProduct(Product product);
         List<Product> GetPersonalProducts(string name);
         List<Product> GetAllProducts();
     }

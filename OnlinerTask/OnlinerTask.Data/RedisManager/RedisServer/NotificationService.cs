@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using OnlinerTask.Data.Notifications;
-using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests;
+using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 using OnlinerTask.Data.ScheduleModels;
 using ServiceStack;
 

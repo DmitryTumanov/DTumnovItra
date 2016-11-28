@@ -1,78 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.EntityMappers;
+﻿using System.Data.Entity;
+using System.Threading.Tasks;
+using OnlinerTask.Data.DataBaseContexts;
 using OnlinerTask.Data.IdentityModels;
-using OnlinerTask.Data.ScheduleModels;
-using OnlinerTask.Data.SearchModels;
+using OnlinerTask.Data.Requests;
 
 namespace OnlinerTask.Data.Repository.Implementations
 {
     public class MsSqlTimeServiceRepository : ITimeServiceRepository
     {
         public readonly IRepository repository;
+        private readonly IUserContext context;
 
-        public MsSqlTimeServiceRepository(IRepository repository, IProductMapper<Product, ProductModel> productMapper)
+        public MsSqlTimeServiceRepository(IRepository repository, IUserContext context)
         {
             this.repository = repository;
+            this.context = context;
         }
 
-        public bool UpdateProduct(Product item, ProductModel model)
+        public async Task ChangeSendEmailTimeAsync(TimeRequest request, string userName)
         {
-            if (item == null)
+            var user = await context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+            if (user != null && request != null)
             {
-                return false;
+                user.EmailTime = request.Time.TimeOfDay;
+                await context.SaveChangesAsync();
             }
-            using (var db = new OnlinerProducts())
-            {
-                var product = db.Product.FirstOrDefault(x => x.ProductId == item.ProductId);
-                if (product == null)
-                {
-                    return false;
-                }
-                product.Price.PriceMaxAmmount.Amount = model.Prices.PriceMax.Amount;
-                product.Price.PriceMinAmmount.Amount = model.Prices.PriceMin.Amount;
-                db.SaveChanges();
-                return true;
-            }
-        }
-
-        public UsersUpdateEmail WriteUpdateToProduct(ProductModel model, TimeSpan time)
-        {
-            if (model == null)
-            {
-                return null;
-            }
-            using (var db = new OnlinerProducts())
-            {
-                var dbmodel = db.Product.FirstOrDefault(x => x.ProductId == model.Id);
-                UpdateProduct(dbmodel, model);
-                return new UsersUpdateEmail()
-                {
-                    ProductName = model.FullName,
-                    UserEmail = dbmodel.UserEmail,
-                    Time = time
-                };
-            }
-        }
-
-        public UsersUpdateEmail WriteUpdate(ProductModel item, string useremail)
-        {
-            using (var db = new ApplicationDbContext())
-            {
-                var time = db.Users.FirstOrDefault(x => x.Email == useremail);
-                if (time != null)
-                {
-                    return WriteUpdateToProduct(item, time.EmailTime);
-                }
-            }
-            return null;
-        }
-
-        public List<Product> GetAllProducts()
-        {
-            return repository.GetAllProducts();
         }
     }
 }
