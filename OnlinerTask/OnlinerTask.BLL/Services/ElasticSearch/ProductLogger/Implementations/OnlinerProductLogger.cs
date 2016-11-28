@@ -17,9 +17,9 @@ namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.Implementations
             elasticClient = clientsFabric.CreateClient(settings, Configurations.ProductLogIndex);
         }
 
-        public async Task LogAdding(ProductModel productModel)
+        public async Task LogAdding(int productId, ProductModel productModel)
         {
-            await LogProductFromOnliner(productModel, Configurations.ProductLogIndex, Configurations.ProductAddIndexType);
+            await LogProductFromOnliner(productId,productModel, Configurations.ProductLogIndex, Configurations.ProductAddIndexType);
         }
 
         public async Task RemoveLog(int productId)
@@ -32,10 +32,10 @@ namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.Implementations
             await elasticClient.DeleteAsync<ProductModel>(productId, d=>d.Index(productIndex).Type(productIndexType));
         }
 
-        private async Task LogProductFromOnliner(ProductModel productModel, string productIndex, string productIndexType)
+        private async Task LogProductFromOnliner(int productId, ProductModel productModel, string productIndex, string productIndexType)
         {
             await elasticClient.IndexAsync(productModel,
-                i => i.Index(productIndex).Type(productIndexType).Id(productModel.Id).Refresh());
+                i => i.Index(productIndex).Type(productIndexType).Id(productId).Refresh());
         }
     }
 }

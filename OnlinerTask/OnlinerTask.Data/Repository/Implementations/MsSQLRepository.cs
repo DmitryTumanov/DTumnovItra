@@ -21,12 +21,12 @@ namespace OnlinerTask.Data.Repository.Implementations
             this.context = context;
         }
 
-        public bool CreateOnlinerProduct(ProductModel model, string userEmail)
+        public int CreateOnlinerProduct(ProductModel model, string userEmail)
         {
             Product product;
             if (model == null)
             {
-                return false;
+                return -1;
             }
             if (model.Prices != null)
             {
@@ -52,23 +52,23 @@ namespace OnlinerTask.Data.Repository.Implementations
             return price.Id;
         }
 
-        private bool CreateProduct(Product product)
+        private int CreateProduct(Product product)
         {
             if (product == null)
             {
-                return false;
+                return -1;
             }
             context.Product.Add(product);
             context.SaveChanges();
-            return true;
+            return product.Id;
         }
 
-        public async Task<string> RemoveOnlinerProduct(int itemId, string name)
+        public async Task<Product> RemoveOnlinerProduct(int itemId, string name)
         {
             var model = await context.Product.FirstOrDefaultAsync(x => x.UserEmail == name && x.ProductId == itemId);
             if (model == null)
             {
-                return string.Empty;
+                return null;
             }
             if (model.Price != null)
             {
@@ -76,7 +76,7 @@ namespace OnlinerTask.Data.Repository.Implementations
             }
             context.Product.Remove(model);
             await context.SaveChangesAsync();
-            return model.FullName;
+            return model;
         }
 
         private async Task RemovePriceAmount(IOnlinerContext context, int? priceMaxId, int? priceMinId)

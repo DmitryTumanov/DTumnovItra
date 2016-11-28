@@ -28,16 +28,16 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
             {
                 return;
             }
-            repository.CreateOnlinerProduct(result, name);
+            var productId = repository.CreateOnlinerProduct(result, name);
             AddNotify(result.FullName);
-            await productLogger.LogAdding(result);
+            await productLogger.LogAdding(productId, result);
         }
 
         public async Task RemoveProduct(DeleteRequest request, string name)
         {
-            var productName = await repository.RemoveOnlinerProduct(request.ItemId, name);
-            RemoveNotify(productName);
-            await productLogger.RemoveLog(request.ItemId);
+            var product = await repository.RemoveOnlinerProduct(request.ItemId, name);
+            RemoveNotify(product.FullName);
+            await productLogger.RemoveLog(product.Id);
         }
         public virtual Task<PersonalPageResponse> GetProducts(string name)
         {

@@ -5,7 +5,7 @@ namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger
 {
     public interface IProductLogger
     {
-        Task LogAdding(ProductModel productModel);
+        Task LogAdding(int productId, ProductModel productModel);
 
         Task RemoveLog(int productId);
     }
