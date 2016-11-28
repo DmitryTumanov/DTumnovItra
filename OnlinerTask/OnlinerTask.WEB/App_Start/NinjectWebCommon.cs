@@ -1,6 +1,12 @@
 using Ninject.Syntax;
 using OnlinerTask.BLL.Services.ConfigChange;
 using OnlinerTask.BLL.Services.ConfigChange.Implementations;
+using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger;
+using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ClientsFabric;
+using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ClientsFabric.Implementations;
+using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ConnectionFabric;
+using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ConnectionFabric.Implementations;
+using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.Implementations;
 using OnlinerTask.BLL.Services.Job.EmailJob;
 using OnlinerTask.BLL.Services.Job.EmailJob.Implementations;
 using OnlinerTask.BLL.Services.Job.ProductJob;
@@ -144,6 +150,9 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
             kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
+            kernel.Bind<IProductLogger>().To<OnlinerProductLogger>();
+            kernel.Bind<IClientsFabric>().To<ElasticClientsFabric>();
+            kernel.Bind<IConnectionFabric>().To<ElasticConnectionFabric>();
         }        
     }
 }

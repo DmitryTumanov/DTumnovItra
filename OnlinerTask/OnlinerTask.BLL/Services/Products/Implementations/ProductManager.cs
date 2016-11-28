@@ -1,4 +1,5 @@
-﻿using OnlinerTask.BLL.Services.Notification;
+﻿using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger;
+using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Repository;
 
@@ -8,7 +9,8 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
     {
         private readonly INotification notification;
 
-        public ProductManager(ISearchService searchService, IRepository repository, INotification notification): base(searchService, repository)
+        public ProductManager(ISearchService searchService, IRepository repository, INotification notification, IProductLogger productLogger)
+            : base(searchService, repository, productLogger)
         {
             this.notification = notification;
         }
