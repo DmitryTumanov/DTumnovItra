@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Nest;
-using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ClientsFabric;
-using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ConnectionFabric;
+using OnlinerTask.BLL.Services.ElasticSearch.ClientsFabric;
+using OnlinerTask.BLL.Services.ElasticSearch.ConnectionFabric;
 using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.Resources;
 

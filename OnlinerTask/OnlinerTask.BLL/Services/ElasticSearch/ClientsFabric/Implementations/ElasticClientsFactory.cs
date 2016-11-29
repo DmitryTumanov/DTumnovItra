@@ -1,6 +1,6 @@
 ﻿using Nest;
 
-namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ClientsFabric.Implementations
+namespace OnlinerTask.BLL.Services.ElasticSearch.ClientsFabric.Implementations
 {
     public class ElasticClientsFactory : IClientsFactory
     {

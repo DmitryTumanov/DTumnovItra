@@ -107,10 +107,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ConfigChange\ITechnologyChanger.cs" />
     <Compile Include="Services\ConfigChange\Implementations\TechnologyChanger.cs" />
-    <Compile Include="Services\ElasticSearch\ProductLogger\ClientsFabric\IClientsFactory.cs" />
-    <Compile Include="Services\ElasticSearch\ProductLogger\ClientsFabric\Implementations\ElasticClientsFactory.cs" />
-    <Compile Include="Services\ElasticSearch\ProductLogger\ConnectionFabric\IConnectionFactory.cs" />
-    <Compile Include="Services\ElasticSearch\ProductLogger\ConnectionFabric\Implementations\ElasticConnectionFactory.cs" />
+    <Compile Include="Services\ElasticSearch\ClientsFabric\IClientsFactory.cs" />
+    <Compile Include="Services\ElasticSearch\ClientsFabric\Implementations\ElasticClientsFactory.cs" />
+    <Compile Include="Services\ElasticSearch\ConnectionFabric\IConnectionFactory.cs" />
+    <Compile Include="Services\ElasticSearch\ConnectionFabric\Implementations\ElasticConnectionFactory.cs" />
     <Compile Include="Services\ElasticSearch\ProductLogger\Implementations\ProductAddLogger.cs" />
     <Compile Include="Services\ElasticSearch\ProductLogger\Implementations\ProductRemoveLogger.cs" />
     <Compile Include="Services\ElasticSearch\ProductLogger\IProductLogger.cs" />
