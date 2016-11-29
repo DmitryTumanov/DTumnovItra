@@ -151,8 +151,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
             kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
             kernel.Bind<IProductLogger>().To<OnlinerProductLogger>();
-            kernel.Bind<IClientsFabric>().To<ElasticClientsFabric>();
-            kernel.Bind<IConnectionFabric>().To<ElasticConnectionFabric>();
+            kernel.Bind<IClientsFactory>().To<ElasticClientsFactory>();
+            kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
         }        
     }
 }

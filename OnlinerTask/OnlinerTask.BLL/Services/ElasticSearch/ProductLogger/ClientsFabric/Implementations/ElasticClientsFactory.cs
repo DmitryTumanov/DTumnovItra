@@ -2,7 +2,7 @@
 
 namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ClientsFabric.Implementations
 {
-    public class ElasticClientsFabric : IClientsFabric
+    public class ElasticClientsFactory : IClientsFactory
     {
         public ElasticClient CreateClient(ConnectionSettings settings, string defaultIndex = "")
         {

@@ -11,7 +11,7 @@ namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.Implementations
     {
         private readonly ElasticClient elasticClient;
 
-        public OnlinerProductLogger(IClientsFabric clientsFabric, IConnectionFabric connectionFabric)
+        public OnlinerProductLogger(IClientsFactory clientsFabric, IConnectionFactory connectionFabric)
         {
             var settings = connectionFabric.CreateConnection(Configurations.ElasticSearchUrl, Configurations.ProductLogIndex);
             elasticClient = clientsFabric.CreateClient(settings, Configurations.ProductLogIndex);

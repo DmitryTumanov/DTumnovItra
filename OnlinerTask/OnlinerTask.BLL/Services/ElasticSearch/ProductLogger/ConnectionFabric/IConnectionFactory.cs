@@ -2,7 +2,7 @@
 
 namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger.ConnectionFabric
 {
-    public interface IConnectionFabric
+    public interface IConnectionFactory
     {
         ConnectionSettings CreateConnection(string urlPath, string defaultIndex = "");
     }
