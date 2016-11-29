@@ -1,10 +1,13 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Ninject;
 using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
+using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.BLL.Services.Products.Implementations
 {
@@ -12,13 +15,17 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
     {
         private readonly ISearchService searchService;
         private readonly IRepository repository;
-        private readonly IProductLogger productLogger;
 
-        protected Manager(ISearchService searchService, IRepository repository, IProductLogger productLogger)
+        [Inject, Named("AddLogger")]
+        public IProductLogger<ProductModel> AddProductLogger { get; set; }
+
+        [Inject, Named("RemoveLogger")]
+        public IProductLogger<Product> RemoveProductLogger { get; set; }
+
+        protected Manager(ISearchService searchService, IRepository repository)
         {
             this.searchService = searchService;
             this.repository = repository;
-            this.productLogger = productLogger;
         }
 
         public async Task AddProduct(PutRequest request, string name)
@@ -28,16 +35,16 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
             {
                 return;
             }
-            var productId = repository.CreateOnlinerProduct(result, name);
+            repository.CreateOnlinerProduct(result, name);
             AddNotify(result.FullName);
-            await productLogger.LogAdding(productId, result);
+            await AddProductLogger.LogObject(result);
         }
 
         public async Task RemoveProduct(DeleteRequest request, string name)
         {
             var product = await repository.RemoveOnlinerProduct(request.ItemId, name);
             RemoveNotify(product.FullName);
-            await productLogger.RemoveLog(product.Id);
+            await RemoveProductLogger.LogObject(product);
         }
         public virtual Task<PersonalPageResponse> GetProducts(string name)
         {

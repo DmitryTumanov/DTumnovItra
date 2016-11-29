@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
-using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger
 {
-    public interface IProductLogger
+    public interface IProductLogger<in T>
     {
-        Task LogAdding(int productId, ProductModel productModel);
-
-        Task RemoveLog(int productId);
+        Task LogObject(T productModel);
     }
 }

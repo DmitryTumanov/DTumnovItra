@@ -54,6 +54,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ServiceStack, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.4.5.0\lib\net45\ServiceStack.dll</HintPath>
       <Private>True</Private>
@@ -107,7 +111,8 @@
     <Compile Include="Services\ElasticSearch\ProductLogger\ClientsFabric\Implementations\ElasticClientsFactory.cs" />
     <Compile Include="Services\ElasticSearch\ProductLogger\ConnectionFabric\IConnectionFactory.cs" />
     <Compile Include="Services\ElasticSearch\ProductLogger\ConnectionFabric\Implementations\ElasticConnectionFactory.cs" />
-    <Compile Include="Services\ElasticSearch\ProductLogger\Implementations\OnlinerProductLogger.cs" />
+    <Compile Include="Services\ElasticSearch\ProductLogger\Implementations\ProductAddLogger.cs" />
+    <Compile Include="Services\ElasticSearch\ProductLogger\Implementations\ProductRemoveLogger.cs" />
     <Compile Include="Services\ElasticSearch\ProductLogger\IProductLogger.cs" />
     <Compile Include="Services\Job\EmailJob\Implementations\EmailJobService.cs" />
     <Compile Include="Services\Job\EmailJob\IEmailJob.cs" />

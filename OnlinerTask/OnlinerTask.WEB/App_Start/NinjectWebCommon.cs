@@ -150,7 +150,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
             kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
-            kernel.Bind<IProductLogger>().To<OnlinerProductLogger>();
+            kernel.Bind<IProductLogger<ProductModel>>().To<ProductAddLogger>().Named("AddLogger");
+            kernel.Bind<IProductLogger<Product>>().To<ProductRemoveLogger>().Named("RemoveLogger");
             kernel.Bind<IClientsFactory>().To<ElasticClientsFactory>();
             kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
         }        

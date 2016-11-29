@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger;
 using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Repository;
@@ -12,8 +11,8 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
         private readonly INotification notification;
         private readonly IPersonalRepository personalRepository;
 
-        public PersonalManager(ISearchService searchService, IPersonalRepository personalRepository, IRepository repository, INotification notification, IProductLogger productLogger)
-            : base(searchService, repository, productLogger)
+        public PersonalManager(ISearchService searchService, IPersonalRepository personalRepository, IRepository repository, INotification notification)
+            : base(searchService, repository)
         {
             this.personalRepository = personalRepository;
             this.notification = notification;
