@@ -1,6 +1,6 @@
 ﻿using Nest;
 
-namespace OnlinerTask.BLL.Services.ElasticSearch.ConnectionFabric
+namespace OnlinerTask.Data.ElasticSearch.ConnectionFabric
 {
     public interface IConnectionFactory
     {

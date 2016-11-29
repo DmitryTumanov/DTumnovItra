@@ -119,6 +119,8 @@
     <Compile Include="Services\Job\IJobExecute.cs" />
     <Compile Include="Services\Job\ProductJob\ProductUpdate\Implementations\OnlinerProductUpdater.cs" />
     <Compile Include="Services\Job\ProductJob\ProductUpdate\IProductUpdater.cs" />
+    <Compile Include="Services\Logger\ILogger.cs" />
+    <Compile Include="Services\Logger\Implementations\Logger.cs" />
     <Compile Include="Services\Notification\Implementations\NotifyJobService.cs" />
     <Compile Include="Services\Notification\INotification.cs" />
     <Compile Include="Services\Job\ProductJob\IProductJob.cs" />

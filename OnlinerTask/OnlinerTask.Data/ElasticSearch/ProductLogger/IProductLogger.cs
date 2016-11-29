@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace OnlinerTask.BLL.Services.ElasticSearch.ProductLogger
+namespace OnlinerTask.Data.ElasticSearch.ProductLogger
 {
     public interface IProductLogger<in T>
     {

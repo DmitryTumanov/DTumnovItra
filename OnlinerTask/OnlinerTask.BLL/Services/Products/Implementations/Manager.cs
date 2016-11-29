@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Ninject;
-using OnlinerTask.BLL.Services.ElasticSearch.ProductLogger;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.ElasticSearch.ProductLogger;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
