@@ -7,6 +7,7 @@ using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.Products.Implementations;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.SearchModels;
@@ -53,13 +54,29 @@ namespace OnlinerTask.Tests
         [TestCase(1, null)]
         [TestCase(null, "test")]
         [TestCase(1, "test")]
-        public async Task RemoveProduct_DifferentInput_ServicesCalled(int itemId, string username)
+        public async Task RemoveProduct_DifferentInput_NotAllServicesCalled(int itemId, string username)
         {
             var productManager = GetProductManager();
             var request = new DeleteRequest(itemId);
 
             await productManager.RemoveProduct(request, username);
             
+            repositoryMock.Verify(mock => mock.RemoveOnlinerProduct(itemId, username), Times.Once);
+            notificationMock.Verify(mock => mock.DeleteProductFromSearch(It.IsAny<string>()), Times.Never);
+        }
+
+        [TestCase(null, null)]
+        [TestCase(1, null)]
+        [TestCase(null, "test")]
+        [TestCase(1, "test")]
+        public async Task RemoveProduct_DifferentInputWithValidReturn_ServicesCalled(int itemId, string username)
+        {
+            var productManager = GetProductManager();
+            var request = new DeleteRequest(itemId);
+            repositoryMock.Setup(x => x.RemoveOnlinerProduct(itemId, username)).ReturnsAsync(new Product());
+
+            await productManager.RemoveProduct(request, username);
+
             repositoryMock.Verify(mock => mock.RemoveOnlinerProduct(itemId, username), Times.Once);
             notificationMock.Verify(mock => mock.DeleteProductFromSearch(It.IsAny<string>()), Times.Once);
         }
