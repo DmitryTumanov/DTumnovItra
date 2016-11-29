@@ -1,13 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Ninject;
+using OnlinerTask.BLL.Services.Logger;
 using OnlinerTask.BLL.Services.Search;
-using OnlinerTask.Data.DataBaseModels;
-using OnlinerTask.Data.ElasticSearch.ProductLogger;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
-using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.BLL.Services.Products.Implementations
 {
@@ -16,11 +14,8 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
         private readonly ISearchService searchService;
         private readonly IRepository repository;
 
-        [Inject, Named("AddLogger")]
-        public IProductLogger<ProductModel> AddProductLogger { get; set; }
-
-        [Inject, Named("RemoveLogger")]
-        public IProductLogger<Product> RemoveProductLogger { get; set; }
+        [Inject]
+        public ILogger Logger { get; set; }
 
         protected Manager(ISearchService searchService, IRepository repository)
         {
@@ -37,14 +32,14 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
             }
             repository.CreateOnlinerProduct(result, name);
             AddNotify(result.FullName);
-            await AddProductLogger.LogObject(result);
+            Logger.LogObject(result);
         }
 
         public async Task RemoveProduct(DeleteRequest request, string name)
         {
             var product = await repository.RemoveOnlinerProduct(request.ItemId, name);
             RemoveNotify(product.FullName);
-            await RemoveProductLogger.LogObject(product);
+            Logger.LogObject(product);
         }
         public virtual Task<PersonalPageResponse> GetProducts(string name)
         {

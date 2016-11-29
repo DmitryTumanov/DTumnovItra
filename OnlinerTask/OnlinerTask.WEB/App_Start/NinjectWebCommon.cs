@@ -7,6 +7,8 @@ using OnlinerTask.BLL.Services.Job.ProductJob;
 using OnlinerTask.BLL.Services.Job.ProductJob.Implementations;
 using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate;
 using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate.Implementations;
+using OnlinerTask.BLL.Services.Logger;
+using OnlinerTask.BLL.Services.Logger.Implementations;
 using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.BLL.Services.Notification.Implementations;
 using OnlinerTask.BLL.Services.Products;
@@ -150,10 +152,11 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
             kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
-            kernel.Bind(typeof(IProductLogger<>)).To(typeof(ProductAddLogger)).Named("AddLogger");
-            kernel.Bind(typeof(IProductLogger<>)).To(typeof(ProductRemoveLogger)).Named("RemoveLogger");
+            kernel.Bind<IProductLogger<ProductModel>>().To<ProductAddLogger>();
+            kernel.Bind<IProductLogger<Product>>().To<ProductRemoveLogger>();
             kernel.Bind<IClientsFactory>().To<ElasticClientsFactory>();
             kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
+            kernel.Bind<ILogger>().To<Logger>();
         }        
     }
 }
