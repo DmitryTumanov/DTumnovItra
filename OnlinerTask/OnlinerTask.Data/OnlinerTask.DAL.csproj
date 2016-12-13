@@ -175,6 +175,7 @@
     <Compile Include="ElasticSearch\ClientsFabric\Implementations\ElasticClientsFactory.cs" />
     <Compile Include="ElasticSearch\ConnectionFabric\IConnectionFactory.cs" />
     <Compile Include="ElasticSearch\ConnectionFabric\Implementations\ElasticConnectionFactory.cs" />
+    <Compile Include="ElasticSearch\LoggerModels\WebRequest.cs" />
     <Compile Include="ElasticSearch\ProductLogger\Implementations\ProductAddLogger.cs" />
     <Compile Include="ElasticSearch\ProductLogger\Implementations\ProductRemoveLogger.cs" />
     <Compile Include="ElasticSearch\ProductLogger\IProductLogger.cs" />

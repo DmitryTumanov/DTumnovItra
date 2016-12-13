@@ -7,10 +7,12 @@ using System.Net.Http;
 using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.Search;
 using OnlinerTask.Data.Requests;
+using OnlinerTask.WEB.Filters;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
+    [WebApiLogAction]
     public class ProductController : ApiController
     {
         private readonly ISearchService searchService;
