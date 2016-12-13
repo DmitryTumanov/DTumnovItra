@@ -31,6 +31,8 @@ using OnlinerTask.Data.ElasticSearch.ConnectionFabric;
 using OnlinerTask.Data.ElasticSearch.ConnectionFabric.Implementations;
 using OnlinerTask.Data.ElasticSearch.ProductLogger;
 using OnlinerTask.Data.ElasticSearch.ProductLogger.Implementations;
+using OnlinerTask.Data.ElasticSearch.UserActivityLogger;
+using OnlinerTask.Data.ElasticSearch.UserActivityLogger.Implementations;
 using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.MqConstituents;
@@ -157,6 +159,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IClientsFactory>().To<ElasticClientsFactory>();
             kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
             kernel.Bind<ILogger>().To<Logger>();
+            kernel.Bind<IActivityLogger>().To<UserActivityLogger>();
         }        
     }
 }

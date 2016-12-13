@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 using OnlinerTask.Data.DataBaseModels;
+using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.ElasticSearch.ProductLogger;
+using OnlinerTask.Data.ElasticSearch.UserActivityLogger;
 using OnlinerTask.Data.Notifications;
 using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 using OnlinerTask.Data.ScheduleModels;
@@ -16,6 +18,7 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
         private readonly INotificator notificator;
         private readonly IProductLogger<ProductModel> addProductLogger;
         private readonly IProductLogger<Product> removeProductLogger;
+        private readonly IActivityLogger activityLogger;
 
         public NotificationService()
         {
@@ -23,6 +26,7 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
             notificator = DependencyResolver.Current.GetService<INotificator>();
             addProductLogger = DependencyResolver.Current.GetService<IProductLogger<ProductModel>>();
             removeProductLogger = DependencyResolver.Current.GetService<IProductLogger<Product>>();
+            activityLogger = DependencyResolver.Current.GetService<IActivityLogger>();
         }
 
         public object Any(UsersUpdateEmail req)
@@ -59,6 +63,12 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
         public object Any(Product req)
         {
             removeProductLogger.LogObject(req);
+            return new object();
+        }
+
+        public object Any(WebRequest req)
+        {
+            activityLogger.LogRequest(req);
             return new object();
         }
     }

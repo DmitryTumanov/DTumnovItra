@@ -179,6 +179,8 @@
     <Compile Include="ElasticSearch\ProductLogger\Implementations\ProductAddLogger.cs" />
     <Compile Include="ElasticSearch\ProductLogger\Implementations\ProductRemoveLogger.cs" />
     <Compile Include="ElasticSearch\ProductLogger\IProductLogger.cs" />
+    <Compile Include="ElasticSearch\UserActivityLogger\IActivityLogger.cs" />
+    <Compile Include="ElasticSearch\UserActivityLogger\Implementations\UserActivityLogger.cs" />
     <Compile Include="EntityMappers\IDependentMapper.cs" />
     <Compile Include="EntityMappers\IMapper.cs" />
     <Compile Include="EntityMappers\Implementations\ImageMapper.cs" />
