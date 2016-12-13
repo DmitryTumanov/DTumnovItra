@@ -22,7 +22,8 @@ namespace OnlinerTask.WEB.Filters
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
         {
             var request = actionContext.Request;
-            logger.LogObject(new WebRequest(request.Method.Method, request.RequestUri.OriginalString));
+            var userName = actionContext.ControllerContext.RequestContext.Principal.Identity.Name;
+            logger.LogObject(new WebRequest(request.Method.Method, request.RequestUri.OriginalString, DateTime.Now, userName));
             return await continuation();
         }
 

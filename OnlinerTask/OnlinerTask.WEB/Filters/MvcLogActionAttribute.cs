@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using OnlinerTask.BLL.Services.Logger;
 using OnlinerTask.Data.ElasticSearch.LoggerModels;
 
@@ -16,7 +17,9 @@ namespace OnlinerTask.WEB.Filters
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var request = filterContext.HttpContext.Request;
-            logger.LogObject(new WebRequest(request.HttpMethod, request.Url?.OriginalString));
+            var requestTime = filterContext.RequestContext.HttpContext.Timestamp;
+            var userName = filterContext.HttpContext.User.Identity.Name;
+            logger.LogObject(new WebRequest(request.HttpMethod, request.Url?.OriginalString, requestTime, userName));
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext) {}
