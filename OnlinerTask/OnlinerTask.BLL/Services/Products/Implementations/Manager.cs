@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Ninject;
 using OnlinerTask.BLL.Services.Logger;
 using OnlinerTask.BLL.Services.Search;
+using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.Repository;
 using OnlinerTask.Data.Requests;
 using OnlinerTask.Data.Responses;
@@ -32,7 +34,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
             }
             repository.CreateOnlinerProduct(result, name);
             AddNotify(result.FullName);
-            Logger?.LogObject(result);
+            Logger?.LogObject(new AddedProductModel(result, DateTime.Now));
         }
 
         public async Task RemoveProduct(DeleteRequest request, string name)
@@ -43,7 +45,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
                 return;
             }
             RemoveNotify(product.FullName);
-            Logger?.LogObject(product);
+            Logger?.LogObject(new RemovedProduct(product, DateTime.Now));
         }
         public virtual Task<PersonalPageResponse> GetProducts(string name)
         {

@@ -1,9 +1,7 @@
 ﻿using Funq;
-using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 using OnlinerTask.Data.ScheduleModels;
-using OnlinerTask.Data.SearchModels;
 using ServiceStack;
 using ServiceStack.Messaging.Redis;
 using ServiceStack.Redis;
@@ -21,9 +19,9 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
                 .Add<ChangeTimeRequest>("/sendnotify")
                 .Add<AddProductRequest>("/sendaddnotify")
                 .Add<RemoveProductRequest>("/sendremovenotify")
-                .Add<Product>("/logdataproduct")
-                .Add<ProductModel>("/logproductmodel")
-                .Add<ProductModel>("/loguseractivity");
+                .Add<RemovedProduct>("/logdataproduct")
+                .Add<AddedProductModel>("/logproductmodel")
+                .Add<WebRequest>("/loguseractivity");
 
             var redisFactory = new PooledRedisClientManager("localhost:6379");
             container.Register<IRedisClientsManager>(redisFactory);
@@ -33,8 +31,8 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
             mqHost.RegisterHandler<ChangeTimeRequest>(base.ExecuteMessage);
             mqHost.RegisterHandler<AddProductRequest>(base.ExecuteMessage);
             mqHost.RegisterHandler<RemoveProductRequest>(base.ExecuteMessage);
-            mqHost.RegisterHandler<ProductModel>(base.ExecuteMessage);
-            mqHost.RegisterHandler<Product>(base.ExecuteMessage);
+            mqHost.RegisterHandler<AddedProductModel>(base.ExecuteMessage);
+            mqHost.RegisterHandler<RemovedProduct>(base.ExecuteMessage);
             mqHost.RegisterHandler<WebRequest>(base.ExecuteMessage);
             mqHost.Start();
         }

@@ -2,12 +2,12 @@
 using Nest;
 using OnlinerTask.Data.ElasticSearch.ClientsFabric;
 using OnlinerTask.Data.ElasticSearch.ConnectionFabric;
+using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.Resources;
-using OnlinerTask.Data.SearchModels;
 
 namespace OnlinerTask.Data.ElasticSearch.ProductLogger.Implementations
 {
-    public class ProductAddLogger : IProductLogger<ProductModel>
+    public class ProductAddLogger : IProductLogger<AddedProductModel>
     {
         private readonly ElasticClient elasticClient;
 
@@ -17,7 +17,7 @@ namespace OnlinerTask.Data.ElasticSearch.ProductLogger.Implementations
             elasticClient = clientsFabric.CreateClient(settings, Configurations.ProductAddLogIndex);
         }
 
-        public async Task LogObject(ProductModel productModel)
+        public async Task LogObject(AddedProductModel productModel)
         {
             var defaultIndex = elasticClient.ConnectionSettings.DefaultIndex;
             var indexType = Configurations.ProductAddIndexType;

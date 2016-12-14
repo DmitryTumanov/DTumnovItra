@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Web.Mvc;
-using OnlinerTask.Data.DataBaseModels;
 using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.ElasticSearch.ProductLogger;
 using OnlinerTask.Data.ElasticSearch.UserActivityLogger;
 using OnlinerTask.Data.Notifications;
 using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
 using OnlinerTask.Data.ScheduleModels;
-using OnlinerTask.Data.SearchModels;
 using ServiceStack;
 
 namespace OnlinerTask.Data.RedisManager.RedisServer
@@ -16,16 +14,16 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
     {
         private readonly IEmailManager manager;
         private readonly INotificator notificator;
-        private readonly IProductLogger<ProductModel> addProductLogger;
-        private readonly IProductLogger<Product> removeProductLogger;
+        private readonly IProductLogger<AddedProductModel> addProductLogger;
+        private readonly IProductLogger<RemovedProduct> removeProductLogger;
         private readonly IActivityLogger activityLogger;
 
         public NotificationService()
         {
             manager = DependencyResolver.Current.GetService<IEmailManager>();
             notificator = DependencyResolver.Current.GetService<INotificator>();
-            addProductLogger = DependencyResolver.Current.GetService<IProductLogger<ProductModel>>();
-            removeProductLogger = DependencyResolver.Current.GetService<IProductLogger<Product>>();
+            addProductLogger = DependencyResolver.Current.GetService<IProductLogger<AddedProductModel>>();
+            removeProductLogger = DependencyResolver.Current.GetService<IProductLogger<RemovedProduct>>();
             activityLogger = DependencyResolver.Current.GetService<IActivityLogger>();
         }
 
@@ -54,13 +52,13 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
             return new object();
         }
 
-        public object Any(ProductModel req)
+        public object Any(AddedProductModel req)
         {
             addProductLogger.LogObject(req);
             return new object();
         }
 
-        public object Any(Product req)
+        public object Any(RemovedProduct req)
         {
             removeProductLogger.LogObject(req);
             return new object();

@@ -29,6 +29,7 @@ using OnlinerTask.Data.ElasticSearch.ClientsFabric;
 using OnlinerTask.Data.ElasticSearch.ClientsFabric.Implementations;
 using OnlinerTask.Data.ElasticSearch.ConnectionFabric;
 using OnlinerTask.Data.ElasticSearch.ConnectionFabric.Implementations;
+using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.ElasticSearch.ProductLogger;
 using OnlinerTask.Data.ElasticSearch.ProductLogger.Implementations;
 using OnlinerTask.Data.ElasticSearch.UserActivityLogger;
@@ -154,8 +155,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
             kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
-            kernel.Bind<IProductLogger<ProductModel>>().To<ProductAddLogger>();
-            kernel.Bind<IProductLogger<Product>>().To<ProductRemoveLogger>();
+            kernel.Bind<IProductLogger<AddedProductModel>>().To<ProductAddLogger>();
+            kernel.Bind<IProductLogger<RemovedProduct>>().To<ProductRemoveLogger>();
             kernel.Bind<IClientsFactory>().To<ElasticClientsFactory>();
             kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
             kernel.Bind<ILogger>().To<Logger>();
