@@ -53,7 +53,9 @@ namespace OnlinerTask.Data.Resources
 
         public static string ElasticSearchUrl => ConfigurationManager.AppSettings["ElasticSearchUrl"];
 
-        public static string ProductLogIndex => ConfigurationManager.AppSettings["ProductLogIndex"];
+        public static string ProductAddLogIndex => ConfigurationManager.AppSettings["ProductAddLogIndex"];
+
+        public static string ProductRemoveLogIndex => ConfigurationManager.AppSettings["ProductRemoveLogIndex"];
 
         public static string ProductAddIndexType => ConfigurationManager.AppSettings["ProductAddIndexType"];
 

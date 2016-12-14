@@ -13,8 +13,8 @@ namespace OnlinerTask.Data.ElasticSearch.ProductLogger.Implementations
 
         public ProductRemoveLogger(IClientsFactory clientsFabric, IConnectionFactory connectionFabric)
         {
-            var settings = connectionFabric.CreateConnection(Configurations.ElasticSearchUrl, Configurations.ProductLogIndex);
-            elasticClient = clientsFabric.CreateClient(settings, Configurations.ProductLogIndex);
+            var settings = connectionFabric.CreateConnection(Configurations.ElasticSearchUrl, Configurations.ProductRemoveLogIndex);
+            elasticClient = clientsFabric.CreateClient(settings, Configurations.ProductRemoveLogIndex);
         }
 
         public async Task LogObject(Product productModel)
