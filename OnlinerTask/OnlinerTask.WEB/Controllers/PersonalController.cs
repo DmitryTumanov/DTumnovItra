@@ -11,7 +11,6 @@ using OnlinerTask.WEB.Filters;
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
-    [WebApiLogAction]
     public class PersonalController : ApiController
     {
         private readonly IManager manager;

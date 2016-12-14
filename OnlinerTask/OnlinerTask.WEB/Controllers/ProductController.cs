@@ -12,7 +12,6 @@ using OnlinerTask.WEB.Filters;
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
-    [WebApiLogAction]
     public class ProductController : ApiController
     {
         private readonly ISearchService searchService;
