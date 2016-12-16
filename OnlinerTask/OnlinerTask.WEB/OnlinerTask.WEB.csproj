@@ -319,6 +319,7 @@
     <Content Include="Content\Images\star-inactive.svg" />
     <Content Include="Content\Images\star.svg" />
     <Content Include="Content\Images\unstar.svg" />
+    <Content Include="Content\m-onliner.css" />
     <Content Include="Content\onliner.addition.css" />
     <Content Include="Content\onliner.css" />
     <Content Include="Content\Site.css" />
