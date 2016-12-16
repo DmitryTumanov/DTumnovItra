@@ -1,43 +1,48 @@
-﻿using OnlinerTask.BLL.Services;
-using OnlinerTask.Data.Requests;
-using System.Linq;
+﻿using OnlinerTask.Data.Requests;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using OnlinerTask.BLL.Services.Products;
+using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.Data.Responses;
-using OnlinerTask.Data.Repository.Interfaces;
+using OnlinerTask.WEB.Filters;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
     public class PersonalController : ApiController
     {
-        private ISearchService searchService;
-        private IPersonalRepository repository;
-        public PersonalController(ISearchService service, IPersonalRepository repository)
+        private readonly IManager manager;
+        private readonly ITimeChanger timeChanger;
+
+        public PersonalController(IManager manager, ITimeChanger timeChanger)
         {
-            searchService = service;
-            this.repository = repository;
+            this.manager = manager;
+            this.timeChanger = timeChanger;
         }
 
-        public PersonalPageResponse Get(string testname = null)
+        public async Task<PersonalPageResponse> Get(string testname = null)
         {
-            return repository.PersonalProductsResponse(testname ?? User.Identity.Name);
+            return await manager.GetProducts(testname ?? User.Identity.Name);
         }
 
-        public async Task Post(TimeRequest request, string testname = null)
+        public async Task<HttpResponseMessage> Post(TimeRequest request, string testname = null)
         {
-            await repository.ChangeSendEmailTimeAsync(request, testname ?? User.Identity.Name);
+            await timeChanger.ChangePersonalTime(request, testname ?? User.Identity.Name);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public async Task Put(PutRequest request)
+        public async Task<HttpResponseMessage> Put(PutRequest request)
         {
-            var result = (await searchService.GetProducts(request, User.Identity.Name)).FirstOrDefault();
-            repository.CreateOnlinerProduct(result, User.Identity.Name);
+            await manager.AddProduct(request, User.Identity.Name);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public async Task Delete(DeleteRequest request)
+        public async Task<HttpResponseMessage> Delete(DeleteRequest request)
         {
-            await repository.RemoveOnlinerProduct(request.ItemId, User.Identity.Name);
+            await manager.RemoveProduct(request, User.Identity.Name);
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

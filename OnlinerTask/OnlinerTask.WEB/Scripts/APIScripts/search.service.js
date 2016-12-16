@@ -1,11 +1,12 @@
 ﻿app.service("APISearchService", function ($http) {
 
-    this.getSearchProducts = function (search_string) {
+    this.getSearchProducts = function (search_string, page_number) {
         return $http({
             method: 'POST',
             url: '/api/Product',
-            data:{
-                SearchString: search_string
+            data: {
+                SearchString: search_string,
+                PageNumber: page_number
             },
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")

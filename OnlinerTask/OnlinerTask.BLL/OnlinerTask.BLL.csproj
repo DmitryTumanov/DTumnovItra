@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elasticsearch.Net.2.4.7\lib\net45\Elasticsearch.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -42,13 +46,55 @@
       <HintPath>..\packages\FluentScheduler.5.0.0\lib\net40\FluentScheduler.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NEST.2.4.7\lib\net45\Nest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.4.5.0\lib\net45\ServiceStack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Client.4.5.0\lib\net45\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.4.5.0\lib\net45\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.4.5.0\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.OrmLite.4.5.0\lib\net45\ServiceStack.OrmLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Redis.4.5.0\lib\net45\ServiceStack.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Server, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Server.4.5.0\lib\net45\ServiceStack.Server.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.5.0\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,13 +105,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ISearchService.cs" />
-    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Services\ConfigChange\ITechnologyChanger.cs" />
+    <Compile Include="Services\ConfigChange\Implementations\TechnologyChanger.cs" />
+    <Compile Include="Services\Job\EmailJob\Implementations\EmailJobService.cs" />
+    <Compile Include="Services\Job\EmailJob\IEmailJob.cs" />
+    <Compile Include="Services\Job\IJobExecute.cs" />
+    <Compile Include="Services\Job\ProductJob\ProductUpdate\Implementations\OnlinerProductUpdater.cs" />
+    <Compile Include="Services\Job\ProductJob\ProductUpdate\IProductUpdater.cs" />
+    <Compile Include="Services\Logger\ILogger.cs" />
+    <Compile Include="Services\Logger\Implementations\Logger.cs" />
+    <Compile Include="Services\Notification\Implementations\NotifyJobService.cs" />
+    <Compile Include="Services\Notification\INotification.cs" />
+    <Compile Include="Services\Job\ProductJob\IProductJob.cs" />
+    <Compile Include="Services\Job\ProductJob\Implementations\ProductJobService.cs" />
+    <Compile Include="Services\Products\IManager.cs" />
+    <Compile Include="Services\Products\Implementations\Manager.cs" />
+    <Compile Include="Services\Products\Implementations\PersonalManager.cs" />
+    <Compile Include="Services\Products\Implementations\ProductManager.cs" />
+    <Compile Include="Services\Search\ISearchService.cs" />
+    <Compile Include="Services\Search\ProductParser\IProductParser.cs" />
+    <Compile Include="Services\Search\ProductParser\Implementations\OnlinerProductParser.cs" />
+    <Compile Include="Services\Search\Request\IRequestFactory.cs" />
+    <Compile Include="Services\Search\Request\Implementations\OnlinerRequestFactory.cs" />
+    <Compile Include="Services\Search\Implementations\SearchService.cs" />
+    <Compile Include="Services\Search\Request\RequestQueryFactory\Implementations\OnlinerRequestQueryFactory.cs" />
+    <Compile Include="Services\Search\Request\RequestQueryFactory\IRequestQueryFactory.cs" />
+    <Compile Include="Services\TimeChange\Implementations\TimeChanger.cs" />
+    <Compile Include="Services\TimeChange\ITimeChanger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlinerTask.Data\OnlinerTask.DAL.csproj">
       <Project>{2685539b-25b1-48c8-a9ec-7721ee8aa9fd}</Project>
       <Name>OnlinerTask.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OnlinerTask.Extensions\OnlinerTask.Extensions.csproj">
+      <Project>{5D8C72DC-9FC2-4FC2-A947-94CCE38DDCAD}</Project>
+      <Name>OnlinerTask.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

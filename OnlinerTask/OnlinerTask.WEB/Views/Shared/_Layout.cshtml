@@ -8,7 +8,9 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("Styles", required: false)
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/angular")
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
 </head>
 <body data-ng-app="APIModule">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,7 +26,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
                     <li>@Html.ActionLink("Search", "Index", "Search", new { area = "" }, null)</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
@@ -39,8 +40,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("Scripts", required: false)
 </body>

@@ -1,6 +1,8 @@
 ﻿@model OnlinerTask.WEB.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
+    var signalr = System.Configuration.ConfigurationManager.AppSettings["SignalRTechnology"];
+    var netmq = System.Configuration.ConfigurationManager.AppSettings["NetMqTechnology"];
 }
 @section Styles{
     <link href="~/Content/onliner.css" rel="stylesheet" />
@@ -38,8 +40,9 @@
 </div>
 @section SPAViews {
     <div id="outer" ng-controller="APIController">
-        <div style="float: left; font-size:15px;">
-            <span style="font-weight: bold; margin-left:45px;">Time to get emails: </span>
+        <span id="testspan"></span>
+        <div style="float: left; font-size: 15px;">
+            <span style="font-weight: bold; margin-left: 45px;">Time to get emails: </span>
             <span id="oldtimeDisplay" ng-model="emailtime">{{emailtime | date:'h:mm a'}}</span>
             <span id="timeDisplay"></span>
             <button class="button button_orange schema-product-button" ng-click="submitTime()" id="submitbutton">Submit</button>
@@ -52,6 +55,7 @@
         <hr />
         <div id="currencyid">
             <div class="input-group">
+                @Html.Partial("_Radio")
                 <select class="form-control" ng-model="selectedCurrency" ng-options="x.name for x in currencies"></select>
             </div>
         </div>
@@ -60,6 +64,12 @@
     </div>
 }
 @section Scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="~/signalr/hubs"></script>
+    @Scripts.Render("~/bundles/toastr")
     @Scripts.Render("~/bundles/timer")
     @Scripts.Render("~/bundles/cabinet")
+    <script src="~/Scripts/JSMQ.js"></script>
+    <script src="~/Scripts/JSMQSocket/jsmqsocket.js"></script>
+    <script src="~/Scripts/ng-infinite-scroll.js"></script>
 }

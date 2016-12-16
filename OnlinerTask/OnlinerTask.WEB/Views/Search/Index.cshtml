@@ -2,12 +2,21 @@
     <link href="~/Content/onliner.css" rel="stylesheet" />
     <link href="~/Content/onliner.addition.css" rel="stylesheet" />
     <link href="~/Content/timestyle.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
 }
 @section SPAViews {
     <div ng-controller="APIController">
-        @Html.Partial("_Search")
+        <div infinite-scroll="nextProductPage()" infinite-scroll-disabled="busy" infinite-scroll-distance="3">
+            @Html.Partial("_Search")
+        </div>
     </div>
 }
 @section Scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.1.js"></script>
+    <script src="~/signalr/hubs"></script>
     @Scripts.Render("~/bundles/search")
+    @Scripts.Render("~/bundles/toastr")
+    <script src="~/Scripts/JSMQ.js"></script>
+    <script src="~/Scripts/JSMQSocket/jsmqsocket.js"></script>
+    <script src="~/Scripts/ng-infinite-scroll.js"></script>
 }

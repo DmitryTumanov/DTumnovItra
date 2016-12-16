@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace OnlinerTask.WEB
 {
@@ -60,10 +57,12 @@ namespace OnlinerTask.WEB
                 "~/Scripts/APIScripts/module.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/timer").Include(
-                "~/Scripts/jquery-1.10.2.min.js",
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/bootstrap-timepicker.js",
                 "~/Scripts/timeexec.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
+                "~/Scripts/toastr.min.js"));
         }
     }
 }
