@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.WebPages;
 
 namespace OnlinerTask.WEB
 {
@@ -17,6 +18,18 @@ namespace OnlinerTask.WEB
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             JobManager.Initialize(new ProductRegistry());
+            InitializeDisplayModeProviders();
+        }
+
+        protected void InitializeDisplayModeProviders()
+        {
+            var mobile = new DefaultDisplayMode("Mobile")
+            {
+                ContextCondition = x=>x.GetOverriddenUserAgent()!=null &&
+                    (x.GetOverriddenUserAgent().Contains("iPhone"))
+            };
+
+            DisplayModeProvider.Instance.Modes.Insert(0, mobile);
         }
     }
 }

@@ -1193,6 +1193,8 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Manage\_Radio.cshtml" />
+    <Content Include="Views\Search\_Search.Mobile.cshtml" />
+    <Content Include="Views\Shared\_Products.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
