@@ -50,5 +50,19 @@ namespace OnlinerTask.Data.Resources
         public static string InfoChatType => ConfigurationManager.AppSettings["InfoChatType"];
 
         public static string OnlinerPageVariable => ConfigurationManager.AppSettings["OnlinerPageVariable"];
+
+        public static string ElasticSearchUrl => ConfigurationManager.AppSettings["ElasticSearchUrl"];
+
+        public static string ProductAddLogIndex => ConfigurationManager.AppSettings["ProductAddLogIndex"];
+
+        public static string ProductRemoveLogIndex => ConfigurationManager.AppSettings["ProductRemoveLogIndex"];
+
+        public static string ProductAddIndexType => ConfigurationManager.AppSettings["ProductAddIndexType"];
+
+        public static string ProductRemoveIndexType => ConfigurationManager.AppSettings["ProductRemoveIndexType"];
+
+        public static string ActivitiesLogIndex => ConfigurationManager.AppSettings["ActivitiesLogIndex"];
+
+        public static string UserActivityIndexType => ConfigurationManager.AppSettings["UserActivityIndexType"];
     }
 }

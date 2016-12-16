@@ -7,6 +7,8 @@ using OnlinerTask.BLL.Services.Job.ProductJob;
 using OnlinerTask.BLL.Services.Job.ProductJob.Implementations;
 using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate;
 using OnlinerTask.BLL.Services.Job.ProductJob.ProductUpdate.Implementations;
+using OnlinerTask.BLL.Services.Logger;
+using OnlinerTask.BLL.Services.Logger.Implementations;
 using OnlinerTask.BLL.Services.Notification;
 using OnlinerTask.BLL.Services.Notification.Implementations;
 using OnlinerTask.BLL.Services.Products;
@@ -23,6 +25,15 @@ using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.BLL.Services.TimeChange.Implementations;
 using OnlinerTask.Data.DataBaseContexts;
 using OnlinerTask.Data.DataBaseInterfaces;
+using OnlinerTask.Data.ElasticSearch.ClientsFabric;
+using OnlinerTask.Data.ElasticSearch.ClientsFabric.Implementations;
+using OnlinerTask.Data.ElasticSearch.ConnectionFabric;
+using OnlinerTask.Data.ElasticSearch.ConnectionFabric.Implementations;
+using OnlinerTask.Data.ElasticSearch.LoggerModels;
+using OnlinerTask.Data.ElasticSearch.ProductLogger;
+using OnlinerTask.Data.ElasticSearch.ProductLogger.Implementations;
+using OnlinerTask.Data.ElasticSearch.UserActivityLogger;
+using OnlinerTask.Data.ElasticSearch.UserActivityLogger.Implementations;
 using OnlinerTask.Data.EntityMappers.Implementations;
 using OnlinerTask.Data.IdentityModels;
 using OnlinerTask.Data.MqConstituents;
@@ -144,6 +155,12 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IProductUpdater>().To<OnlinerProductUpdater>();
             kernel.Bind<IMqConstituentsFactory>().To<RedisConstituentsFactory>();
             kernel.Bind<IRequestQueryFactory>().To<OnlinerRequestQueryFactory>();
+            kernel.Bind<IProductLogger<AddedProductModel>>().To<ProductAddLogger>();
+            kernel.Bind<IProductLogger<RemovedProduct>>().To<ProductRemoveLogger>();
+            kernel.Bind<IClientsFactory>().To<ElasticClientsFactory>();
+            kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
+            kernel.Bind<ILogger>().To<Logger>();
+            kernel.Bind<IActivityLogger>().To<UserActivityLogger>();
         }        
     }
 }

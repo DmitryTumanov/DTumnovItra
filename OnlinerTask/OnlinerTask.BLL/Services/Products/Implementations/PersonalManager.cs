@@ -11,7 +11,7 @@ namespace OnlinerTask.BLL.Services.Products.Implementations
         private readonly INotification notification;
         private readonly IPersonalRepository personalRepository;
 
-        public PersonalManager(ISearchService searchService, IPersonalRepository personalRepository, IRepository repository, INotification notification) 
+        public PersonalManager(ISearchService searchService, IPersonalRepository personalRepository, IRepository repository, INotification notification)
             : base(searchService, repository)
         {
             this.personalRepository = personalRepository;

@@ -5,11 +5,13 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using OnlinerTask.WEB.Filters;
 using OnlinerTask.WEB.Models;
 
 namespace OnlinerTask.WEB.Controllers
 {
     [Authorize]
+    [MvcLogAction]
     public class ManageController : Controller
     {
         private ApplicationSignInManager signInManager;

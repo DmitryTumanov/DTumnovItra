@@ -7,8 +7,8 @@ namespace OnlinerTask.Data.Repository
 {
     public interface IRepository
     {
-        Task<string> RemoveOnlinerProduct(int itemId, string name);
-        bool CreateOnlinerProduct(ProductModel model, string userEmail);
+        Task<Product> RemoveOnlinerProduct(int itemId, string name);
+        int CreateOnlinerProduct(ProductModel model, string userEmail);
         List<Product> GetPersonalProducts(string name);
         List<Product> GetAllProducts();
     }

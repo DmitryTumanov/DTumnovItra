@@ -47,7 +47,7 @@ namespace OnlinerTask.Data.Repository.Implementations
                 var checkResult = onlinerContext.Product.FirstOrDefault(x => x.ProductId == itemId && x.UserEmail == username);
                 return checkResult != null;
             }
-            catch(NullReferenceException exception)
+            catch(Exception exception)
             {
                 Debug.WriteLine(exception.InnerException);
                 return false;
