@@ -1,4 +1,5 @@
-﻿using FluentScheduler;
+﻿using System.Text.RegularExpressions;
+using FluentScheduler;
 using OnlinerTask.WEB.TimeRegistry;
 using System.Web;
 using System.Web.Http;
@@ -26,7 +27,8 @@ namespace OnlinerTask.WEB
             var mobile = new DefaultDisplayMode("Mobile")
             {
                 ContextCondition = x=>x.GetOverriddenUserAgent()!=null &&
-                    (x.GetOverriddenUserAgent().Contains("iPhone"))
+                    (Regex.IsMatch(x.GetOverriddenUserAgent(), @"mobile|android|kindle|silk|midp", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant) ||
+                    x.GetOverriddenUserAgent().Contains("IPhone"))
             };
 
             DisplayModeProvider.Instance.Modes.Insert(0, mobile);
