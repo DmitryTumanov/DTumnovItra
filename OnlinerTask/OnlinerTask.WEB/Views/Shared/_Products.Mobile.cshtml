@@ -1,0 +1,70 @@
+﻿<link href="~/Content/m-onliner.css" rel="stylesheet" />
+
+<div class="m-schema-products" ng-repeat="item in products track by $index">
+    <div class="m-schema-product-group">
+        <div class="m-schema-product">
+
+            <div class="m-schema-product-part m-schema-product-part_1">
+
+                <div class="m-schema-product-compare">
+                    <div name="m-schema-product-compare-template">
+                        <label class="m-schema-product-control">
+                            <span class="i-checkbox i-checkbox_yellow">
+                                <input type="checkbox" ng-model="item.is_checked" class="i-checkbox-real" checked="{{item.is_checked}}" ng-change="checkboxChange(item)">
+                                <span class="i-checkbox-faux"></span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="m-schema-product-image" ng-if="item.images.header">
+                    <a href="{{item.images.header}}">
+                        <img src="{{item.images.header}}" alt="" title="" style="max-width: 84.1176%;">
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="m-schema-product-part m-schema-product-part_2">
+
+                <div class="m-schema-product-part m-schema-product-part_4">
+
+                    <div class="m-schema-product-title">
+                        <a href="{{item.html_url}}">
+                            <span>{{item.full_name}}</span>
+                        </a>
+                    </div>
+
+                    <div class="m-schema-product-info">
+                        <div class="m-schema-product-rating-group">
+                            <a class="m-schema-product-rating" href="{{item.reviews.html_url}}">
+                                <span class="rating rating_{{item.reviews.rating}}"></span>
+                                <span class="m-schema-product-review-count">
+                                    <span>{{item.reviews.count}}</span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="m-schema-product-info-additional" ng-if="item.review_url">
+                            <a class="m-schema-product-info-link" href="{{item.review_url}}">Обзор</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="m-schema-product-part m-schema-product-part_3">
+                    <div class="m-schema-product-price-group" ng-if="item.prices">
+                        <div class="m-schema-product-price">
+                            <a class="m-schema-product-price-value m-schema-product-price-value_primary span-price" href="{{item.prices.html_url}}">
+                                от <span>{{item.prices.price_min.amount * selectedCurrency.factor | number:2}}</span>
+                            </a>
+                            <a class="m-schema-product-price-value m-schema-product-price-value_primary span-price" href="{{item.prices.html_url}}" ng-if="item.prices.price_min.amount != item.prices.price_max.amount">
+                                <span >до <span>{{item.prices.price_max.amount * selectedCurrency.factor| number:2}} {{selectedCurrency.name}}</span></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

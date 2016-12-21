@@ -321,6 +321,7 @@
     <Content Include="Content\Images\star-inactive.svg" />
     <Content Include="Content\Images\star.svg" />
     <Content Include="Content\Images\unstar.svg" />
+    <Content Include="Content\m-onliner.css" />
     <Content Include="Content\onliner.addition.css" />
     <Content Include="Content\onliner.css" />
     <Content Include="Content\Site.css" />
@@ -1195,6 +1196,8 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
     <Content Include="Views\Manage\_Radio.cshtml" />
+    <Content Include="Views\Search\_Search.Mobile.cshtml" />
+    <Content Include="Views\Shared\_Products.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
