@@ -6,7 +6,6 @@ using System.Web.Http;
 using OnlinerTask.BLL.Services.Products;
 using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.Data.Responses;
-using OnlinerTask.WEB.Filters;
 
 namespace OnlinerTask.WEB.Controllers
 {
