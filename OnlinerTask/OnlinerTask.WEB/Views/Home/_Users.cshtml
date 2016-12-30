@@ -1,0 +1,115 @@
+﻿<div ng-controller="AdminController">
+    <div class="row" style="display:-webkit-inline-box">
+        <input ng-model="q" id="search" class="form-control col-md-6" placeholder="Filter text">
+        <select ng-model="pageSize" id="pageSize" class="form-control col-md-6">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+    </div>
+
+    <ol>
+        <li ng-repeat="item in data | filter:q | startFrom:currentPage*pageSize | limitTo:pageSize">
+            <span>{{item.name}}</span>
+            <span ng-if="!item.isadmin" ng-click="deteleUser(item)"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+            <span ng-if="!item.isadmin" ng-click="updateToAdmin(item)"><i class="fa fa-level-up" aria-hidden="true"></i></span>
+            <span ng-if="item.isadmin" ng-click="updateToAdmin(item)"><i class="fa fa-level-up" style="color:green" aria-hidden="true"></i></span>
+        </li>
+    </ol>
+
+    <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+        Previous
+    </button>
+
+    {{currentPage+1}}/{{numberOfPages()}}
+
+    <button ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+        Next
+    </button>
+</div>
+
+<script type="text/javascript">
+    app.filter('startFrom', function () {
+        return function (input, start) {
+            start = +start;
+            return input.slice(start);
+        }
+    });
+
+    app.service("AdminService", ["$http", function ($http) {
+        this.getUsers = function () {
+            return $http({
+                method: 'GET',
+                url: '/api/Admin',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                    'Content-Type': 'application/json'
+                }
+            });
+        };
+
+        this.deleteUser = function (item) {
+            return $http({
+                method: 'DELETE',
+                url: '/api/Admin',
+                data: item,
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                    'Content-Type': 'application/json'
+                }
+            });
+        };
+
+        this.updateToAdmin = function (item) {
+            return $http({
+                method: 'PUT',
+                url: '/api/Admin',
+                data: item,
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                    'Content-Type': 'application/json'
+                }
+            });
+        };
+    }]);
+
+    app.controller('AdminController', ["$scope", "$filter", "AdminService", function ($scope, $filter, AdminService) {
+        $scope.currentPage = 0;
+        $scope.pageSize = 5;
+        $scope.data = [];
+        $scope.q = '';
+        getAllUsers();
+
+        function getAllUsers() {
+            var servCall = AdminService.getUsers();
+
+            servCall.then(function (d) {
+                $scope.data = d.data;
+                console.log(d.data);
+            }, function (error) { });
+        }
+
+        $scope.deteleUser = function (item) {
+            AdminService.deleteUser(item).then(function (response) {
+                var index = $scope.data.indexOf(item);
+                $scope.data.splice(index, 1);
+            }, function (error) { });
+        }
+
+        $scope.updateToAdmin = function (item) {
+            AdminService.updateToAdmin(item).then(function (response) {
+                var index = $scope.data.indexOf(item);
+                $scope.data[index].isadmin = !$scope.data[index].isadmin;
+            }, function (error) { });
+        }
+
+        $scope.getData = function () {
+            return $filter('filter')($scope.data, $scope.q);
+        }
+
+        $scope.numberOfPages = function () {
+            return Math.ceil($scope.getData().length / $scope.pageSize);
+        }
+    }]);
+</script>
