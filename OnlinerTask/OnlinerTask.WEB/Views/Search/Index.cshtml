@@ -1,8 +1,12 @@
-﻿@section Styles{
+﻿@{
+    ViewBag.Title = "Search";
+}
+@section Styles{
     <link href="~/Content/onliner.css" rel="stylesheet" />
     <link href="~/Content/onliner.addition.css" rel="stylesheet" />
     <link href="~/Content/timestyle.css" rel="stylesheet" />
     <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/loader.css" rel="stylesheet" />
 }
 @section SPAViews {
     <div ng-controller="APIController">
@@ -19,4 +23,5 @@
     <script src="~/Scripts/JSMQ.js"></script>
     <script src="~/Scripts/JSMQSocket/jsmqsocket.js"></script>
     <script src="~/Scripts/ng-infinite-scroll.js"></script>
+    @Scripts.Render("~/bundles/app")
 }
