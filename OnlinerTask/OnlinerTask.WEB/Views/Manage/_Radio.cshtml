@@ -17,7 +17,7 @@
     </form>
 }
 <script type="text/javascript">
-    app.service("RadioService", function ($http) {
+    app.service("RadioService", ["$http", function ($http) {
         this.changeTechnology = function (value) {
             return $http({
                 method: 'POST',
@@ -30,12 +30,12 @@
                 }
             });
         };
-    });
-    app.controller('RadioController', function ($scope, RadioService) {
+    }]);
+    app.controller('RadioController', ["$scope", "RadioService", function ($scope, RadioService) {
         $scope.value = "@value";
 
         $scope.changeRadio = function (value) {
             RadioService.changeTechnology(value);
         }
-    });
+    }]);
 </script>

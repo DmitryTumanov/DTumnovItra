@@ -9,6 +9,7 @@
     <link href="~/Content/onliner.addition.css" rel="stylesheet" />
     <link href="~/Content/timestyle.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-timepicker.less" rel="stylesheet" />
+    <link href="~/Content/loader.css" rel="stylesheet" />
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -33,6 +34,7 @@
         </dd>
         <dt>External Logins:</dt>
         <dd>
+            <h6 id="token"></h6>
             @Model.Logins.Count [
             @Html.ActionLink("Manage", "ManageLogins") ]
         </dd>
@@ -40,27 +42,30 @@
 </div>
 @section SPAViews {
     <div id="outer" ng-controller="APIController">
-        <span id="testspan"></span>
-        <div style="float: left; font-size: 15px;">
-            <span style="font-weight: bold; margin-left: 45px;">Time to get emails: </span>
-            <span id="oldtimeDisplay" ng-model="emailtime">{{emailtime | date:'h:mm a'}}</span>
-            <span id="timeDisplay"></span>
-            <button class="button button_orange schema-product-button" ng-click="submitTime()" id="submitbutton">Submit</button>
-            <button class="button schema-product-button" id="cancelbutton">Cancel</button>
-        </div>
-        <div class="input-group bootstrap-timepicker timepicker">
-            <input id="timepicker" type="text" class="form-control input-small">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-        </div>
-        <hr />
-        <div id="currencyid">
-            <div class="input-group">
-                @Html.Partial("_Radio")
-                <select class="form-control" ng-model="selectedCurrency" ng-options="x.name for x in currencies"></select>
+        <div id="productLoader" style="display: none"></div>
+        <div id="productDiv" style="display: none">
+            <span id="testspan"></span>
+            <div style="float: left; font-size: 15px;">
+                <span style="font-weight: bold; margin-left: 45px;">Time to get emails: </span>
+                <span id="oldtimeDisplay" ng-model="emailtime">{{emailtime | date:'h:mm a'}}</span>
+                <span id="timeDisplay"></span>
+                <button class="button button_orange schema-product-button" ng-click="submitTime()" id="submitbutton">Submit</button>
+                <button class="button schema-product-button" id="cancelbutton">Cancel</button>
             </div>
+            <div class="input-group bootstrap-timepicker timepicker">
+                <input id="timepicker" type="text" class="form-control input-small">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+            </div>
+            <hr />
+            <div id="currencyid">
+                <div class="input-group">
+                    @Html.Partial("_Radio")
+                    <select class="form-control" ng-model="selectedCurrency" ng-options="x.name for x in currencies"></select>
+                </div>
+            </div>
+            <hr />
+            @Html.Partial("_Products")
         </div>
-        <hr />
-        @Html.Partial("_Products")
     </div>
 }
 @section Scripts{
