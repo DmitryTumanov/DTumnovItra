@@ -1,4 +1,4 @@
-﻿app.service("APISearchService", function ($http) {
+﻿app.service("APISearchService", ["$http", function ($http) {
 
     this.getSearchProducts = function (search_string, page_number) {
         return $http({
@@ -9,7 +9,8 @@
                 PageNumber: page_number
             },
             headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                'Content-Type': 'application/json'
             }
         });
     };
@@ -22,7 +23,8 @@
                 SearchString: key
             },
             headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                'Content-Type': 'application/json'
             }
         });
     };
@@ -41,4 +43,4 @@
         });
     };
 
-});
+}]);

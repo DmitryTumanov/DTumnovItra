@@ -1,4 +1,4 @@
 ﻿var app;
 (function () {
-    app = angular.module("APIModule", ["infinite-scroll"]);
+    app = angular.module("APIModule", ["ngRoute", "ngResource", "infinite-scroll"]);
 })();

@@ -1,4 +1,4 @@
-﻿app.controller('APIController', function ($scope, $filter, APIService) {
+﻿app.controller('APIController', ["$scope", "$filter", "APIService", function ($scope, $filter, APIService) {
     var hub = $.connection.personalHub;
     getAll();
     $scope.currencies = [
@@ -27,13 +27,18 @@
     };
 
     function getAll() {
+        document.getElementById("productLoader").style.display = "block";
+        document.getElementById("productDiv").style.display = "none";
         var servCall = APIService.getProducts();
 
         servCall.then(function (d) {
             $scope.products = d.data.products;
             $scope.emailtime = d.data.emailtime;
+            document.getElementById("productLoader").style.display = "none";
+            document.getElementById("productDiv").style.display = "block";
         }, function (error) {
-            $log.error('Something went wrong while fetching the data.');
+            document.getElementById("productLoader").style.display = "none";
+            document.getElementById("productDiv").style.display = "block";
         });
     }
 
@@ -59,4 +64,4 @@
     };
 
     $.connection.hub.start();
-});
+}]);
