@@ -23,6 +23,8 @@ using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory;
 using OnlinerTask.BLL.Services.Search.Request.RequestQueryFactory.Implementations;
 using OnlinerTask.BLL.Services.TimeChange;
 using OnlinerTask.BLL.Services.TimeChange.Implementations;
+using OnlinerTask.BLL.Services.Users;
+using OnlinerTask.BLL.Services.Users.Implementations;
 using OnlinerTask.Data.DataBaseContexts;
 using OnlinerTask.Data.DataBaseInterfaces;
 using OnlinerTask.Data.ElasticSearch.ClientsFabric;
@@ -135,7 +137,7 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind(typeof(IPriceMapper<,>)).To(typeof(PriceMapper)).WhenInjectedInto<ProductMapper>();
             kernel.Bind(typeof(IDependentMapper<,>)).To(typeof(OfferMapper)).WhenInjectedInto<PriceMapper>();
             kernel.Bind(typeof(IPriceAmmountMapper<,>)).To(typeof(PriceAmmountMapper)).WhenInjectedInto<PriceMapper>();
-            kernel.Bind<IRedisClient>().ToMethod(x => new RedisClient("localhost", 6379));
+            kernel.Bind<IRedisClient>().ToMethod(x => new RedisClient(Configurations.RedisAppHost, Configurations.RedisAppPort));
             kernel.Bind<IEmailManager>().To<EmailCacheManager>();
             kernel.Bind<IProductJob>().To<ProductJobService>();
             kernel.Bind<IEmailJob>().To<EmailJobService>();
@@ -161,6 +163,8 @@ namespace OnlinerTask.WEB.App_Start
             kernel.Bind<IConnectionFactory>().To<ElasticConnectionFactory>();
             kernel.Bind<ILogger>().To<Logger>();
             kernel.Bind<IActivityLogger>().To<UserActivityLogger>();
+            kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IUserRepository>().To<MsSqlUserRepository>();
         }        
     }
 }
