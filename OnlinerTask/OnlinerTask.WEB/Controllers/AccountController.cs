@@ -145,7 +145,7 @@ namespace OnlinerTask.WEB.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Search");
                 }
                 AddErrors(result);
             }
@@ -331,7 +331,7 @@ namespace OnlinerTask.WEB.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
         
         [AllowAnonymous]
@@ -379,7 +379,7 @@ namespace OnlinerTask.WEB.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Search");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

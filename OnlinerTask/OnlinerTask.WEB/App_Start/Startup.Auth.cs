@@ -62,8 +62,8 @@ namespace OnlinerTask.WEB
             app.UseTwitterAuthentication(
             new TwitterAuthenticationOptions
             {
-                ConsumerKey = "OvdaXSkVSssliH7zKdmgURwWG",
-                ConsumerSecret = "Dm6pUhHXyQGiPLZea6cTO9S0a0E9AeDXro0zNjNNudaGDWr8NF",
+                ConsumerKey = "78Rm3ihN9l05bqwoc8pPgJLfp",
+                ConsumerSecret = "CYjyJBNDXc9gzeWTuB7IvG8HFWPoJiOJzEyKpVu3geYDWfJ8BS",
                 BackchannelCertificateValidator = new CertificateSubjectKeyIdentifierValidator(
             new[]
             {
@@ -79,12 +79,12 @@ namespace OnlinerTask.WEB
             });
 
             app.UseFacebookAuthentication(
-               appId: "651925884980913",
-               appSecret: "3f4a54efb64c5e4c1959df57e7d13a1a");
+               appId: "1037987856324156",
+               appSecret: "c20d538ac708f6029c2758afcf91d4d8");
 
             app.UseVkontakteAuthentication(
-                appId: "5663743",
-                appSecret: "nfNHWv61xeYGbS9XAXMz",
+                appId: "5791429",
+                appSecret: "dDzPTaB2U6WuusA4N20T",
                 scope: "email,");
         }
     }

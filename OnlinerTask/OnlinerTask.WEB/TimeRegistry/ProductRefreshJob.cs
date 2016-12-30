@@ -26,6 +26,10 @@ namespace OnlinerTask.WEB.TimeRegistry
             {
                 Debug.WriteLine(exception.InnerException);
             }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception.InnerException);
+            }
         }
     }
 }

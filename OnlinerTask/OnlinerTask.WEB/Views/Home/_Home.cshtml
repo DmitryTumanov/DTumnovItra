@@ -1,31 +1,37 @@
-﻿
+﻿@{
+    var login = System.Configuration.ConfigurationManager.AppSettings["ElasticLogin"];
+    var password = System.Configuration.ConfigurationManager.AppSettings["ElasticPassword"];
+}
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Admin Page</h1>
+    <h4>ElasticSearch login: <span style="font-style: oblique">@login</span></h4>
+    <h4>ElasticSearch password: <span style="font-style: oblique; display: none" id="password">@password</span><button class="btn btn-info" id="viewpassword">View Password</button></h4>
+    
+    @Html.Partial("_Users")
 </div>
 <div class="row">
-    <div class="col-md-4">
-        <h2>Your information</h2>
-        <p>This section shows how you can call ASP.NET Web API to get the user details.</p>
-       
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=273732">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <h3>Top 10 users with the biggest count of requests</h3>
+        <iframe src="https://5fd537eebf58c4fb7d66c040aba9f8c0.us-east-1.aws.found.io/app/kibana#/visualize/edit/Top-10-users-with-the-biggest-count-of-requests?embed=true&_g=(refreshInterval%3A(display%3AOff%2Cpause%3A!f%2Cvalue%3A0)%2Ctime%3A(from%3Anow-4h%2Cmode%3Aquick%2Cto%3Anow))" style="width: 100%; border-width: 0" height="400"></iframe>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6" id="desired">
+        <h3>Top 10 of most desired products</h3>
+        <iframe src="https://5fd537eebf58c4fb7d66c040aba9f8c0.us-east-1.aws.found.io/app/kibana#/visualize/edit/Top-10-of-most-desired-products?embed=true&_g=(refreshInterval%3A(display%3AOff%2Cpause%3A!f%2Cvalue%3A0)%2Ctime%3A(from%3Anow-4h%2Cmode%3Aquick%2Cto%3Anow))" style="width: 100%; border-width: 0" height="600"></iframe>
     </div>
 
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET Single Page Application (SPA) helps you build applications that include significant client-side interactions using HTML, CSS, and JavaScript.
-            It's now easier than ever before to getting started writing highly interactive web applications.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=273732">Learn more &raquo;</a></p>
+    <div class="col-md-6" id="undesired">
+        <h3>Top 10 of most undesired products</h3>
+        <iframe src="https://5fd537eebf58c4fb7d66c040aba9f8c0.us-east-1.aws.found.io/app/kibana#/visualize/edit/Top-10-of-most-undesired-products?embed=true&_g=(refreshInterval%3A(display%3AOff%2Cpause%3A!f%2Cvalue%3A0)%2Ctime%3A(from%3Anow-4h%2Cmode%3Aquick%2Cto%3Anow))" style="width: 100%; border-width: 0" height="600"></iframe>
     </div>
-
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Urls and HttpMethods visualization</h3>
+        <iframe src="https://5fd537eebf58c4fb7d66c040aba9f8c0.us-east-1.aws.found.io/app/kibana#/visualize/edit/Urls-and-HttpMethods-visualization?embed=true&_g=(refreshInterval%3A(display%3AOff%2Cpause%3A!f%2Cvalue%3A0)%2Ctime%3A(from%3Anow-4h%2Cmode%3Aquick%2Cto%3Anow))" style="width: 100%; border-width: 0" height="800"></iframe>
     </div>
 </div>
 
+<script src="~/Scripts/homescript.js"></script>
 

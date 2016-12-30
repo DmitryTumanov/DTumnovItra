@@ -1,11 +1,12 @@
-﻿app.service("APIService", function ($http) {
+﻿app.service("APIService", ["$http", function ($http) {
 
     this.getProducts = function () {
         return $http({
             method: 'GET',
             url:'/api/Personal',
             headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                'Content-Type': 'application/json'
             }
         });
     };
@@ -18,7 +19,8 @@
                 SearchString: key
             },
             headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                'Content-Type': 'application/json'
             }
         });
     };
@@ -31,7 +33,8 @@
                 Time: time
             },
             headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken"),
+                'Content-Type': 'application/json'
             }
         });
     }
@@ -50,4 +53,4 @@
         });
     };
 
-});
+}]);

@@ -46,6 +46,14 @@
       <HintPath>..\packages\FluentScheduler.5.0.0\lib\net40\FluentScheduler.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Nest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>..\packages\NEST.2.4.7\lib\net45\Nest.dll</HintPath>
       <Private>True</Private>
@@ -132,6 +140,8 @@
     <Compile Include="Services\Search\Request\RequestQueryFactory\IRequestQueryFactory.cs" />
     <Compile Include="Services\TimeChange\Implementations\TimeChanger.cs" />
     <Compile Include="Services\TimeChange\ITimeChanger.cs" />
+    <Compile Include="Services\Users\Implementations\UserService.cs" />
+    <Compile Include="Services\Users\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlinerTask.Data\OnlinerTask.DAL.csproj">
@@ -145,7 +155,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

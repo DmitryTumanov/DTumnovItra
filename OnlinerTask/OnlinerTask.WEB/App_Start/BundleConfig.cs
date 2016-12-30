@@ -52,8 +52,10 @@ namespace OnlinerTask.WEB
                 "~/Scripts/APIScripts/controller.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                "~/Scripts/angular.js",
-                "~/Scripts/angular-route.js",
+                "~/Scripts/angular.min.js",
+                "~/Scripts/angular-route.min.js",
+                "~/Scripts/angular-resource.min.js",
+                "~/Scripts/ng-infinite-scroll.min.js",
                 "~/Scripts/APIScripts/module.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/timer").Include(

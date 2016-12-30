@@ -1,4 +1,4 @@
-﻿app.controller('APIController', function ($scope, APISearchService) {
+﻿app.controller('APIController', ["$scope", "APISearchService", function ($scope, APISearchService) {
     var hub = $.connection.personalHub;
     $scope.currencies = [
         { name: 'BYN', factor: 1 },
@@ -21,13 +21,21 @@
 
     $scope.getSearchProducts = function (search_string) {
         $scope.search_string = search_string;
-        var servCall = APISearchService.getSearchProducts(search_string, 1);
+        if (search_string !== "") {
+            document.getElementById("loader").style.display = "block";
+            document.getElementById("productDiv").style.display = "none";
+            var servCall = APISearchService.getSearchProducts(search_string, 1);
 
-        servCall.then(function (d) {
-            $scope.products = d.data;
-        }, function (error) {
-            $log.error('Something went wrong while fetching the data.');
-        });
+            servCall.then(function(d) {
+                    $scope.products = d.data;
+                    document.getElementById("loader").style.display = "none";
+                    document.getElementById("productDiv").style.display = "block";
+                },
+                function(error) {
+                    document.getElementById("loader").style.display = "none";
+                    document.getElementById("productDiv").style.display = "block";
+                });
+        }
     };
 
     $scope.nextProductPage = function () {
@@ -35,14 +43,12 @@
         $scope.busy = true;
         var servCall = APISearchService.getSearchProducts($scope.search_string, $scope.page++);
         servCall.then(function (d) {
-            console.log(d.data);
             for (var i = 0; i < 10; i++) {
                 if (typeof d.data[i] !== "undefined") {
                     $scope.products.push(d.data[i]);
                 }
             }
         }, function (error) {
-            $log.error('Something went wrong while fetching the data.');
         });
         $scope.busy = false;
     };
@@ -68,4 +74,4 @@
     };
 
     $.connection.hub.start();
-});
+}]);
