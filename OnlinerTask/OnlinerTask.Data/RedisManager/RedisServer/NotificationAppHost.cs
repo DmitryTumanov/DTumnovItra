@@ -1,6 +1,7 @@
 ﻿using Funq;
 using OnlinerTask.Data.ElasticSearch.LoggerModels;
 using OnlinerTask.Data.RedisManager.RedisServer.RedisRequests.Implementations;
+using OnlinerTask.Data.Resources;
 using OnlinerTask.Data.ScheduleModels;
 using ServiceStack;
 using ServiceStack.Messaging.Redis;
@@ -23,7 +24,7 @@ namespace OnlinerTask.Data.RedisManager.RedisServer
                 .Add<AddedProductModel>("/logproductmodel")
                 .Add<WebRequest>("/loguseractivity");
 
-            var redisFactory = new PooledRedisClientManager("localhost:6379");
+            var redisFactory = new PooledRedisClientManager(Configurations.RedisClient);
             container.Register<IRedisClientsManager>(redisFactory);
             var mqHost = new RedisMqServer(redisFactory);
 
