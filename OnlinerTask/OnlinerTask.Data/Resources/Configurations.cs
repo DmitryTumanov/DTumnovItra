@@ -64,5 +64,11 @@ namespace OnlinerTask.Data.Resources
         public static string ActivitiesLogIndex => ConfigurationManager.AppSettings["ActivitiesLogIndex"];
 
         public static string UserActivityIndexType => ConfigurationManager.AppSettings["UserActivityIndexType"];
+
+        public static string ElasticLogin => ConfigurationManager.AppSettings["ElasticLogin"];
+
+        public static string ElasticPassword => ConfigurationManager.AppSettings["ElasticPassword"];
+
+        public static int RedisAppPort => int.Parse(ConfigurationManager.AppSettings["RedisAppPort"]);
     }
 }
