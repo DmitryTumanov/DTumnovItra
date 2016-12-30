@@ -223,11 +223,13 @@
     <Compile Include="Repository\Implementations\MsSQLPersonalRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLTimeServiceRepository.cs" />
+    <Compile Include="Repository\Implementations\MsSQLUserRepository.cs" />
     <Compile Include="Repository\IPersonalRepository.cs" />
     <Compile Include="Repository\IProductRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ITimeServiceRepository.cs" />
     <Compile Include="Repository\Implementations\MsSQLProductRepository.cs" />
+    <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Requests\TechnologyRequest.cs" />
     <Compile Include="Resources\Configurations.cs" />
     <Compile Include="ScheduleModels\UsersUpdateEmail.cs" />
@@ -247,14 +249,7 @@
     <Compile Include="SearchModels\UsersAndProducts.cs" />
     <Compile Include="Sockets\TcpSocket\ISocketLauncher.cs" />
     <Compile Include="Sockets\TcpSocket\Implementations\SocketLauncher.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">
-      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610120836053_Postpone DB1.resx">
-      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="UserModels\UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -265,6 +260,14 @@
       <Project>{5D8C72DC-9FC2-4FC2-A947-94CCE38DDCAD}</Project>
       <Name>OnlinerTask.Extensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610101310426_DateTimeEnable.resx">
+      <DependentUpon>201610101310426_DateTimeEnable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610120836053_Postpone DB1.resx">
+      <DependentUpon>201610120836053_Postpone DB1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
