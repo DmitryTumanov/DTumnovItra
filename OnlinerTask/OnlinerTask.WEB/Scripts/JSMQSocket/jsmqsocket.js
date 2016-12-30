@@ -1,12 +1,12 @@
-﻿var addSubscriber = createSubscriber("ws://localhost:81", "addProduct");
+﻿var addSubscriber = createSubscriber("wss://onlinertask.azurewebsites.net", "addProduct");
 
-var removeSubscriber = createSubscriber("ws://localhost:81", "removeProduct");
+var removeSubscriber = createSubscriber("wss://onlinertask.azurewebsites.net", "removeProduct");
 
-var infoSubscriber = createSubscriber("ws://localhost:81", "infoProduct");
+var infoSubscriber = createSubscriber("wss://onlinertask.azurewebsites.net", "infoProduct");
 
-var addSubscriberSearch = createSubscriber("ws://localhost:81", "SearchAddProduct");
+var addSubscriberSearch = createSubscriber("wss://onlinertask.azurewebsites.net", "SearchAddProduct");
 
-var removeSubscriberSearch = createSubscriber("ws://localhost:81", "SearchRemoveProduct");
+var removeSubscriberSearch = createSubscriber("wss://onlinertask.azurewebsites.net", "SearchRemoveProduct");
 
 addSubscriber.onMessage = function (message) {
     message.popString();
