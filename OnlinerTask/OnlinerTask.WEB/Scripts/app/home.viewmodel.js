@@ -1,31 +1,9 @@
-﻿function SearchViewModel(app, dataModel) {
-    var self = this;
-
-    self.myEmail = ko.observable("");
-
-    Sammy(function () {
-        this.get('#home', function () {
-            // Make a call to the protected Web API by passing in a Bearer Authorization Header
-            $.ajax({
-                method: 'get',
-                url: app.dataModel.userInfoUrl,
-                contentType: "application/json; charset=utf-8",
-                headers: {
-                    'Authorization': 'Bearer ' + app.dataModel.getAccessToken()
-                },
-                success: function (data) {
-                    self.myEmail('Your Email is : ' + data);
-                }
-            });
-        });
-        this.get('/', function () { this.app.runRoute('get', '#home'); });
-    });
-
-    return self;
+﻿function SearchViewModel(app) {
+    return this;
 }
 
 app.addViewModel({
-    name: "Home",
-    bindingMemberName: "home",
+    name: "Search",
+    bindingMemberName: "search",
     factory: SearchViewModel
 });
