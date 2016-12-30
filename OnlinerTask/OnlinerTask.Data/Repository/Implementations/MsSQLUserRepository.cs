@@ -63,8 +63,8 @@ namespace OnlinerTask.Data.Repository.Implementations
             {
                 return;
             }
-            await userStore.RemoveFromRoleAsync(model, user.IsAdmin ? "Admin" : "User");
-            await userStore.AddToRoleAsync(model, !user.IsAdmin ? "Admin" : "User");
+            await userManager.RemoveFromRoleAsync(model.Id, user.IsAdmin ? "Admin" : "User");
+            await userManager.AddToRoleAsync(model.Id, !user.IsAdmin ? "Admin" : "User");
         }
     }
 }
